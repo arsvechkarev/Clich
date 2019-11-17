@@ -2,15 +2,20 @@ package com.arsvechkarev.core.extensions
 
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
+import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.ScrollView
 import android.widget.TextView
+import androidx.annotation.LayoutRes
 import androidx.core.text.HtmlCompat
+
+
 
 fun View.visible() {
   visibility = VISIBLE
@@ -26,6 +31,10 @@ fun View.gone() {
 
 fun ScrollView.scrollToTop() {
   this.smoothScrollTo(0, 0)
+}
+
+fun ViewGroup.inflate(@LayoutRes layoutId: Int): View {
+  return LayoutInflater.from(this.context).inflate(layoutId, this, false)
 }
 
 fun EditText.onSearchClick(block: () -> Unit) {

@@ -7,5 +7,4 @@ class WordsListFragment: BaseFragment(){
   
   override val layoutId: Int = R.layout.layout_words_list
   
-  
 }

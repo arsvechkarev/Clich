@@ -1,7 +1,7 @@
 package com.arsvechkarev.info.di
 
 import androidx.lifecycle.ViewModel
-import com.arsvechkarev.core.ViewModelKey
+import com.arsvechkarev.core.di.viewmodel.ViewModelKey
 import com.arsvechkarev.info.presentation.InfoViewModel
 import dagger.Binds
 import dagger.Module

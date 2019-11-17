@@ -3,7 +3,7 @@ package com.arsvechkarev.info.presentation
 import android.os.Bundle
 import android.view.View
 import com.arsvechkarev.core.BaseFragment
-import com.arsvechkarev.core.ViewModelFactory
+import com.arsvechkarev.core.di.viewmodel.ViewModelFactory
 import com.arsvechkarev.core.extensions.viewModelOf
 import com.arsvechkarev.info.R
 import javax.inject.Inject

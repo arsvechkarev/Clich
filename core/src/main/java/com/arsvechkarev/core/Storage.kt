@@ -1,4 +1,4 @@
-package com.arsvechkarev.storage
+package com.arsvechkarev.core
 
 /**
  * Represents a storage that can manipulate some data

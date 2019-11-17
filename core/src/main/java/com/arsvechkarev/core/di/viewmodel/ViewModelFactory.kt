@@ -1,10 +1,9 @@
-package com.arsvechkarev.core
+package com.arsvechkarev.core.di.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import javax.inject.Inject
 import javax.inject.Provider
-import javax.inject.Singleton
 
 @Suppress("UNCHECKED_CAST")
 class ViewModelFactory @Inject constructor(

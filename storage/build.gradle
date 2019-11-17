@@ -38,4 +38,6 @@ dependencies {
 
   implementation appDependencies.dagger
   kapt appDependencies.daggerCompiler
+
+  testImplementation project(':test')
 }

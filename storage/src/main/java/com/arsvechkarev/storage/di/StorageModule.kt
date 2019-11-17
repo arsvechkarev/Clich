@@ -4,7 +4,7 @@ import android.content.Context
 import com.arsvechkarev.core.di.ContextModule
 import com.arsvechkarev.core.di.FeatureScope
 import com.arsvechkarev.storage.FileStorage
-import com.arsvechkarev.storage.Storage
+import com.arsvechkarev.core.Storage
 import dagger.Module
 import dagger.Provides
 

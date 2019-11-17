@@ -2,6 +2,7 @@ package com.arsvechkarev.storage
 
 import android.content.Context
 import com.arsvechkarev.core.DispatcherProvider
+import com.arsvechkarev.core.Storage
 import kotlinx.coroutines.withContext
 import java.io.FileInputStream
 import java.io.ObjectInputStream

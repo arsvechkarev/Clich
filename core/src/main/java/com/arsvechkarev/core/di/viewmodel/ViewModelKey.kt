@@ -1,4 +1,4 @@
-package com.arsvechkarev.core
+package com.arsvechkarev.core.di.viewmodel
 
 import androidx.lifecycle.ViewModel
 import dagger.MapKey

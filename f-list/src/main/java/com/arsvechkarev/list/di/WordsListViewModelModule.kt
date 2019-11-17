@@ -1,7 +1,7 @@
 package com.arsvechkarev.list.di
 
 import androidx.lifecycle.ViewModel
-import com.arsvechkarev.core.ViewModelKey
+import com.arsvechkarev.core.di.viewmodel.ViewModelKey
 import com.arsvechkarev.list.presentation.WordsListViewModel
 import dagger.Binds
 import dagger.Module
@@ -16,4 +16,3 @@ abstract class WordsListViewModelModule {
   internal abstract fun postWordsListViewModel(infoViewModel: WordsListViewModel): ViewModel
   
 }
-  
