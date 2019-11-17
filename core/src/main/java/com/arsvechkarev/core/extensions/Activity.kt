@@ -1,5 +1,6 @@
 package com.arsvechkarev.core.extensions
 
+import android.util.Log
 import android.view.Window
 import android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN
 import androidx.annotation.IdRes
@@ -13,27 +14,42 @@ fun AppCompatActivity.setFullScreen() {
   window.setFlags(FLAG_FULLSCREEN, FLAG_FULLSCREEN)
 }
 
-fun AppCompatActivity.switchFragment(
+inline fun <reified T : Fragment> AppCompatActivity.switchFragment(
   @IdRes contentResId: Int,
-  fragment: Fragment,
+  fragment: T,
   addToBackStack: Boolean = false
 ) {
   val transaction = supportFragmentManager.beginTransaction()
-    .replace(contentResId, fragment)
+    .replace(contentResId, fragment, T::class.java.simpleName)
   if (addToBackStack) transaction.addToBackStack(null)
   transaction.commit()
 }
 
-fun AppCompatActivity.goToFragment(
+inline fun <reified T : Fragment> AppCompatActivity.goToFragment(
   @IdRes contentResId: Int,
-  fragment: Fragment
+  fragment: T,
+  addToBackStack: Boolean = false
 ) {
   val transaction = supportFragmentManager.beginTransaction()
-    .add(contentResId, fragment, Fragment::class.java.simpleName)
-  transaction.addToBackStack(Fragment::class.java.simpleName)
+    .add(contentResId, fragment, T::class.java.simpleName)
+  if (addToBackStack) transaction.addToBackStack(null)
   transaction.commit()
 }
 
+fun <T : Fragment> AppCompatActivity.goToFragment(
+  @IdRes contentResId: Int,
+  fragment: Fragment,
+  fragmentClass: KClass<T>,
+  addToBackStack: Boolean = false
+) {
+  val transaction = supportFragmentManager.beginTransaction()
+    .add(contentResId, fragment, fragmentClass.java.simpleName)
+  if (addToBackStack) transaction.addToBackStack(null)
+  transaction.commit()
+  
+}
+
 fun <T : Fragment> AppCompatActivity.findFragment(fragmentClass: KClass<T>): BaseFragment? {
-  return supportFragmentManager.findFragmentByTag(fragmentClass.java.simpleName) as BaseFragment?
+  val fragment = supportFragmentManager.findFragmentByTag(fragmentClass.java.simpleName)
+  return fragment as BaseFragment?
 }

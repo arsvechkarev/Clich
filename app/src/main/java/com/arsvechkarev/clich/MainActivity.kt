@@ -11,9 +11,9 @@ import com.arsvechkarev.core.extensions.switchFragment
 import com.arsvechkarev.info.presentation.InfoFragment
 import com.arsvechkarev.list.presentation.WordsListFragment
 import kotlinx.android.synthetic.main.activity_main.baseContainer
+import kotlin.reflect.KClass
 
 class MainActivity : AppCompatActivity(), CoreActivity {
-  
   override val snackBarPlace: View by lazy { baseContainer }
   
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,13 +22,17 @@ class MainActivity : AppCompatActivity(), CoreActivity {
     switchFragment(R.id.baseContainer, WordsListFragment())
   }
   
-  override fun goToFragmentFromRoot(fragment: Fragment, addToBackStack: Boolean) {
-    goToFragment(R.id.baseContainer, fragment)
+  override fun <T : Fragment> goToFragmentFromRoot(
+    fragment: Fragment,
+    fragmentClass: KClass<T>,
+    addToBackStack: Boolean
+  ) {
+    goToFragment(R.id.baseContainer, fragment, fragmentClass, addToBackStack)
   }
   
   override fun onBackPressed() {
-    findFragment(WordsListFragment::class)?.onBackPressed()
     findFragment(InfoFragment::class)?.onBackPressed()
+    findFragment(WordsListFragment::class)?.onBackPressed()
     super.onBackPressed()
   }
 }

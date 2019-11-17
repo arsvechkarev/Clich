@@ -26,7 +26,7 @@ class WordsListFragment : BaseFragment() {
   private lateinit var viewModel: WordsListViewModel
   
   private val adapter = WordsListAdapter {
-    coreActivity.goToFragmentFromRoot(InfoFragment.of(it), true)
+    coreActivity.goToFragmentFromRoot(InfoFragment.of(it), InfoFragment::class, true)
   }
   
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -37,7 +37,7 @@ class WordsListFragment : BaseFragment() {
     recyclerWords.setupWith(adapter)
     viewModel.fetchWords()
     fabNewWord.setOnClickListener {
-      coreActivity.goToFragmentFromRoot(InfoFragment(), true)
+      coreActivity.goToFragmentFromRoot(InfoFragment(), InfoFragment::class, true)
     }
   }
   
