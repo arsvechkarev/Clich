@@ -3,11 +3,14 @@ package com.arsvechkarev.storage
 import com.arsvechkarev.core.model.Word
 import com.arsvechkarev.test.DataProvider.wordExausted
 import com.arsvechkarev.test.DataProvider.wordPan
+import com.arsvechkarev.test.DataProvider.wordRemarkable
 import com.arsvechkarev.test.FakeWordsListStorage
 import com.arsvechkarev.test.TestCoroutinesRule
 import org.junit.Assert.assertTrue
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
+import org.junit.Assert.assertEquals
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
@@ -17,7 +20,22 @@ class WorkerTest {
   @get:Rule
   val testRule = TestCoroutinesRule()
   
-  val fakeStorage = FakeWordsListStorage()
+  private var fakeStorage = FakeWordsListStorage()
+  
+  @Before
+  fun setUp() {
+    fakeStorage = FakeWordsListStorage()
+  }
+  
+  @Test
+  fun `Getting all words list`() = testRule.testCoroutineDispatcher.runBlockingTest{
+    val listBefore = mutableListOf(wordExausted, wordRemarkable)
+    fakeStorage.save(listBefore, FILENAME_ALL_WORDS)
+  
+    val listAfter = Worker.getWords(fakeStorage)
+  
+    assertEquals(listBefore, listAfter)
+  }
   
   @Test
   fun `Deleting word from non-empty list`() = testRule.testCoroutineDispatcher.runBlockingTest {

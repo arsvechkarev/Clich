@@ -5,6 +5,10 @@ import com.arsvechkarev.core.model.Word
 
 object Worker {
   
+  suspend fun getWords(storage: Storage): List<Word>? {
+    return storage.get<List<Word>>(FILENAME_ALL_WORDS)
+  }
+  
   suspend fun saveWord(storage: Storage, word: Word) {
     var words = storage.get<MutableList<Word>>(FILENAME_ALL_WORDS)
     if (words == null) words = ArrayList()
