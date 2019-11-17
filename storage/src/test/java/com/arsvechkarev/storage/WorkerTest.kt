@@ -1,7 +1,7 @@
 package com.arsvechkarev.storage
 
 import com.arsvechkarev.core.model.Word
-import com.arsvechkarev.test.DataProvider.wordExausted
+import com.arsvechkarev.test.DataProvider.wordExhausted
 import com.arsvechkarev.test.DataProvider.wordPan
 import com.arsvechkarev.test.DataProvider.wordRemarkable
 import com.arsvechkarev.test.FakeWordsListStorage
@@ -29,7 +29,7 @@ class WorkerTest {
   
   @Test
   fun `Getting all words list`() = testRule.testCoroutineDispatcher.runBlockingTest{
-    val listBefore = mutableListOf(wordExausted, wordRemarkable)
+    val listBefore = mutableListOf(wordExhausted, wordRemarkable)
     fakeStorage.save(listBefore, FILENAME_ALL_WORDS)
   
     val listAfter = Worker.getWords(fakeStorage)
@@ -39,19 +39,19 @@ class WorkerTest {
   
   @Test
   fun `Deleting word from non-empty list`() = testRule.testCoroutineDispatcher.runBlockingTest {
-    val listBefore = mutableListOf(wordExausted, wordPan)
+    val listBefore = mutableListOf(wordExhausted, wordPan)
     fakeStorage.save(listBefore, FILENAME_ALL_WORDS)
     
     Worker.deleteWord(fakeStorage, wordPan)
   
     val listAfter = fakeStorage.get<MutableList<Word>>(FILENAME_ALL_WORDS)
     assertTrue(listAfter!!.size == 1)
-    assertTrue(listAfter.contains(wordExausted))
+    assertTrue(listAfter.contains(wordExhausted))
   }
   
   @Test
   fun `Saving word to non-empty list`() = testRule.testCoroutineDispatcher.runBlockingTest {
-    val listBefore = mutableListOf(wordExausted)
+    val listBefore = mutableListOf(wordExhausted)
     fakeStorage.save(listBefore, FILENAME_ALL_WORDS)
   
     Worker.saveWord(fakeStorage, wordPan)

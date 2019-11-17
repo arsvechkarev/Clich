@@ -17,4 +17,6 @@ abstract class BaseFragment : Fragment() {
   ): View? {
     return inflater.inflate(layoutId, container, false)
   }
+  
+  open fun onBackPressed() {}
 }

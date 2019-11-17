@@ -49,7 +49,7 @@ dependencies {
   implementation appDependencies.retrofit
   implementation appDependencies.okhttpLoggingInterceptor
 
-  implementation project(':test')
+  testImplementation project(':test')
   androidTestImplementation testDependencies.testRunner
   androidTestImplementation testDependencies.espresso
 }

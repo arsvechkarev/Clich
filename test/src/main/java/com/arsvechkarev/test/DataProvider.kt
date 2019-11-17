@@ -4,8 +4,8 @@ import com.arsvechkarev.core.model.Word
 
 object DataProvider {
   
-  val wordExausted = Word(
-    "exausted",
+  val wordExhausted = Word(
+    "exhausted",
     "very tired",
     "latest"
   )
