@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProviders
 
 inline fun <reified T : ViewModel> Fragment.viewModelOf(
   factory: ViewModelProvider.Factory,
-  block: T.() -> Unit
+  block: T.() -> Unit = {}
 ): T {
   val viewModel = ViewModelProviders.of(this, factory)[T::class.java]
   viewModel.block()

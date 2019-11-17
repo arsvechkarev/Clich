@@ -43,6 +43,10 @@ android {
 }
 
 dependencies {
+  implementation project(':core')
+  implementation project(':f-list')
+  implementation project(':f-info')
+
   def appDependencies = rootProject.ext.applicationDependencies
 
   implementation appDependencies.kotlin

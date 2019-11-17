@@ -7,5 +7,5 @@ import kotlinx.android.parcel.Parcelize
 data class Word(
   val word: String,
   val definition: String,
-  val label: String
+  val label: String?
 ) : Parcelable

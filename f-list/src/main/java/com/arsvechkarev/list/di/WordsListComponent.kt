@@ -9,6 +9,7 @@ import dagger.Component
 @Component(
   modules = [
     CoreModule::class,
+    WordsListViewModelModule::class,
     StorageModule::class
   ]
 )
