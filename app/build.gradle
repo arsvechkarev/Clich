@@ -55,10 +55,4 @@ dependencies {
   implementation appDependencies.ktx
   implementation appDependencies.appCompat
   implementation appDependencies.materialDesign
-
-  def room_version = "2.2.1"
-  api  "androidx.room:room-runtime:$room_version"
-  kapt "androidx.room:room-compiler:$room_version"
-  implementation "androidx.room:room-ktx:$room_version"
-
 }
