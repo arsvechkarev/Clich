@@ -5,13 +5,12 @@ import android.view.View
 import androidx.lifecycle.Observer
 import com.arsvechkarev.core.BaseFragment
 import com.arsvechkarev.core.coreActivity
-import com.arsvechkarev.core.di.ContextModule
 import com.arsvechkarev.core.di.viewmodel.ViewModelFactory
 import com.arsvechkarev.core.domain.model.WordEntity
 import com.arsvechkarev.core.extensions.setupWith
 import com.arsvechkarev.core.extensions.showToast
 import com.arsvechkarev.core.extensions.viewModelOf
-import com.arsvechkarev.info.presentation.InfoFragment
+import com.arsvechkarev.info.InfoFragment
 import com.arsvechkarev.list.R
 import com.arsvechkarev.list.di.DaggerWordsListComponent
 import com.arsvechkarev.list.list.WordsListAdapter

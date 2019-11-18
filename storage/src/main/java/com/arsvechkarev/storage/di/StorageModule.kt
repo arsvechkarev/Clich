@@ -20,5 +20,5 @@ class StorageModule {
   
   @Provides
   @FeatureScope
-  fun provideWordsDatabase(): WordsDatabase = WordsDatabase.instance
+  fun provideWordsDatabase(): WordsDatabase = WordsDatabase.database
 }

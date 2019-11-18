@@ -14,15 +14,19 @@ abstract class WordsDatabase : RoomDatabase() {
   
   companion object {
     
-    lateinit var instance: WordsDatabase
+    lateinit var database: WordsDatabase
+      private set
+    
+    lateinit var instance: WordDao
       private set
     
     fun instantiate(context: Context) {
-      instance = Room.databaseBuilder(
+      database = Room.databaseBuilder(
         context,
         WordsDatabase::class.java,
         "words.db"
       ).build()
+      instance = database.wordDao()
     }
   }
 }

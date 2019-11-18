@@ -9,7 +9,7 @@ import javax.inject.Inject
 class WordsListViewModel @Inject constructor(
   private val database: WordsDatabase
 ) : BaseViewModel() {
-
+  
   fun fetchWords(): LiveData<List<WordEntity>> {
     return database.wordDao().getAllLive()
   }
