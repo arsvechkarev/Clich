@@ -22,6 +22,10 @@ abstract class BaseViewModel(
     jobs.add(launch(coroutineContext) { block() })
   }
   
+  fun launchGlobal(block: suspend CoroutineScope.() -> Unit) {
+    launch(coroutineContext) { block() }
+  }
+  
   fun cancelAllCoroutines() {
     for (job in jobs) {
       job.cancel()

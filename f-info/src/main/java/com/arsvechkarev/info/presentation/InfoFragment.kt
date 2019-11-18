@@ -3,21 +3,29 @@ package com.arsvechkarev.info.presentation
 import android.os.Bundle
 import android.view.View
 import com.arsvechkarev.core.BaseFragment
+import com.arsvechkarev.core.di.viewmodel.ViewModelFactory
 import com.arsvechkarev.core.domain.model.Word
 import com.arsvechkarev.core.domain.model.toWordEntity
 import com.arsvechkarev.core.extensions.inBackground
+import com.arsvechkarev.core.extensions.viewModelOf
 import com.arsvechkarev.info.R
+import com.arsvechkarev.info.di.DaggerInfoComponent
 import com.arsvechkarev.storage.database.WordsDatabase
 import kotlinx.android.synthetic.main.layout_info.editTextDefinition
 import kotlinx.android.synthetic.main.layout_info.editTextWord
+import javax.inject.Inject
 
 class InfoFragment : BaseFragment() {
   
   override val layoutId: Int = R.layout.layout_info
+  @Inject lateinit var viewModelFactory: ViewModelFactory
+  private lateinit var viewModel: InfoViewModel
   
   private var previousWord: Word? = null
   
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    DaggerInfoComponent.create().inject(this)
+    viewModel = viewModelOf(viewModelFactory)
     previousWord = arguments?.get(WORD_KEY) as Word?
     previousWord?.let { setWord() }
   }
@@ -38,10 +46,10 @@ class InfoFragment : BaseFragment() {
       && editTextDefinition.text.toString().isNotBlank()
     ) {
       previousWord?.let {
-        // Word has been passed i.e editing existing word
+        // Word has been passed -> updating existing word
         it.word = editTextWord.text.toString()
         it.definition = editTextDefinition.text.toString()
-        inBackground { WordsDatabase.instance.update(previousWord!!.toWordEntity()) }
+        viewModel.updateWord(it.toWordEntity())
       }
       if (previousWord == null) {
         // Word hasn't been passed -> creating new word
@@ -50,7 +58,7 @@ class InfoFragment : BaseFragment() {
           definition = editTextDefinition.text.toString(),
           label = null
         )
-        inBackground { WordsDatabase.instance.create(newWord.toWordEntity()) }
+        viewModel.saveWord(newWord.toWordEntity())
       }
     }
   }
