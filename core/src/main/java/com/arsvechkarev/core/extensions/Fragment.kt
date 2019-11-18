@@ -27,14 +27,3 @@ fun Fragment.showToast(@StringRes resId: Int) {
 fun Fragment.showToast(message: String) {
   Toast.makeText(context, message, Toast.LENGTH_LONG).show()
 }
-
-fun Fragment.switchFragment(
-  @IdRes contentResId: Int = android.R.id.content,
-  fragment: Fragment,
-  addToBackStack: Boolean = false
-) {
-  val transaction = activity!!.supportFragmentManager.beginTransaction()
-    .replace(contentResId, fragment)
-  if (addToBackStack) transaction.addToBackStack(null)
-  transaction.commit()
-}

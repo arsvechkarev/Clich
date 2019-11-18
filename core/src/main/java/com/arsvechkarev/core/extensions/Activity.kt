@@ -1,6 +1,5 @@
 package com.arsvechkarev.core.extensions
 
-import android.util.Log
 import android.view.Window
 import android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN
 import androidx.annotation.IdRes

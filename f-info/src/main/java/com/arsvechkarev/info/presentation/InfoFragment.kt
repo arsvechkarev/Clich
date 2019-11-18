@@ -1,4 +1,4 @@
-package com.arsvechkarev.info
+package com.arsvechkarev.info.presentation
 
 import android.os.Bundle
 import android.view.View
@@ -6,6 +6,7 @@ import com.arsvechkarev.core.BaseFragment
 import com.arsvechkarev.core.domain.model.Word
 import com.arsvechkarev.core.domain.model.toWordEntity
 import com.arsvechkarev.core.extensions.inBackground
+import com.arsvechkarev.info.R
 import com.arsvechkarev.storage.database.WordsDatabase
 import kotlinx.android.synthetic.main.layout_info.editTextDefinition
 import kotlinx.android.synthetic.main.layout_info.editTextWord

@@ -15,8 +15,6 @@ import android.widget.TextView
 import androidx.annotation.LayoutRes
 import androidx.core.text.HtmlCompat
 
-
-
 fun View.visible() {
   visibility = VISIBLE
 }
