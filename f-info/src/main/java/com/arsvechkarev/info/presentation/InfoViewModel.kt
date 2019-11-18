@@ -1,7 +1,7 @@
 package com.arsvechkarev.info.presentation
 
 import com.arsvechkarev.core.BaseViewModel
-import com.arsvechkarev.core.domain.model.Word
+import com.arsvechkarev.core.domain.model.WordEntity
 import com.arsvechkarev.info.repository.InfoRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -11,15 +11,15 @@ class InfoViewModel @Inject constructor(
   private val repository: InfoRepository
 ) : BaseViewModel() {
 
-  fun saveWord(word: Word) {
+  fun saveWord(wordEntity: WordEntity) {
     launch(Dispatchers.Main) {
-      repository.saveWord(word)
+      repository.saveWord(wordEntity)
     }
   }
   
-  fun deleteWord(word: Word) {
+  fun deleteWord(wordEntity: WordEntity) {
     launch(Dispatchers.Main) {
-      repository.deleteWord(word)
+      repository.deleteWord(wordEntity)
     }
   }
   

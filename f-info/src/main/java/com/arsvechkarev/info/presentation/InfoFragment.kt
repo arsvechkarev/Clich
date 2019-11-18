@@ -6,12 +6,11 @@ import android.view.View
 import com.arsvechkarev.core.BaseFragment
 import com.arsvechkarev.core.di.ContextModule
 import com.arsvechkarev.core.di.viewmodel.ViewModelFactory
-import com.arsvechkarev.core.extensions.showToast
 import com.arsvechkarev.core.extensions.viewModelOf
-import com.arsvechkarev.core.domain.model.Word
+import com.arsvechkarev.core.domain.model.WordEntity
 import com.arsvechkarev.info.R
 import com.arsvechkarev.info.di.DaggerInfoComponent
-import com.arsvechkarev.core.WordsDatabase
+import com.arsvechkarev.storage.database.WordsDatabase
 import kotlinx.android.synthetic.main.layout_info.editTextDefinition
 import kotlinx.android.synthetic.main.layout_info.editTextWord
 import kotlinx.coroutines.GlobalScope
@@ -24,12 +23,12 @@ class InfoFragment : BaseFragment() {
   @Inject lateinit var viewModelFactory: ViewModelFactory
   private lateinit var viewModel: InfoViewModel
   
-  private var previousWord: Word? = null
+  private var previousWordEntity: WordEntity? = null
   
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     injectThis()
     viewModel = viewModelOf(viewModelFactory)
-    val word = arguments?.get(WORD_KEY) as Word?
+    val word = arguments?.get(WORD_KEY) as WordEntity?
     if (word != null) {
       setWord(word)
     }
@@ -47,47 +46,33 @@ class InfoFragment : BaseFragment() {
       .inject(this)
   }
   
-  private fun setWord(word: Word) {
-    previousWord = word
-    editTextWord.setText(word.word)
-    editTextDefinition.setText(word.definition)
+  private fun setWord(wordEntity: WordEntity) {
+    previousWordEntity = wordEntity
+    editTextWord.setText(wordEntity.word)
+    editTextDefinition.setText(wordEntity.definition)
   }
   
   private fun saveWord() {
     if (editTextWord.text.toString().isNotBlank()
       && editTextDefinition.text.toString().isNotBlank()
     ) {
-      if (previousWord != null) {
-        val newWord = Word(
-          previousWord!!.id,
-          editTextWord.text.toString(),
-          editTextDefinition.text.toString(),
-          null
-        )
+      if (previousWordEntity != null) {
+        previousWordEntity!!.word = editTextWord.text.toString()
+        previousWordEntity!!.definition = editTextDefinition.text.toString()
+        
         GlobalScope.launch {
-  
-          WordsDatabase.getInstance().wordDao().update(newWord)
+          WordsDatabase.instance.wordDao().update(previousWordEntity!!)
         }
       } else {
-        val newWord = Word(
+        val newWord = WordEntity(
           word = editTextWord.text.toString(),
           definition = editTextDefinition.text.toString(),
           label = null
         )
         GlobalScope.launch {
-          WordsDatabase.getInstance().wordDao().create(newWord)
+          WordsDatabase.instance.wordDao().create(newWord)
         }
       }
-      
-      
-//      previousWord?.let { viewModel.deleteWord(it) }
-//      val word = Word(
-//        editTextWord.text.toString(),
-//        editTextDefinition.text.toString(),
-//        null
-//      )
-//      viewModel.saveWord(word)
-      showToast("word saved ffsddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd")
     }
   }
   
@@ -95,9 +80,9 @@ class InfoFragment : BaseFragment() {
     
     const val WORD_KEY = "WORD_KEY"
     
-    fun of(word: Word): InfoFragment {
+    fun of(wordEntity: WordEntity): InfoFragment {
       val bundle = Bundle()
-      bundle.putParcelable(WORD_KEY, word)
+      bundle.putParcelable(WORD_KEY, wordEntity)
       val fragment = InfoFragment()
       fragment.arguments = bundle
       return fragment

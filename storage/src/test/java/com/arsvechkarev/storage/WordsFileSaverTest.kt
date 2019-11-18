@@ -1,6 +1,6 @@
 package com.arsvechkarev.storage
 
-import com.arsvechkarev.core.domain.model.Word
+import com.arsvechkarev.core.domain.model.WordEntity
 import com.arsvechkarev.storage.files.FILENAME_ALL_WORDS
 import com.arsvechkarev.storage.files.WordsFileSaver
 import com.arsvechkarev.test.DataProvider.wordExhausted
@@ -46,7 +46,7 @@ class WordsFileSaverTest {
     
     WordsFileSaver.deleteWord(fakeStorage, wordPan)
     
-    val listAfter = fakeStorage.get<MutableList<Word>>(FILENAME_ALL_WORDS)
+    val listAfter = fakeStorage.get<MutableList<WordEntity>>(FILENAME_ALL_WORDS)
     assertTrue(listAfter!!.size == 1)
     assertTrue(listAfter.contains(wordExhausted))
   }
@@ -58,7 +58,7 @@ class WordsFileSaverTest {
     
     WordsFileSaver.saveWord(fakeStorage, wordPan)
     
-    val listAfter = fakeStorage.get<MutableList<Word>>(FILENAME_ALL_WORDS)
+    val listAfter = fakeStorage.get<MutableList<WordEntity>>(FILENAME_ALL_WORDS)
     assertTrue(listAfter!!.size == 2)
     assertTrue(listAfter.contains(wordPan))
   }
@@ -70,7 +70,7 @@ class WordsFileSaverTest {
     
     WordsFileSaver.saveWord(fakeStorage, wordPan)
     
-    val listAfter = fakeStorage.get<MutableList<Word>>(FILENAME_ALL_WORDS)
+    val listAfter = fakeStorage.get<MutableList<WordEntity>>(FILENAME_ALL_WORDS)
     assertTrue(listAfter!!.size == 1)
     assertTrue(listAfter.contains(wordPan))
   }

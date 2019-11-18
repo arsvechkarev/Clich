@@ -1,25 +1,17 @@
 package com.arsvechkarev.list.presentation
 
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.LiveData
 import com.arsvechkarev.core.BaseViewModel
-import com.arsvechkarev.list.repository.WordsListRepository
+import com.arsvechkarev.core.domain.model.WordEntity
+import com.arsvechkarev.storage.database.WordsDatabase
 import javax.inject.Inject
 
 class WordsListViewModel @Inject constructor(
-  private val repository: WordsListRepository
+  private val database: WordsDatabase
 ) : BaseViewModel() {
 
-  val state = MutableLiveData<State>()
-  
-  fun fetchWords() {
-    launchCoroutine {
-      val words = repository.fetchWords()
-      if (words.isNullOrEmpty()) {
-        state.value = State.Empty
-      } else {
-        state.value = State.Success(words)
-      }
-    }
+  fun fetchWords(): LiveData<List<WordEntity>> {
+    return database.wordDao().getAllLive()
   }
   
 }

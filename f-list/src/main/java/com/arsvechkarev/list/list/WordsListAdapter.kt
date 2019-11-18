@@ -4,15 +4,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.arsvechkarev.core.extensions.inflate
-import com.arsvechkarev.core.domain.model.Word
+import com.arsvechkarev.core.domain.model.WordEntity
 import com.arsvechkarev.list.R
 import kotlinx.android.synthetic.main.item_word.view.textWord
 
 class WordsListAdapter(
-  private val clickListener: (Word) -> Unit = {}
+  private val clickListener: (WordEntity) -> Unit = {}
 ) : RecyclerView.Adapter<WordsListAdapter.WordsListViewHolder>() {
   
-  private var data: List<Word> = ArrayList()
+  private var data: List<WordEntity> = ArrayList()
   
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WordsListViewHolder {
     return WordsListViewHolder(parent.inflate(R.layout.item_word))
@@ -24,13 +24,13 @@ class WordsListAdapter(
     holder.bind(data[position], clickListener)
   }
   
-  fun submitList(list: List<Word>) {
+  fun submitList(list: List<WordEntity>) {
     data = list
     notifyDataSetChanged()
   }
   
   class WordsListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    fun bind(item: Word, clickListener: (Word) -> Unit) {
+    fun bind(item: WordEntity, clickListener: (WordEntity) -> Unit) {
       itemView.setOnClickListener { clickListener(item) }
       itemView.textWord.text = item.word
     }

@@ -1,13 +1,13 @@
 package com.arsvechkarev.list.presentation
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
+import androidx.lifecycle.Observer
 import com.arsvechkarev.core.BaseFragment
 import com.arsvechkarev.core.coreActivity
 import com.arsvechkarev.core.di.ContextModule
 import com.arsvechkarev.core.di.viewmodel.ViewModelFactory
-import com.arsvechkarev.core.extensions.observe
+import com.arsvechkarev.core.domain.model.WordEntity
 import com.arsvechkarev.core.extensions.setupWith
 import com.arsvechkarev.core.extensions.showToast
 import com.arsvechkarev.core.extensions.viewModelOf
@@ -31,41 +31,24 @@ class WordsListFragment : BaseFragment() {
   
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     injectThis()
-    coreActivity.subscribeOnBackStackChanges(this)
-    viewModel = viewModelOf(viewModelFactory) {
-      observe(state, ::handleWordsList)
-    }
+    viewModel = viewModelOf(viewModelFactory)
     recyclerWords.setupWith(adapter)
-    viewModel.fetchWords()
+    viewModel.fetchWords().observe(this, Observer(::handleList))
     fabNewWord.setOnClickListener {
       coreActivity.goToFragmentFromRoot(InfoFragment(), InfoFragment::class, true)
     }
   }
   
-  override fun update() {
-    Log.d("zxcvbn", "fetching again")
-    viewModel.fetchWords()
-  }
-  
-  override fun onBackPressed() {
-    Log.d("qwerty", "list : pressed")
+  private fun handleList(it: List<WordEntity>) {
+    if (it.isEmpty()) {
+      showToast("empty list")
+    } else {
+      adapter.submitList(it)
+    }
   }
   
   private fun injectThis() {
-    DaggerWordsListComponent.builder()
-      .contextModule(ContextModule(context!!))
-      .build()
-      .inject(this)
-  }
-  
-  private fun handleWordsList(state: State) {
-    when (state) {
-      is State.Empty -> { Log.d("zxcvbn", "empty")}
-      is State.Success -> {
-        Log.d("zxcvbn", "not empty")
-        adapter.submitList(state.list)
-      }
-    }
+    DaggerWordsListComponent.create().inject(this)
   }
   
 }

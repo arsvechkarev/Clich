@@ -1,8 +1,7 @@
 package com.arsvechkarev.clich
 
 import android.app.Application
-import com.arsvechkarev.core.WordsDatabase
-
+import com.arsvechkarev.storage.database.WordsDatabase
 
 class App : Application() {
   

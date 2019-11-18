@@ -1,22 +1,22 @@
 package com.arsvechkarev.test
 
-import com.arsvechkarev.core.domain.model.Word
+import com.arsvechkarev.core.domain.model.WordEntity
 
 object DataProvider {
   
-  val wordExhausted = Word(
+  val wordExhausted = WordEntity(
     "exhausted",
     "very tired",
     "latest"
   )
   
-  val wordRemarkable= Word(
+  val wordRemarkable= WordEntity(
     "remarkable",
     "worthy of attention",
     "latest"
   )
   
-  val wordPan = Word(
+  val wordPan = WordEntity(
     "pan",
     "type of dishes",
     "dishes"
