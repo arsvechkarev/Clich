@@ -1,6 +1,6 @@
 package com.arsvechkarev.list.presentation
 
-import com.arsvechkarev.core.model.Word
+import com.arsvechkarev.core.domain.model.Word
 
 /**
  * Represents state of retrieving list

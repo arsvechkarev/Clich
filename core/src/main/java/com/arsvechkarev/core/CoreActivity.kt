@@ -10,6 +10,11 @@ import kotlin.reflect.KClass
 interface CoreActivity {
   
   /**
+   * Anchor view for snackbar
+   */
+  val snackBarPlace: View
+  
+  /**
    * Goes to a [fragment] from root layout
    */
   fun <T : Fragment> goToFragmentFromRoot(
@@ -18,10 +23,7 @@ interface CoreActivity {
     addToBackStack: Boolean = false
   )
   
-  /**
-   * Anchor view for snackbar
-   */
-  val snackBarPlace: View
+  fun <T : BaseFragment> subscribeOnBackStackChanges(fragment: T)
 }
 
 val Fragment.coreActivity

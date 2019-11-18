@@ -1,4 +1,4 @@
-package com.arsvechkarev.storage
+package com.arsvechkarev.storage.files
 
 import android.content.Context
 import com.arsvechkarev.core.DispatcherProvider

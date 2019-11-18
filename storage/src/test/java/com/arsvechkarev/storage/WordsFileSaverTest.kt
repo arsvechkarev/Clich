@@ -1,21 +1,23 @@
 package com.arsvechkarev.storage
 
-import com.arsvechkarev.core.model.Word
+import com.arsvechkarev.core.domain.model.Word
+import com.arsvechkarev.storage.files.FILENAME_ALL_WORDS
+import com.arsvechkarev.storage.files.WordsFileSaver
 import com.arsvechkarev.test.DataProvider.wordExhausted
 import com.arsvechkarev.test.DataProvider.wordPan
 import com.arsvechkarev.test.DataProvider.wordRemarkable
 import com.arsvechkarev.test.FakeWordsListStorage
 import com.arsvechkarev.test.TestCoroutinesRule
-import org.junit.Assert.assertTrue
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
 @ExperimentalCoroutinesApi
-class WorkerTest {
+class WordsFileSaverTest {
   
   @get:Rule
   val testRule = TestCoroutinesRule()
@@ -28,12 +30,12 @@ class WorkerTest {
   }
   
   @Test
-  fun `Getting all words list`() = testRule.testCoroutineDispatcher.runBlockingTest{
+  fun `Getting all words list`() = testRule.testCoroutineDispatcher.runBlockingTest {
     val listBefore = mutableListOf(wordExhausted, wordRemarkable)
     fakeStorage.save(listBefore, FILENAME_ALL_WORDS)
-  
-    val listAfter = Worker.getWords(fakeStorage)
-  
+    
+    val listAfter = WordsFileSaver.getWords(fakeStorage)
+    
     assertEquals(listBefore, listAfter)
   }
   
@@ -42,8 +44,8 @@ class WorkerTest {
     val listBefore = mutableListOf(wordExhausted, wordPan)
     fakeStorage.save(listBefore, FILENAME_ALL_WORDS)
     
-    Worker.deleteWord(fakeStorage, wordPan)
-  
+    WordsFileSaver.deleteWord(fakeStorage, wordPan)
+    
     val listAfter = fakeStorage.get<MutableList<Word>>(FILENAME_ALL_WORDS)
     assertTrue(listAfter!!.size == 1)
     assertTrue(listAfter.contains(wordExhausted))
@@ -53,9 +55,9 @@ class WorkerTest {
   fun `Saving word to non-empty list`() = testRule.testCoroutineDispatcher.runBlockingTest {
     val listBefore = mutableListOf(wordExhausted)
     fakeStorage.save(listBefore, FILENAME_ALL_WORDS)
-  
-    Worker.saveWord(fakeStorage, wordPan)
-  
+    
+    WordsFileSaver.saveWord(fakeStorage, wordPan)
+    
     val listAfter = fakeStorage.get<MutableList<Word>>(FILENAME_ALL_WORDS)
     assertTrue(listAfter!!.size == 2)
     assertTrue(listAfter.contains(wordPan))
@@ -65,9 +67,9 @@ class WorkerTest {
   fun `Saving word to null list`() = testRule.testCoroutineDispatcher.runBlockingTest {
     val listBefore = null
     fakeStorage.save(listBefore, FILENAME_ALL_WORDS)
-  
-    Worker.saveWord(fakeStorage, wordPan)
-  
+    
+    WordsFileSaver.saveWord(fakeStorage, wordPan)
+    
     val listAfter = fakeStorage.get<MutableList<Word>>(FILENAME_ALL_WORDS)
     assertTrue(listAfter!!.size == 1)
     assertTrue(listAfter.contains(wordPan))

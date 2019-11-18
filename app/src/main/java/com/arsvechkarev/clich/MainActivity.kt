@@ -1,9 +1,11 @@
 package com.arsvechkarev.clich
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.arsvechkarev.core.BaseFragment
 import com.arsvechkarev.core.CoreActivity
 import com.arsvechkarev.core.extensions.findFragment
 import com.arsvechkarev.core.extensions.goToFragment
@@ -14,6 +16,7 @@ import kotlinx.android.synthetic.main.activity_main.baseContainer
 import kotlin.reflect.KClass
 
 class MainActivity : AppCompatActivity(), CoreActivity {
+  
   override val snackBarPlace: View by lazy { baseContainer }
   
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,6 +31,12 @@ class MainActivity : AppCompatActivity(), CoreActivity {
     addToBackStack: Boolean
   ) {
     goToFragment(R.id.baseContainer, fragment, fragmentClass, addToBackStack)
+  }
+  
+  override fun <T : BaseFragment> subscribeOnBackStackChanges(fragment: T) {
+    supportFragmentManager.addOnBackStackChangedListener {
+      fragment.update()
+    }
   }
   
   override fun onBackPressed() {

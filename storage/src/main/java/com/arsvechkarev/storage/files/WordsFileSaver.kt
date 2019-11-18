@@ -1,12 +1,12 @@
-package com.arsvechkarev.storage
+package com.arsvechkarev.storage.files
 
 import com.arsvechkarev.core.Storage
-import com.arsvechkarev.core.model.Word
+import com.arsvechkarev.core.domain.model.Word
 
-object Worker {
+object WordsFileSaver {
   
   suspend fun getWords(storage: Storage): List<Word>? {
-    return storage.get<List<Word>>(FILENAME_ALL_WORDS)
+    return storage.get<MutableList<Word>>(FILENAME_ALL_WORDS)
   }
   
   suspend fun saveWord(storage: Storage, word: Word) {

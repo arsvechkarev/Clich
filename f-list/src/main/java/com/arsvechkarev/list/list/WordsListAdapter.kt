@@ -4,7 +4,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.arsvechkarev.core.extensions.inflate
-import com.arsvechkarev.core.model.Word
+import com.arsvechkarev.core.domain.model.Word
 import com.arsvechkarev.list.R
 import kotlinx.android.synthetic.main.item_word.view.textWord
 

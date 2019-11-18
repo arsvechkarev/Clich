@@ -19,4 +19,6 @@ abstract class BaseFragment : Fragment() {
   }
   
   open fun onBackPressed() {}
+  
+  open fun update() {}
 }

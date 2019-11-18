@@ -31,6 +31,7 @@ class WordsListFragment : BaseFragment() {
   
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     injectThis()
+    coreActivity.subscribeOnBackStackChanges(this)
     viewModel = viewModelOf(viewModelFactory) {
       observe(state, ::handleWordsList)
     }
@@ -41,9 +42,13 @@ class WordsListFragment : BaseFragment() {
     }
   }
   
+  override fun update() {
+    Log.d("zxcvbn", "fetching again")
+    viewModel.fetchWords()
+  }
+  
   override fun onBackPressed() {
     Log.d("qwerty", "list : pressed")
-    showToast("words list on back pressed")
   }
   
   private fun injectThis() {
@@ -55,8 +60,11 @@ class WordsListFragment : BaseFragment() {
   
   private fun handleWordsList(state: State) {
     when (state) {
-      is State.Empty -> showToast("Empty now")
-      is State.Success -> adapter.submitList(state.list)
+      is State.Empty -> { Log.d("zxcvbn", "empty")}
+      is State.Success -> {
+        Log.d("zxcvbn", "not empty")
+        adapter.submitList(state.list)
+      }
     }
   }
   

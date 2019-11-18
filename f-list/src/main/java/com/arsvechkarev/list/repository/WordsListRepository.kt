@@ -1,8 +1,8 @@
 package com.arsvechkarev.list.repository
 
 import com.arsvechkarev.core.Storage
-import com.arsvechkarev.core.model.Word
-import com.arsvechkarev.storage.FILENAME_ALL_WORDS
+import com.arsvechkarev.core.domain.model.Word
+import com.arsvechkarev.core.WordsDatabase
 import javax.inject.Inject
 
 class WordsListRepository @Inject constructor(
@@ -10,6 +10,6 @@ class WordsListRepository @Inject constructor(
 ) {
   
   suspend fun fetchWords(): List<Word>? {
-    return storage.get(FILENAME_ALL_WORDS)
+    return WordsDatabase.getInstance().wordDao().getAll()
   }
 }
