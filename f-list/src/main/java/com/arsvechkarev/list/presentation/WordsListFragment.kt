@@ -6,6 +6,7 @@ import androidx.lifecycle.Observer
 import com.arsvechkarev.core.BaseFragment
 import com.arsvechkarev.core.coreActivity
 import com.arsvechkarev.core.di.viewmodel.ViewModelFactory
+import com.arsvechkarev.core.domain.model.Word
 import com.arsvechkarev.core.domain.model.WordEntity
 import com.arsvechkarev.core.extensions.setupWith
 import com.arsvechkarev.core.extensions.showToast
@@ -38,7 +39,7 @@ class WordsListFragment : BaseFragment() {
     }
   }
   
-  private fun handleList(it: List<WordEntity>) {
+  private fun handleList(it: List<Word>) {
     if (it.isEmpty()) {
       showToast("empty list")
     } else {

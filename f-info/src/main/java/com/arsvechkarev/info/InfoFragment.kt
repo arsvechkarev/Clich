@@ -3,7 +3,8 @@ package com.arsvechkarev.info
 import android.os.Bundle
 import android.view.View
 import com.arsvechkarev.core.BaseFragment
-import com.arsvechkarev.core.domain.model.WordEntity
+import com.arsvechkarev.core.domain.model.Word
+import com.arsvechkarev.core.domain.model.toWordEntity
 import com.arsvechkarev.core.extensions.inBackground
 import com.arsvechkarev.storage.database.WordsDatabase
 import kotlinx.android.synthetic.main.layout_info.editTextDefinition
@@ -13,13 +14,11 @@ class InfoFragment : BaseFragment() {
   
   override val layoutId: Int = R.layout.layout_info
   
-  private var previousWordEntity: WordEntity? = null
+  private var previousWord: Word? = null
   
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    previousWordEntity = arguments?.get(WORD_KEY) as WordEntity?
-    if (previousWordEntity != null) {
-      setWord()
-    }
+    previousWord = arguments?.get(WORD_KEY) as Word?
+    previousWord?.let { setWord() }
   }
   
   override fun onBackPressed() {
@@ -27,7 +26,7 @@ class InfoFragment : BaseFragment() {
   }
   
   private fun setWord() {
-    previousWordEntity!!.let {
+    previousWord!!.let {
       editTextWord.setText(it.word)
       editTextDefinition.setText(it.definition)
     }
@@ -37,22 +36,20 @@ class InfoFragment : BaseFragment() {
     if (editTextWord.text.toString().isNotBlank()
       && editTextDefinition.text.toString().isNotBlank()
     ) {
-      previousWordEntity?.let {
+      previousWord?.let {
         // Word has been passed i.e editing existing word
         it.word = editTextWord.text.toString()
         it.definition = editTextDefinition.text.toString()
-        inBackground {
-          WordsDatabase.instance.update(previousWordEntity!!)
-        }
+        inBackground { WordsDatabase.instance.update(previousWord!!.toWordEntity()) }
       }
-      if (previousWordEntity == null) {
+      if (previousWord == null) {
         // Word hasn't been passed -> creating new word
-        val newWord = WordEntity(
+        val newWord = Word(
           word = editTextWord.text.toString(),
           definition = editTextDefinition.text.toString(),
           label = null
         )
-        inBackground { WordsDatabase.instance.create(newWord) }
+        inBackground { WordsDatabase.instance.create(newWord.toWordEntity()) }
       }
     }
   }
@@ -62,9 +59,9 @@ class InfoFragment : BaseFragment() {
     
     const val WORD_KEY = "WORD_KEY"
     
-    fun of(wordEntity: WordEntity): InfoFragment {
+    fun of(word: Word): InfoFragment {
       val bundle = Bundle()
-      bundle.putParcelable(WORD_KEY, wordEntity)
+      bundle.putParcelable(WORD_KEY, word)
       val fragment = InfoFragment()
       fragment.arguments = bundle
       return fragment

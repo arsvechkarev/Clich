@@ -7,7 +7,6 @@ import kotlinx.android.parcel.IgnoredOnParcel
 import kotlinx.android.parcel.Parcelize
 import java.io.Serializable
 
-@Parcelize
 @Entity(tableName = "words")
 data class WordEntity(
   @PrimaryKey(autoGenerate = true)
@@ -15,18 +14,20 @@ data class WordEntity(
   var word: String,
   var definition: String,
   var label: String?
-) : Parcelable, Serializable
+)
 
+@Parcelize
 data class Word(
+  val id: Int? = null,
   var word: String,
   var definition: String,
   var label: String?
-)
+): Parcelable
 
 fun WordEntity.toWord(): Word {
-  return Word(word, definition, label)
+  return Word(id, word, definition, label)
 }
 
 fun Word.toWordEntity(): WordEntity {
-  return WordEntity(null, word, definition, label)
+  return WordEntity(id, word, definition, label)
 }

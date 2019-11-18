@@ -1,15 +1,16 @@
 package com.arsvechkarev.test
 
 import com.arsvechkarev.core.Storage
+import com.arsvechkarev.core.domain.model.Word
 import com.arsvechkarev.core.domain.model.WordEntity
 
 @Suppress("UNCHECKED_CAST")
 class FakeWordsListStorage : Storage {
   
-  private var list: MutableList<WordEntity>? = null
+  private var list: MutableList<Word>? = null
   
   override suspend fun <T> save(value: T, filename: String) {
-    list = value as MutableList<WordEntity>?
+    list = value as MutableList<Word>?
   }
   
   override suspend fun <T> get(filename: String): T? {
