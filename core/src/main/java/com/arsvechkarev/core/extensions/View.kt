@@ -13,7 +13,12 @@ import android.widget.EditText
 import android.widget.ScrollView
 import android.widget.TextView
 import androidx.annotation.LayoutRes
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.core.text.HtmlCompat
+import androidx.drawerlayout.widget.DrawerLayout
+import com.arsvechkarev.core.R
 
 fun View.visible() {
   visibility = VISIBLE
@@ -26,6 +31,16 @@ fun View.invisible() {
 fun View.gone() {
   visibility = GONE
 }
+
+fun DrawerLayout.setupToggle(activity: AppCompatActivity, toolbar: Toolbar) {
+  val toggle = ActionBarDrawerToggle(
+    activity, this, toolbar,
+    R.string.navigation_drawer_open, R.string.navigation_drawer_close
+  )
+  this.addDrawerListener(toggle)
+  toggle.syncState()
+}
+
 
 fun ScrollView.scrollToTop() {
   this.smoothScrollTo(0, 0)

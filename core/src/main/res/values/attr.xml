@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <attr name="colorToolbar" format="color"/>
+  <attr name="colorDrawer" format="color"/>
+  <attr name="colorWindowBackground" format="color"/>
+
+  <attr name="colorItemSelected" format="color"/>
+  <attr name="colorItemNotSelected" format="color"/>
+
+  <attr name="colorTextPrimary" format="color"/>
+  <attr name="colorTextSecondary" format="color"/>
+  <attr name="colorTextEditTextHint" format="color"/>
+
+</resources>

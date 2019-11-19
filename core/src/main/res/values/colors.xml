@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+  <color name="colorPrimary">#008577</color>
+  <color name="colorPrimaryDark">#00574B</color>
+  <color name="colorAccent">#D81B60</color>
+
+  <color name="light_colorToolbar">#000</color>
+  <color name="light_colorDrawer"></color>
+  <color name="light_colorWindowBackground"></color>
+
+  <color name="light_colorItemSelected"></color>
+  <color name="light_colorItemNotSelected"></color>
+
+  <color name="light_colorTextPrimary"></color>
+  <color name="light_colorTextSecondary"></color>
+  <color name="light_colorTextEditTextHint"></color>
+
+
 </resources>
