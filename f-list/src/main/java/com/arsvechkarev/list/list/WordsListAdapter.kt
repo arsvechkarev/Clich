@@ -4,8 +4,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.arsvechkarev.core.domain.model.Word
+import com.arsvechkarev.core.extensions.gone
 import com.arsvechkarev.core.extensions.inflate
 import com.arsvechkarev.list.R
+import kotlinx.android.synthetic.main.item_word.view.divider
 import kotlinx.android.synthetic.main.item_word.view.textWord
 
 class WordsListAdapter(
@@ -21,7 +23,7 @@ class WordsListAdapter(
   override fun getItemCount() = data.size
   
   override fun onBindViewHolder(holder: WordsListViewHolder, position: Int) {
-    holder.bind(data[position], clickListener)
+    holder.bind(data[position])
   }
   
   fun submitList(list: List<Word>) {
@@ -29,10 +31,14 @@ class WordsListAdapter(
     notifyDataSetChanged()
   }
   
-  class WordsListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    fun bind(item: Word, clickListener: (Word) -> Unit) {
+  inner class WordsListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    
+    fun bind(item: Word) {
       itemView.setOnClickListener { clickListener(item) }
       itemView.textWord.text = item.word
+      if (adapterPosition == itemCount - 1) {
+        itemView.divider.gone()
+      }
     }
   }
 }

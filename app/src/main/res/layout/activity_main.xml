@@ -7,24 +7,45 @@
   android:layout_height="match_parent"
   tools:context=".MainActivity">
 
-  <LinearLayout
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/rootContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <androidx.appcompat.widget.Toolbar
-      android:id="@+id/toolbar"
+    <androidx.cardview.widget.CardView
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:background="?attr/colorPrimary"
-      android:minHeight="?attr/actionBarSize" />
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      android:layout_margin="16dp"
+      app:cardElevation="4dp"
+      app:cardCornerRadius="8dp">
+
+      <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_toolbar"
+        android:minHeight="?attr/actionBarSize">
+
+        <EditText
+          android:hint="Search words..."
+          android:background="@null"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"/>
+
+      </androidx.appcompat.widget.Toolbar>
+
+    </androidx.cardview.widget.CardView>
 
     <FrameLayout
       android:id="@+id/baseContainer"
       android:layout_width="match_parent"
       android:layout_height="match_parent" />
 
-  </LinearLayout>
+  </androidx.constraintlayout.widget.ConstraintLayout>
 
   <com.google.android.material.navigation.NavigationView
     android:id="@+id/navigationView"

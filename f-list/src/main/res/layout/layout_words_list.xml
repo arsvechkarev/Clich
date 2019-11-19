@@ -2,14 +2,16 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:background="@android:color/holo_green_light"
+  android:background="?colorWindowBackground"
   android:clickable="true"
   android:focusable="true">
 
   <androidx.recyclerview.widget.RecyclerView
     android:id="@+id/recyclerWords"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+    android:layout_height="match_parent"
+    android:clipToPadding="false"
+    android:paddingTop="80dp" />
 
   <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
     android:id="@+id/fabNewWord"

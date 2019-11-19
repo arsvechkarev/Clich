@@ -5,7 +5,7 @@
   android:layout_height="match_parent"
   android:clickable="true"
   android:focusable="true"
-  android:background="@android:color/darker_gray"
+  android:background="?colorWindowBackground"
   android:orientation="vertical">
 
   <EditText

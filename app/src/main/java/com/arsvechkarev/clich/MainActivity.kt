@@ -2,16 +2,14 @@ package com.arsvechkarev.clich
 
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.arsvechkarev.core.BaseFragment
 import com.arsvechkarev.core.CoreActivity
 import com.arsvechkarev.core.extensions.findFragment
 import com.arsvechkarev.core.extensions.goToFragment
 import com.arsvechkarev.core.extensions.setupToggle
+import com.arsvechkarev.core.extensions.switchFragment
 import com.arsvechkarev.info.presentation.InfoFragment
 import com.arsvechkarev.list.presentation.WordsListFragment
 import kotlinx.android.synthetic.main.activity_main.baseContainer
@@ -28,6 +26,7 @@ class MainActivity : AppCompatActivity(), CoreActivity {
     setContentView(R.layout.activity_main)
     setSupportActionBar(toolbar)
     layoutDrawer.setupToggle(this, toolbar)
+    switchFragment(R.id.baseContainer, WordsListFragment())
   }
   
   
@@ -36,7 +35,7 @@ class MainActivity : AppCompatActivity(), CoreActivity {
     fragmentClass: KClass<T>,
     addToBackStack: Boolean
   ) {
-    goToFragment(R.id.baseContainer, fragment, fragmentClass, addToBackStack)
+    goToFragment(R.id.layoutDrawer, fragment, fragmentClass, addToBackStack)
   }
   
   override fun <T : BaseFragment> subscribeOnBackStackChanges(fragment: T) {
