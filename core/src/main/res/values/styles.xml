@@ -24,11 +24,12 @@
     <item name="theColorOnSecondary">@color/light_colorOnSecondary</item>
     <item name="theColorControlHighlight">@color/light_colorControlHighlight</item>
     <item name="theColorControlNormal">@color/light_colorControlNormal</item>
+    <item name="colorWindowBackground">@color/light_colorWindowBackground</item>
     <item name="colorTextPrimary">@color/light_colorTextPrimary</item>
     <item name="colorTextSecondary">@color/light_colorTextSecondary</item>
     <item name="colorTextEditTextHint">@color/light_colorTextEditTextHint</item>
     <item name="colorDivider">@color/light_colorDivider</item>
-    <item name="colorWindowBackground">@color/light_colorWindowBackground</item>
+    <item name="colorIcon">@color/light_colorIcon</item>
   </style>
 
 </resources>
