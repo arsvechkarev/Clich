@@ -13,8 +13,8 @@
     android:layout_height="wrap_content"
     android:fontFamily="@font/metropolis_semi_bold"
     android:padding="16dp"
-    android:textColor="@android:color/black"
-    android:textSize="20sp" />
+    android:textColor="?colorTextPrimary"
+    android:textSize="18sp" />
 
   <View
     android:id="@+id/divider"
@@ -22,6 +22,6 @@
     android:layout_height="1dp"
     android:layout_marginStart="12dp"
     android:layout_marginEnd="12dp"
-    android:background="#E2E2E2" />
+    android:background="?colorDivider" />
 
 </LinearLayout>

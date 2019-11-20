@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <color name="light_colorPrimary">#1970BE</color>
   <color name="light_colorAccent">#1970BE</color>
 
   <color name="light_colorControlHighlight">#9B9B9B</color>
@@ -17,6 +18,8 @@
   <color name="light_colorTextPrimary">#000000</color>
   <color name="light_colorTextSecondary">#505050</color>
   <color name="light_colorTextEditTextHint">#696969</color>
+
+  <color name="light_colorDivider">#E2E2E2</color>
 
 
 </resources>
