@@ -2,12 +2,26 @@
 <resources>
 
   <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
-    <item name="colorPrimary">@color/colorPrimary</item>
-    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-    <item name="colorAccent">@color/colorAccent</item>
+    <item name="android:windowLightStatusBar">true</item>
+    <item name="colorAccent">?theColorAccent</item>
+    <item name="colorPrimaryDark">?theColorPrimaryDark</item>
+    <!--  Floating action button  -->
+    <item name="colorSecondary">?theColorSecondary</item>
+    <!--  Ripple  -->
+    <item name="colorControlHighlight">?theColorControlHighlight</item>
+    <!--  Toolbar hamburger menu  -->
+    <item name="colorControlNormal">?theColorControlNormal</item>
+    <!--  Floating action button text -->
+    <item name="colorOnSecondary">?theColorOnSecondary</item>
   </style>
 
   <style name="AppTheme.Light">
+    <item name="theColorAccent">@color/light_colorAccent</item>
+    <item name="theColorPrimaryDark">@color/light_colorWindowBackground</item>
+    <item name="theColorSecondary">@color/light_colorSecondary</item>
+    <item name="theColorOnSecondary">@color/light_colorOnSecondary</item>
+    <item name="theColorControlHighlight">@color/light_colorControlHighlight</item>
+    <item name="theColorControlNormal">@color/light_colorControlNormal</item>
     <item name="colorWindowBackground">@color/light_colorWindowBackground</item>
   </style>
 
