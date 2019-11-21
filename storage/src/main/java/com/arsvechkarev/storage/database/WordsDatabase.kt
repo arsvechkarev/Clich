@@ -7,9 +7,14 @@ import androidx.room.RoomDatabase
 import com.arsvechkarev.core.domain.dao.LabelsDao
 import com.arsvechkarev.core.domain.dao.WordsDao
 import com.arsvechkarev.core.domain.dao.WordsLabelsDao
+import com.arsvechkarev.core.domain.model.LabelEntity
 import com.arsvechkarev.core.domain.model.WordEntity
 
-@Database(entities = [WordEntity::class], version = 1)
+@Database(entities = [
+  WordEntity::class,
+  LabelEntity::class,
+  WordsLabelsDao::class
+], version = 1)
 abstract class WordsDatabase : RoomDatabase() {
   
   abstract fun wordDao(): WordsDao

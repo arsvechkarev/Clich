@@ -1,35 +1,55 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
+
 android {
-  compileSdkVersion 28
+  def configs = rootProject.ext
 
-
+  compileSdkVersion configs.compileSdkVersion
   defaultConfig {
-    minSdkVersion 19
-    targetSdkVersion 28
-    versionCode 1
-    versionName "1.0"
-
-    testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    consumerProguardFiles 'consumer-rules.pro'
+    minSdkVersion configs.minSdkVersion
+    targetSdkVersion configs.targetSdkVersion
+    versionCode configs.versionCode
+    versionName configs.versionName
+    testInstrumentationRunner configs.testInstrumentationRunner
   }
 
   buildTypes {
     release {
-      minifyEnabled false
-      proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+      minifyEnabled configs.minifyEnabled
+      proguardFiles(getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro')
     }
   }
 
 }
 
 dependencies {
-  implementation fileTree(dir: 'libs', include: ['*.jar'])
-  implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-  implementation 'androidx.appcompat:appcompat:1.1.0'
-  implementation 'androidx.core:core-ktx:1.1.0'
-  testImplementation 'junit:junit:4.12'
-  androidTestImplementation 'androidx.test.ext:junit:1.1.0'
-  androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+  implementation project(':core')
+  implementation project(':storage')
+
+  def appDependencies = rootProject.ext.applicationDependencies
+  def testDependencies = rootProject.ext.testDependencies
+
+  implementation appDependencies.kotlin
+  implementation appDependencies.appCompat
+  implementation appDependencies.ktx
+  implementation appDependencies.materialDesign
+  implementation appDependencies.lifecycleExtensions
+  implementation appDependencies.legacySupport
+  implementation appDependencies.constraintLayout
+  implementation appDependencies.materialDesign
+
+  implementation appDependencies.coroutinesCore
+  implementation appDependencies.coroutinesAndroid
+
+  implementation appDependencies.dagger
+  kapt appDependencies.daggerCompiler
+
+  implementation appDependencies.retrofit
+  implementation appDependencies.okhttpLoggingInterceptor
+
+  testImplementation project(':test')
+  androidTestImplementation testDependencies.testRunner
+  androidTestImplementation testDependencies.espresso
 }

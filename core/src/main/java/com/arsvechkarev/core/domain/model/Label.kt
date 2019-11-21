@@ -9,3 +9,8 @@ data class LabelEntity(
   val id: Int? = null,
   val name: String
 )
+
+data class Label(
+  val id: Int? = null,
+  val name: String
+)
