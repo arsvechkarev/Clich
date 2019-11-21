@@ -11,12 +11,14 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/core" />
             <option value="$PROJECT_DIR$/f-info" />
-            <option value="$PROJECT_DIR$/f-list" />
+            <option value="$PROJECT_DIR$/f-labels" />
+            <option value="$PROJECT_DIR$/f-words" />
             <option value="$PROJECT_DIR$/storage" />
             <option value="$PROJECT_DIR$/test" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
+        <option name="testRunner" value="PLATFORM" />
       </GradleProjectSettings>
     </option>
   </component>

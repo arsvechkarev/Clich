@@ -11,7 +11,7 @@ import com.arsvechkarev.core.extensions.goToFragment
 import com.arsvechkarev.core.extensions.setupToggle
 import com.arsvechkarev.core.extensions.switchFragment
 import com.arsvechkarev.info.presentation.InfoFragment
-import com.arsvechkarev.list.presentation.WordsListFragment
+import com.arsvechkarev.words.presentation.WordsListFragment
 import kotlinx.android.synthetic.main.activity_main.baseContainer
 import kotlinx.android.synthetic.main.activity_main.layoutDrawer
 import kotlinx.android.synthetic.main.activity_main.toolbar

@@ -46,7 +46,7 @@ android {
 dependencies {
   implementation project(':core')
   implementation project(':storage')
-  implementation project(':f-list')
+  implementation project(':f-words')
   implementation project(':f-info')
 
   def appDependencies = rootProject.ext.applicationDependencies
