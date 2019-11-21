@@ -6,13 +6,15 @@ import com.arsvechkarev.core.BaseFragment
 import com.arsvechkarev.core.di.viewmodel.ViewModelFactory
 import com.arsvechkarev.core.domain.model.Word
 import com.arsvechkarev.core.domain.model.toWordEntity
-import com.arsvechkarev.core.extensions.inBackground
+import com.arsvechkarev.core.extensions.gone
+import com.arsvechkarev.core.extensions.popBackStack
 import com.arsvechkarev.core.extensions.viewModelOf
 import com.arsvechkarev.info.R
 import com.arsvechkarev.info.di.DaggerInfoComponent
-import com.arsvechkarev.storage.database.WordsDatabase
 import kotlinx.android.synthetic.main.layout_info.editTextDefinition
 import kotlinx.android.synthetic.main.layout_info.editTextWord
+import kotlinx.android.synthetic.main.layout_info.imageBack
+import kotlinx.android.synthetic.main.layout_info.textNewWord
 import javax.inject.Inject
 
 class InfoFragment : BaseFragment() {
@@ -26,6 +28,7 @@ class InfoFragment : BaseFragment() {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     DaggerInfoComponent.create().inject(this)
     viewModel = viewModelOf(viewModelFactory)
+    imageBack.setOnClickListener { popBackStack() }
     previousWord = arguments?.get(WORD_KEY) as Word?
     previousWord?.let { setWord() }
   }
@@ -35,6 +38,7 @@ class InfoFragment : BaseFragment() {
   }
   
   private fun setWord() {
+    textNewWord.gone()
     previousWord!!.let {
       editTextWord.setText(it.word)
       editTextDefinition.setText(it.definition)

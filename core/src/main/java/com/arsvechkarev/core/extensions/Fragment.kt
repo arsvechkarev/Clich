@@ -4,7 +4,6 @@ import android.content.Context
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
-import androidx.annotation.IdRes
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 
@@ -26,4 +25,8 @@ fun Fragment.showToast(@StringRes resId: Int) {
 
 fun Fragment.showToast(message: String) {
   Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+}
+
+fun Fragment.popBackStack() {
+  requireActivity().supportFragmentManager.popBackStack()
 }
