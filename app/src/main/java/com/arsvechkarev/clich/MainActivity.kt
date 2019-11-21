@@ -11,8 +11,10 @@ import com.arsvechkarev.core.extensions.goToFragment
 import com.arsvechkarev.core.extensions.setupToggle
 import com.arsvechkarev.core.extensions.switchFragment
 import com.arsvechkarev.info.presentation.InfoFragment
+import com.arsvechkarev.labels.presentation.LabelsFragment
 import com.arsvechkarev.words.presentation.WordsListFragment
 import kotlinx.android.synthetic.main.activity_main.baseContainer
+import kotlinx.android.synthetic.main.activity_main.buttonGoToLabels
 import kotlinx.android.synthetic.main.activity_main.layoutDrawer
 import kotlinx.android.synthetic.main.activity_main.toolbar
 import kotlin.reflect.KClass
@@ -27,6 +29,9 @@ class MainActivity : AppCompatActivity(), CoreActivity {
     setSupportActionBar(toolbar)
     layoutDrawer.setupToggle(this, toolbar)
     switchFragment(R.id.baseContainer, WordsListFragment())
+    buttonGoToLabels.setOnClickListener {
+      switchFragment(R.id.baseContainer, LabelsFragment())
+    }
   }
   
   

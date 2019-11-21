@@ -55,6 +55,11 @@
     android:layout_gravity="start"
     android:fitsSystemWindows="true">
 
+    <Button
+      android:id="@+id/buttonGoToLabels"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"/>
+
     <androidx.recyclerview.widget.RecyclerView
       android:id="@+id/recyclerLabels"
       android:layout_width="match_parent"

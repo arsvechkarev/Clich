@@ -1,12 +1,12 @@
 package com.arsvechkarev.clich
 
 import android.app.Application
-import com.arsvechkarev.storage.database.WordsDatabase
+import com.arsvechkarev.storage.database.CentralDatabase
 
 class App : Application() {
   
   override fun onCreate() {
     super.onCreate()
-    WordsDatabase.instantiate(this)
+    CentralDatabase.instantiate(this)
   }
 }

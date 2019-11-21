@@ -2,11 +2,11 @@ package com.arsvechkarev.info.presentation
 
 import com.arsvechkarev.core.BaseViewModel
 import com.arsvechkarev.core.domain.model.WordEntity
-import com.arsvechkarev.storage.database.WordsDatabase
+import com.arsvechkarev.storage.database.CentralDatabase
 import javax.inject.Inject
 
 class InfoViewModel @Inject constructor(
-  private val database: WordsDatabase
+  private val database: CentralDatabase
 ) : BaseViewModel() {
   
   fun saveWord(wordEntity: WordEntity) {

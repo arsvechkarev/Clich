@@ -5,11 +5,11 @@ import androidx.lifecycle.Transformations
 import com.arsvechkarev.core.BaseViewModel
 import com.arsvechkarev.core.domain.model.Word
 import com.arsvechkarev.core.domain.model.toWord
-import com.arsvechkarev.storage.database.WordsDatabase
+import com.arsvechkarev.storage.database.CentralDatabase
 import javax.inject.Inject
 
 class WordsListViewModel @Inject constructor(
-  private val database: WordsDatabase
+  private val database: CentralDatabase
 ) : BaseViewModel() {
   
   fun fetchWords(): LiveData<List<Word>> {

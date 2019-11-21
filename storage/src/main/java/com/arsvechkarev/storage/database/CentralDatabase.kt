@@ -9,13 +9,14 @@ import com.arsvechkarev.core.domain.dao.WordsDao
 import com.arsvechkarev.core.domain.dao.WordsLabelsDao
 import com.arsvechkarev.core.domain.model.LabelEntity
 import com.arsvechkarev.core.domain.model.WordEntity
+import com.arsvechkarev.core.domain.model.WordsLabelsJoin
 
 @Database(entities = [
   WordEntity::class,
   LabelEntity::class,
-  WordsLabelsDao::class
+  WordsLabelsJoin::class
 ], version = 1)
-abstract class WordsDatabase : RoomDatabase() {
+abstract class CentralDatabase : RoomDatabase() {
   
   abstract fun wordDao(): WordsDao
   abstract fun labelsDao(): LabelsDao
@@ -23,19 +24,19 @@ abstract class WordsDatabase : RoomDatabase() {
   
   companion object {
     
-    lateinit var database: WordsDatabase
+    lateinit var instance: CentralDatabase
       private set
     
     lateinit var wordsDao: WordsDao
       private set
     
     fun instantiate(context: Context) {
-      database = Room.databaseBuilder(
+      instance = Room.databaseBuilder(
         context,
-        WordsDatabase::class.java,
+        CentralDatabase::class.java,
         "words.db"
       ).build()
-      wordsDao = database.wordDao()
+      wordsDao = instance.wordDao()
     }
   }
 }
