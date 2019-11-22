@@ -36,7 +36,10 @@ class MainActivity : AppCompatActivity(), CoreActivity {
     setSupportActionBar(toolbar)
     layoutDrawer.setupToggle(this, toolbar)
     switchFragment(R.id.baseContainer, WordsListFragment())
-    buttonGoToLabels.setOnClickListener { transferToFragment(LabelsFragment()) }
+    buttonGoToLabels.setOnClickListener {
+      transferToFragment(LabelsFragment())
+      layoutDrawer.close()
+    }
     recyclerLabels.setupWith(labelsAdapter)
     CentralDatabase.instance.labelsDao().getAllLive().observe(this) {
       labelsAdapter.submitList(it)
@@ -51,7 +54,6 @@ class MainActivity : AppCompatActivity(), CoreActivity {
     goToFragment(R.id.layoutDrawer, fragment, fragmentClass, addToBackStack)
   }
   
-  
   override fun <T : BaseFragment> subscribeOnBackStackChanges(fragment: T) {
     supportFragmentManager.addOnBackStackChangedListener {
       fragment.update()
@@ -59,9 +61,13 @@ class MainActivity : AppCompatActivity(), CoreActivity {
   }
   
   override fun onBackPressed() {
-    findFragment(InfoFragment::class)?.onBackPressed()
-    findFragment(WordsListFragment::class)?.onBackPressed()
-    super.onBackPressed()
+    if (layoutDrawer.isOpen()) {
+      layoutDrawer.close()
+    } else {
+      findFragment(InfoFragment::class)?.onBackPressed()
+      findFragment(WordsListFragment::class)?.onBackPressed()
+      super.onBackPressed()
+    }
   }
   
   private fun applyLabelsFilter() {
