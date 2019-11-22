@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.arsvechkarev.core.domain.model.Label
 import com.arsvechkarev.core.extensions.inflate
 import com.arsvechkarev.labels.R
-import kotlinx.android.synthetic.main.item_label.view.textLabel
+import kotlinx.android.synthetic.main.item_label_default.view.textLabel
 
 class LabelsAdapter(
   private val clickListener: (Label) -> Unit = {}
@@ -15,7 +15,7 @@ class LabelsAdapter(
   private var data: List<Label> = ArrayList()
   
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LabelViewHolder {
-    return LabelViewHolder(parent.inflate(R.layout.item_label))
+    return LabelViewHolder(parent.inflate(R.layout.item_label_default))
   }
   
   override fun getItemCount() = data.size

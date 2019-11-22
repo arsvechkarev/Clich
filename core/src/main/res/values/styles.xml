@@ -30,6 +30,7 @@
     <item name="colorTextEditTextHint">@color/light_colorTextEditTextHint</item>
     <item name="colorDivider">@color/light_colorDivider</item>
     <item name="colorIcon">@color/light_colorIcon</item>
+    <item name="colorItem">@color/light_colorItem</item>
     <item name="colorRipple">@color/light_colorRipple</item>
   </style>
 
