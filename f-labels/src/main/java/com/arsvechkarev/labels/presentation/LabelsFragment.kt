@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import com.arsvechkarev.core.BaseFragment
-import com.arsvechkarev.core.domain.model.LabelEntity
+import com.arsvechkarev.core.domain.model.Label
 import com.arsvechkarev.core.extensions.inBackground
 import com.arsvechkarev.core.extensions.setupWith
 import com.arsvechkarev.labels.R
@@ -15,6 +15,7 @@ import kotlinx.android.synthetic.main.fragment_labels.fabNewLabel
 import kotlinx.android.synthetic.main.fragment_labels.recyclerLabels
 
 class LabelsFragment : BaseFragment(), CreateLabelDialog.Callback {
+  
   override val layoutId: Int = R.layout.fragment_labels
   
   private val adapter = LabelsAdapter()
@@ -31,7 +32,7 @@ class LabelsFragment : BaseFragment(), CreateLabelDialog.Callback {
   
   override fun onCreateClick(labelName: String) {
     inBackground {
-      CentralDatabase.instance.labelsDao().create(LabelEntity(name = labelName))
+      CentralDatabase.instance.labelsDao().create(Label(name = labelName))
     }
   }
   

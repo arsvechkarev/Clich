@@ -7,13 +7,13 @@ import androidx.room.RoomDatabase
 import com.arsvechkarev.core.domain.dao.LabelsDao
 import com.arsvechkarev.core.domain.dao.WordsDao
 import com.arsvechkarev.core.domain.dao.WordsLabelsDao
-import com.arsvechkarev.core.domain.model.LabelEntity
-import com.arsvechkarev.core.domain.model.WordEntity
+import com.arsvechkarev.core.domain.model.Label
+import com.arsvechkarev.core.domain.model.Word
 import com.arsvechkarev.core.domain.model.WordsLabelsJoin
 
 @Database(entities = [
-  WordEntity::class,
-  LabelEntity::class,
+  Word::class,
+  Label::class,
   WordsLabelsJoin::class
 ], version = 1)
 abstract class CentralDatabase : RoomDatabase() {

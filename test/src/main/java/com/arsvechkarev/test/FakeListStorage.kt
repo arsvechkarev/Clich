@@ -2,7 +2,6 @@ package com.arsvechkarev.test
 
 import com.arsvechkarev.core.Storage
 import com.arsvechkarev.core.domain.model.Word
-import com.arsvechkarev.core.domain.model.WordEntity
 
 @Suppress("UNCHECKED_CAST")
 class FakeWordsListStorage : Storage {

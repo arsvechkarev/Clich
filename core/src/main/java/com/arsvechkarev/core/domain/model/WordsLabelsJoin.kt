@@ -7,11 +7,11 @@ import androidx.room.ForeignKey
   tableName = "words_labels_join",
   primaryKeys = ["wordId", "labelId"],
   foreignKeys = [ForeignKey(
-    entity = WordEntity::class,
+    entity = Word::class,
     parentColumns = ["id"],
     childColumns = ["wordId"]
   ), ForeignKey(
-    entity = LabelEntity::class,
+    entity = Label::class,
     parentColumns = ["id"],
     childColumns = ["labelId"]
   )]

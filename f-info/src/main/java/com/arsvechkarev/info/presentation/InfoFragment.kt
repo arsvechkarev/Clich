@@ -5,7 +5,6 @@ import android.view.View
 import com.arsvechkarev.core.BaseFragment
 import com.arsvechkarev.core.di.viewmodel.ViewModelFactory
 import com.arsvechkarev.core.domain.model.Word
-import com.arsvechkarev.core.domain.model.toWordEntity
 import com.arsvechkarev.core.extensions.gone
 import com.arsvechkarev.core.extensions.observe
 import com.arsvechkarev.core.extensions.popBackStack
@@ -28,7 +27,6 @@ class InfoFragment : BaseFragment() {
   private lateinit var viewModel: InfoViewModel
   
   private val labelsAdapter = CurrentLabelsAdapter()
-  
   private var previousWord: Word? = null
   
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -63,7 +61,7 @@ class InfoFragment : BaseFragment() {
         // Word has been passed -> updating existing word
         it.word = editTextWord.text.toString()
         it.definition = editTextDefinition.text.toString()
-        viewModel.updateWord(it.toWordEntity())
+        viewModel.updateWord(it)
       }
       if (previousWord == null) {
         // Word hasn't been passed -> creating new word
@@ -71,7 +69,7 @@ class InfoFragment : BaseFragment() {
           word = editTextWord.text.toString(),
           definition = editTextDefinition.text.toString()
         )
-        viewModel.saveWord(newWord.toWordEntity())
+        viewModel.saveWord(newWord)
       }
     }
   }

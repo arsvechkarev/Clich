@@ -6,24 +6,10 @@ import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
 
 @Entity(tableName = "words")
-data class WordEntity(
+@Parcelize
+data class Word(
   @PrimaryKey(autoGenerate = true)
   val id: Int? = null,
   var word: String,
   var definition: String
-)
-
-@Parcelize
-data class Word(
-  val id: Int? = null,
-  var word: String,
-  var definition: String
 ) : Parcelable
-
-fun WordEntity.toWord(): Word {
-  return Word(id, word, definition)
-}
-
-fun Word.toWordEntity(): WordEntity {
-  return WordEntity(id, word, definition)
-}

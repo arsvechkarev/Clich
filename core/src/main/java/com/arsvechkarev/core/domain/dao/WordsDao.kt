@@ -6,20 +6,20 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
-import com.arsvechkarev.core.domain.model.WordEntity
+import com.arsvechkarev.core.domain.model.Word
 
 @Dao
 interface WordsDao {
   
   @Insert
-  suspend fun create(wordEntity: WordEntity)
+  suspend fun create(word: Word)
   
   @Update
-  suspend fun update(wordEntity: WordEntity)
+  suspend fun update(word: Word)
   
   @Query("SELECT * FROM words")
-  fun getAllLive(): LiveData<List<WordEntity>>
+  fun getAll(): LiveData<List<Word>>
   
   @Delete
-  suspend fun delete(wordEntity: WordEntity)
+  suspend fun delete(word: Word)
 }

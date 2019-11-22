@@ -7,22 +7,19 @@ object DataProvider {
   val wordExhausted = Word(
     null,
     "exhausted",
-    "very tired",
-    "latest"
+    "very tired"
   )
   
-  val wordRemarkable= Word(
+  val wordRemarkable = Word(
     null,
     "remarkable",
-    "worthy of attention",
-    "latest"
+    "worthy of attention"
   )
   
   val wordPan = Word(
     null,
     "pan",
-    "type of dishes",
-    "dishes"
+    "type of dishes"
   )
   
 }
