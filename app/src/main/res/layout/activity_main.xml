@@ -35,7 +35,7 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:background="@null"
-          android:hint="Search words..." />
+          android:hint="Search words..."/>
 
       </androidx.appcompat.widget.Toolbar>
 
@@ -44,7 +44,7 @@
     <FrameLayout
       android:id="@+id/baseContainer"
       android:layout_width="match_parent"
-      android:layout_height="match_parent" />
+      android:layout_height="match_parent"/>
 
   </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -58,12 +58,13 @@
     <Button
       android:id="@+id/buttonGoToLabels"
       android:layout_width="wrap_content"
-      android:layout_height="wrap_content"/>
+      android:layout_height="wrap_content"
+      android:text="labels"/>
 
     <androidx.recyclerview.widget.RecyclerView
       android:id="@+id/recyclerLabels"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content" />
+      android:layout_height="wrap_content"/>
 
   </com.google.android.material.navigation.NavigationView>
 

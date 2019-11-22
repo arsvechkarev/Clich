@@ -27,16 +27,12 @@ abstract class CentralDatabase : RoomDatabase() {
     lateinit var instance: CentralDatabase
       private set
     
-    lateinit var wordsDao: WordsDao
-      private set
-    
     fun instantiate(context: Context) {
       instance = Room.databaseBuilder(
         context,
         CentralDatabase::class.java,
         "words.db"
       ).build()
-      wordsDao = instance.wordDao()
     }
   }
 }

@@ -59,8 +59,7 @@ class InfoFragment : BaseFragment() {
         // Word hasn't been passed -> creating new word
         val newWord = Word(
           word = editTextWord.text.toString(),
-          definition = editTextDefinition.text.toString(),
-          label = null
+          definition = editTextDefinition.text.toString()
         )
         viewModel.saveWord(newWord.toWordEntity())
       }

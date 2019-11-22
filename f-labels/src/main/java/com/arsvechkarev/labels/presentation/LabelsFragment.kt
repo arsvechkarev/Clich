@@ -6,29 +6,33 @@ import androidx.lifecycle.Observer
 import com.arsvechkarev.core.BaseFragment
 import com.arsvechkarev.core.domain.model.LabelEntity
 import com.arsvechkarev.core.extensions.inBackground
-import com.arsvechkarev.core.extensions.string
+import com.arsvechkarev.core.extensions.setupWith
 import com.arsvechkarev.labels.R
+import com.arsvechkarev.labels.dialog.CreateLabelDialog
 import com.arsvechkarev.labels.list.LabelsAdapter
 import com.arsvechkarev.storage.database.CentralDatabase
-import kotlinx.android.synthetic.main.fragment_labels.buttonSaveNewLabel
-import kotlinx.android.synthetic.main.fragment_labels.editTextNewLabel
+import kotlinx.android.synthetic.main.fragment_labels.fabNewLabel
+import kotlinx.android.synthetic.main.fragment_labels.recyclerLabels
 
-class LabelsFragment : BaseFragment() {
-  
+class LabelsFragment : BaseFragment(), CreateLabelDialog.Callback {
   override val layoutId: Int = R.layout.fragment_labels
   
   private val adapter = LabelsAdapter()
   
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    recyclerLabels.setupWith(adapter)
     CentralDatabase.instance.labelsDao().getAllLive().observe(this, Observer {
       adapter.submitList(it)
     })
-    buttonSaveNewLabel.setOnClickListener {
-      inBackground {
-        CentralDatabase.instance.labelsDao().create(LabelEntity(name = editTextNewLabel.string()))
-      }
+    fabNewLabel.setOnClickListener {
+      CreateLabelDialog().show(childFragmentManager, null)
     }
-    
+  }
+  
+  override fun onCreateClick(labelName: String) {
+    inBackground {
+      CentralDatabase.instance.labelsDao().create(LabelEntity(name = labelName))
+    }
   }
   
 }

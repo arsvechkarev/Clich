@@ -5,6 +5,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import com.arsvechkarev.core.domain.model.LabelEntity
+import com.arsvechkarev.core.domain.model.WordEntity
 import com.arsvechkarev.core.domain.model.WordsLabelsJoin
 
 @Dao
@@ -31,5 +32,5 @@ interface WordsLabelsDao {
            WHERE words_labels_join.labelId=:labelId
            """
   )
-  fun getWordsOfLabel(labelId: Int): LiveData<List<LabelEntity>>
+  fun getWordsOfLabel(labelId: Int): LiveData<List<WordEntity>>
 }
