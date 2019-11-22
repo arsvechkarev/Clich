@@ -35,11 +35,11 @@ dependencies {
   implementation appDependencies.kotlin
   implementation appDependencies.appCompat
   implementation appDependencies.ktx
+
   implementation appDependencies.materialDesign
   implementation appDependencies.lifecycleExtensions
   implementation appDependencies.legacySupport
   implementation appDependencies.constraintLayout
-  implementation appDependencies.materialDesign
 
   implementation appDependencies.coroutinesCore
   implementation appDependencies.coroutinesAndroid

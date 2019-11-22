@@ -20,20 +20,20 @@
     android:src="@drawable/ic_arrow_back"
     android:tint="?colorIcon"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent" />
+    app:layout_constraintTop_toTopOf="parent"/>
 
   <TextView
     android:id="@+id/textNewWord"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:fontFamily="@font/metropolis_semi_bold"
     android:text="New word"
     android:textColor="?colorTextSecondary"
     android:textSize="18sp"
-    android:fontFamily="@font/metropolis_semi_bold"
     app:layout_constraintBottom_toBottomOf="@id/imageBack"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="@id/imageBack" />
+    app:layout_constraintTop_toTopOf="@id/imageBack"/>
 
   <EditText
     android:id="@+id/editTextWord"
@@ -47,7 +47,7 @@
     android:hint="Word"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/imageBack" />
+    app:layout_constraintTop_toBottomOf="@id/imageBack"/>
 
 
   <EditText
@@ -62,7 +62,30 @@
     android:hint="Definition"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/editTextWord" />
+    app:layout_constraintTop_toBottomOf="@id/editTextWord"/>
+
+  <androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/recyclerLabels"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    app:layoutManager="com.google.android.flexbox.FlexboxLayoutManager"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/editTextDefinition"/>
+
+  <com.google.android.material.button.MaterialButton
+    android:id="@+id/buttonAddLabel"
+    style="@style/Widget.MaterialComponents.Button.TextButton"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    android:drawableStart="@drawable/ic_add"
+    android:drawableTint="?colorTextPrimary"
+    android:text="Add labels"
+    android:textColor="?colorTextPrimary"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/recyclerLabels"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

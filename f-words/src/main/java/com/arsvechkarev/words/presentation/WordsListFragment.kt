@@ -14,13 +14,13 @@ import com.arsvechkarev.info.presentation.InfoFragment
 import com.arsvechkarev.words.R
 import com.arsvechkarev.words.di.DaggerWordsListComponent
 import com.arsvechkarev.words.list.WordsListAdapter
-import kotlinx.android.synthetic.main.layout_words_list.fabNewWord
-import kotlinx.android.synthetic.main.layout_words_list.recyclerWords
+import kotlinx.android.synthetic.main.fragment_words_list.fabNewWord
+import kotlinx.android.synthetic.main.fragment_words_list.recyclerWords
 import javax.inject.Inject
 
 class WordsListFragment : BaseFragment() {
   
-  override val layoutId: Int = R.layout.layout_words_list
+  override val layoutId: Int = R.layout.fragment_words_list
   @Inject lateinit var viewModelFactory: ViewModelFactory
   private lateinit var viewModel: WordsListViewModel
   

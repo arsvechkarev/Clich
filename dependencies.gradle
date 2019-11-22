@@ -31,7 +31,8 @@ ext {
       okhttpLoggingInterceptor: "com.squareup.okhttp3:logging-interceptor:$okhttpLoggingInterceptor_version",
       room                    : "androidx.room:room-runtime:$room_version",
       roomCompiler            : "androidx.room:room-compiler:$room_version",
-      roomKtx                 : "androidx.room:room-ktx:$room_version"
+      roomKtx                 : "androidx.room:room-ktx:$room_version",
+      flexboxLayout           : "com.google.android:flexbox:2.0.0"
   ]
 
 
