@@ -80,12 +80,19 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="16dp"
-    android:drawableStart="@drawable/ic_add"
-    android:drawableTint="?colorTextPrimary"
+    android:clickable="true"
+    app:icon="@drawable/ic_add"
+    android:textAllCaps="false"
+    android:letterSpacing="0.04"
+    android:textSize="15sp"
+    android:fontFamily="@font/metropolis_semi_bold"
+    app:iconTint="?colorTextPrimary"
+    android:focusable="true"
     android:text="Add labels"
     android:textColor="?colorTextPrimary"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/recyclerLabels"/>
+    app:layout_constraintTop_toBottomOf="@id/recyclerLabels"
+    app:rippleColor="?colorRipple"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

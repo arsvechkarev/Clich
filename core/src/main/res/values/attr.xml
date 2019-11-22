@@ -23,4 +23,5 @@
   <attr name="colorDivider" format="color" />
   <attr name="colorIcon" format="color" />
 
+  <attr name="colorRipple" format="color"/>
 </resources>

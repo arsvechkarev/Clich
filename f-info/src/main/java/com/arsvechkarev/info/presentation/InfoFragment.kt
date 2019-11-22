@@ -13,16 +13,16 @@ import com.arsvechkarev.info.R
 import com.arsvechkarev.info.di.DaggerInfoComponent
 import com.arsvechkarev.info.list.CurrentLabelsAdapter
 import com.google.android.flexbox.FlexboxLayoutManager
-import kotlinx.android.synthetic.main.layout_info.editTextDefinition
-import kotlinx.android.synthetic.main.layout_info.editTextWord
-import kotlinx.android.synthetic.main.layout_info.imageBack
-import kotlinx.android.synthetic.main.layout_info.recyclerLabels
-import kotlinx.android.synthetic.main.layout_info.textNewWord
+import kotlinx.android.synthetic.main.fragment_info.editTextDefinition
+import kotlinx.android.synthetic.main.fragment_info.editTextWord
+import kotlinx.android.synthetic.main.fragment_info.imageBack
+import kotlinx.android.synthetic.main.fragment_info.recyclerLabels
+import kotlinx.android.synthetic.main.fragment_info.textNewWord
 import javax.inject.Inject
 
 class InfoFragment : BaseFragment() {
   
-  override val layoutId: Int = R.layout.layout_info
+  override val layoutId: Int = R.layout.fragment_info
   @Inject lateinit var viewModelFactory: ViewModelFactory
   private lateinit var viewModel: InfoViewModel
   

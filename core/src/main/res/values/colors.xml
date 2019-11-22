@@ -22,4 +22,5 @@
   <color name="light_colorDivider">#E2E2E2</color>
   <color name="light_colorIcon">#6B6B6B</color>
 
+  <color name="light_colorRipple">#42000000</color>
 </resources>
