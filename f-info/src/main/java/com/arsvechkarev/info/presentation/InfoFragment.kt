@@ -7,13 +7,17 @@ import com.arsvechkarev.core.di.viewmodel.ViewModelFactory
 import com.arsvechkarev.core.domain.model.Word
 import com.arsvechkarev.core.domain.model.toWordEntity
 import com.arsvechkarev.core.extensions.gone
+import com.arsvechkarev.core.extensions.observe
 import com.arsvechkarev.core.extensions.popBackStack
 import com.arsvechkarev.core.extensions.viewModelOf
 import com.arsvechkarev.info.R
 import com.arsvechkarev.info.di.DaggerInfoComponent
+import com.arsvechkarev.info.list.CurrentLabelsAdapter
+import com.google.android.flexbox.FlexboxLayoutManager
 import kotlinx.android.synthetic.main.layout_info.editTextDefinition
 import kotlinx.android.synthetic.main.layout_info.editTextWord
 import kotlinx.android.synthetic.main.layout_info.imageBack
+import kotlinx.android.synthetic.main.layout_info.recyclerLabels
 import kotlinx.android.synthetic.main.layout_info.textNewWord
 import javax.inject.Inject
 
@@ -23,6 +27,8 @@ class InfoFragment : BaseFragment() {
   @Inject lateinit var viewModelFactory: ViewModelFactory
   private lateinit var viewModel: InfoViewModel
   
+  private val labelsAdapter = CurrentLabelsAdapter()
+  
   private var previousWord: Word? = null
   
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -31,6 +37,7 @@ class InfoFragment : BaseFragment() {
     imageBack.setOnClickListener { popBackStack() }
     previousWord = arguments?.get(WORD_KEY) as Word?
     previousWord?.let { setWord() }
+    recyclerLabels.layoutManager = FlexboxLayoutManager(context!!)
   }
   
   override fun onBackPressed() {
@@ -39,9 +46,12 @@ class InfoFragment : BaseFragment() {
   
   private fun setWord() {
     textNewWord.gone()
-    previousWord!!.let {
-      editTextWord.setText(it.word)
-      editTextDefinition.setText(it.definition)
+    previousWord!!.let { word ->
+      viewModel.getLabels(word).observe(this) { labels ->
+        labelsAdapter.submitList(labels)
+      }
+      editTextWord.setText(word.word)
+      editTextDefinition.setText(word.definition)
     }
   }
   

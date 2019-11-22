@@ -1,1 +1,1 @@
-include ':app', ':f-words', ':storage', ':f-info', ':core', ':test', ':f-labels', ':util'
+include ':app', ':f-words', ':storage', ':f-info', ':core', ':test', ':f-labels'
