@@ -28,9 +28,9 @@ class StandardLabelActionCallback(
   }
   
   override fun onSaveLabel(label: Label, newName: String) {
-    val newLabel = Label(label.id, label.name)
+    label.name = newName
     inBackground {
-      CentralDatabase.instance.labelsDao().update(newLabel)
+      CentralDatabase.instance.labelsDao().update(label)
     }
   }
   

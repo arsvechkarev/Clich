@@ -7,5 +7,5 @@ import androidx.room.PrimaryKey
 data class Label(
   @PrimaryKey(autoGenerate = true)
   val id: Int? = null,
-  val name: String
+  var name: String
 )
