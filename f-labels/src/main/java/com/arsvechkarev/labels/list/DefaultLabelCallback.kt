@@ -2,7 +2,7 @@ package com.arsvechkarev.labels.list
 
 import com.arsvechkarev.core.domain.model.Label
 
-interface LabelCallback {
+interface DefaultLabelCallback {
   
   fun onStartEditing() {}
   

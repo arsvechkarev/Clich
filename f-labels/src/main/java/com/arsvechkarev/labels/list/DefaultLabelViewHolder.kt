@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.item_label_default.view.textLabel
 
 class DefaultLabelViewHolder(
   itemView: View,
-  private val labelCallback: LabelCallback
+  private val labelCallback: DefaultLabelCallback
 ) : RecyclerView.ViewHolder(itemView) {
   
   private var isEditingMode = false

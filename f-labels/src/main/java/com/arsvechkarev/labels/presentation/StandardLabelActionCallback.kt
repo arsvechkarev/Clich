@@ -6,15 +6,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.arsvechkarev.core.domain.model.Label
 import com.arsvechkarev.core.extensions.inBackground
 import com.arsvechkarev.core.extensions.showKeyboard
+import com.arsvechkarev.labels.list.DefaultLabelCallback
 import com.arsvechkarev.labels.list.DefaultLabelViewHolder
-import com.arsvechkarev.labels.list.LabelCallback
 import com.arsvechkarev.storage.database.CentralDatabase
 
 class StandardLabelActionCallback(
   private val activity: Activity,
   private val layoutManager: LinearLayoutManager,
   private val recyclerLabels: RecyclerView
-) : LabelCallback {
+) : DefaultLabelCallback {
   
   override fun onStartEditing() {
     showKeyboard(activity)

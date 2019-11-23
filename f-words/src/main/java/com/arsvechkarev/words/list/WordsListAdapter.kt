@@ -4,10 +4,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.arsvechkarev.core.domain.model.Word
-import com.arsvechkarev.core.extensions.gone
 import com.arsvechkarev.core.extensions.inflate
 import com.arsvechkarev.words.R
-import kotlinx.android.synthetic.main.item_word.view.divider
 import kotlinx.android.synthetic.main.item_word.view.textWord
 
 class WordsListAdapter(
@@ -36,9 +34,6 @@ class WordsListAdapter(
     fun bind(item: Word) {
       itemView.setOnClickListener { clickListener(item) }
       itemView.textWord.text = item.word
-      if (adapterPosition == itemCount - 1) {
-        itemView.divider.gone()
-      }
     }
   }
 }

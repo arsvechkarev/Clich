@@ -8,7 +8,7 @@ import com.arsvechkarev.core.extensions.inflate
 import com.arsvechkarev.labels.R
 
 class LabelsAdapter(
-  private val labelCallback: LabelCallback
+  private val labelCallback: DefaultLabelCallback
 ) : RecyclerView.Adapter<DefaultLabelViewHolder>() {
   
   private var data: List<Label> = ArrayList()
