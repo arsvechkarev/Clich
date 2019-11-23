@@ -18,7 +18,7 @@ interface LabelsDao {
   suspend fun update(label: Label)
   
   @Query("SELECT * FROM labels")
-  fun getAllLive(): LiveData<List<Label>>
+  fun getAll(): LiveData<List<Label>>
   
   @Delete
   suspend fun delete(label: Label)

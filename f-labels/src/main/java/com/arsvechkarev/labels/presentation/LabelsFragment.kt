@@ -1,13 +1,14 @@
 package com.arsvechkarev.labels.presentation
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.arsvechkarev.core.BaseFragment
 import com.arsvechkarev.core.domain.model.Label
 import com.arsvechkarev.core.extensions.inBackground
 import com.arsvechkarev.core.extensions.observe
 import com.arsvechkarev.core.extensions.popBackStack
-import com.arsvechkarev.core.extensions.setupWith
 import com.arsvechkarev.labels.R
 import com.arsvechkarev.labels.dialog.CreateLabelDialog
 import com.arsvechkarev.labels.list.LabelsAdapter
@@ -20,12 +21,20 @@ class LabelsFragment : BaseFragment(), CreateLabelDialog.Callback {
   
   override val layoutId: Int = R.layout.fragment_labels
   
-  private val adapter = LabelsAdapter()
+  private lateinit var layoutManager: LinearLayoutManager
+  
+  private val adapter by lazy {
+    LabelsAdapter(StandardLabelActionCallback(requireActivity(), layoutManager, recyclerLabels))
+  }
   
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    recyclerLabels.setupWith(adapter)
+    layoutManager = LinearLayoutManager(context)
+    recyclerLabels.layoutManager = layoutManager
+    recyclerLabels.adapter = adapter
     toolbar.setNavigationOnClickListener { popBackStack() }
-    CentralDatabase.instance.labelsDao().getAllLive().observe(this, adapter::submitList)
+    val labelsDao = CentralDatabase.instance.labelsDao()
+    Log.d("zxcvb", "labels dao = $labelsDao")
+    labelsDao.getAll().observe(this, adapter::submitList)
     fabNewLabel.setOnClickListener {
       CreateLabelDialog().show(childFragmentManager, null)
     }
