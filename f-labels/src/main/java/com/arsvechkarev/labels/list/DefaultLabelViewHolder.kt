@@ -1,6 +1,5 @@
 package com.arsvechkarev.labels.list
 
-import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.arsvechkarev.core.domain.model.Label
@@ -34,7 +33,6 @@ class DefaultLabelViewHolder(
         labelCallback.onStartEditing()
         startEditingMode()
       } else {
-        Log.d("zxcvb", "before save, label = $item, newName = ${itemView.editTextLabel.string()}")
         labelCallback.onSaveLabel(item, itemView.editTextLabel.string())
         endEditingMode()
       }

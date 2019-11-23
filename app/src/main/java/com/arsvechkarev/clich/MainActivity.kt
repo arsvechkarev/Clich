@@ -13,8 +13,8 @@ import com.arsvechkarev.core.extensions.setupToggle
 import com.arsvechkarev.core.extensions.setupWith
 import com.arsvechkarev.core.extensions.switchFragment
 import com.arsvechkarev.info.presentation.InfoFragment
-import com.arsvechkarev.labels.list.DefaultLabelCallback
 import com.arsvechkarev.labels.list.LabelsAdapter
+import com.arsvechkarev.labels.list.Mode
 import com.arsvechkarev.labels.presentation.LabelsFragment
 import com.arsvechkarev.storage.database.CentralDatabase
 import com.arsvechkarev.words.presentation.WordsListFragment
@@ -27,7 +27,7 @@ import kotlin.reflect.KClass
 
 class MainActivity : AppCompatActivity(), CoreActivity {
   
-  private val labelsAdapter = LabelsAdapter(object : DefaultLabelCallback{})
+  private val labelsAdapter = LabelsAdapter(Mode.Simple {})
   
   override val snackBarPlace: View by lazy { baseContainer }
   
