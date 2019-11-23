@@ -20,6 +20,12 @@ class DefaultLabelViewHolder(
   private var isEditingMode = false
   
   fun bind(item: Label) {
+    itemView.editTextLabel.setOnFocusChangeListener { _, hasFocus ->
+      if (!hasFocus) {
+        labelCallback.onSaveLabel(item, itemView.editTextLabel.string())
+        endEditingMode()
+      }
+    }
     itemView.textLabel.text = item.name
     itemView.imageStart.setOnClickListener {
       if (isEditingMode) {
@@ -50,7 +56,7 @@ class DefaultLabelViewHolder(
     itemView.textLabel.invisible()
   }
   
-  fun endEditingMode() {
+  private fun endEditingMode() {
     itemView.imageStart.setImageResource(R.drawable.ic_label)
     itemView.imageEnd.setImageResource(R.drawable.ic_edit)
     itemView.editTextLabel.apply {

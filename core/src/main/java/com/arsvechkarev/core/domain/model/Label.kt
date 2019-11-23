@@ -8,4 +8,8 @@ data class Label(
   @PrimaryKey(autoGenerate = true)
   val id: Int? = null,
   var name: String
-)
+) : Comparable<Label> {
+  override fun compareTo(other: Label): Int {
+    return name.compareTo(other.name)
+  }
+}

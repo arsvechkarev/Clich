@@ -12,9 +12,6 @@ class SimpleLabelViewHolder(
   
   fun bind(item: Label) {
     itemView.textLabel.text = item.name
-    itemView.setOnClickListener {
-      
-      clickListener.invoke(item)
-    }
+    itemView.setOnClickListener { clickListener(item) }
   }
 }

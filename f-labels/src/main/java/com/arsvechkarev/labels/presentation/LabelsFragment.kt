@@ -1,7 +1,6 @@
 package com.arsvechkarev.labels.presentation
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.arsvechkarev.core.BaseFragment
@@ -17,6 +16,9 @@ import com.arsvechkarev.storage.database.CentralDatabase
 import kotlinx.android.synthetic.main.fragment_labels.fabNewLabel
 import kotlinx.android.synthetic.main.fragment_labels.recyclerLabels
 import kotlinx.android.synthetic.main.fragment_labels.toolbar
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class LabelsFragment : BaseFragment(), CreateLabelDialog.Callback {
   
@@ -26,7 +28,7 @@ class LabelsFragment : BaseFragment(), CreateLabelDialog.Callback {
   
   private val adapter by lazy {
     LabelsAdapter(
-      Default(StandardLabelActionCallback(requireActivity(), layoutManager, recyclerLabels))
+      Default(StandardLabelActionCallback(requireActivity()))
     )
   }
   
@@ -35,9 +37,11 @@ class LabelsFragment : BaseFragment(), CreateLabelDialog.Callback {
     recyclerLabels.layoutManager = layoutManager
     recyclerLabels.adapter = adapter
     toolbar.setNavigationOnClickListener { popBackStack() }
-    val labelsDao = CentralDatabase.instance.labelsDao()
-    Log.d("zxcvb", "labels dao = $labelsDao")
-    labelsDao.getAll().observe(this, adapter::submitList)
+    CentralDatabase.instance.labelsDao().getAll().observe(this, adapter::submitList)
+    GlobalScope.launch(Dispatchers.Main) {
+      val list = CentralDatabase.instance.labelsDao().getAllSuspend()
+      adapter.submitList(list)
+    }
     fabNewLabel.setOnClickListener {
       CreateLabelDialog().show(childFragmentManager, null)
     }

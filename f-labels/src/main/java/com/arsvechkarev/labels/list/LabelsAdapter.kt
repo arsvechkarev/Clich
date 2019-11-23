@@ -43,7 +43,7 @@ class LabelsAdapter(
   }
   
   fun submitList(data: List<Label>) {
-    this.data = data
+    this.data = data.sorted()
     notifyDataSetChanged()
   }
 }
