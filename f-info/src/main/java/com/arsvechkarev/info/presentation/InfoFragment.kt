@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import com.arsvechkarev.core.BaseFragment
 import com.arsvechkarev.core.di.viewmodel.ViewModelFactory
+import com.arsvechkarev.core.domain.model.Label
 import com.arsvechkarev.core.domain.model.Word
 import com.arsvechkarev.core.extensions.gone
 import com.arsvechkarev.core.extensions.observe
@@ -12,7 +13,10 @@ import com.arsvechkarev.core.extensions.viewModelOf
 import com.arsvechkarev.info.R
 import com.arsvechkarev.info.di.DaggerInfoComponent
 import com.arsvechkarev.info.list.CurrentLabelsAdapter
+import com.arsvechkarev.labels.list.CheckboxLabelCallback
+import com.arsvechkarev.labels.presentation.LabelsCheckboxFragment
 import com.google.android.flexbox.FlexboxLayoutManager
+import kotlinx.android.synthetic.main.fragment_info.buttonAddLabel
 import kotlinx.android.synthetic.main.fragment_info.editTextDefinition
 import kotlinx.android.synthetic.main.fragment_info.editTextWord
 import kotlinx.android.synthetic.main.fragment_info.imageBack
@@ -29,6 +33,8 @@ class InfoFragment : BaseFragment() {
   private val labelsAdapter = CurrentLabelsAdapter()
   private var previousWord: Word? = null
   
+  private val checkedLabels = ArrayList<Label>()
+  
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     DaggerInfoComponent.create().inject(this)
     viewModel = viewModelOf(viewModelFactory)
@@ -36,6 +42,18 @@ class InfoFragment : BaseFragment() {
     previousWord = arguments?.get(WORD_KEY) as Word?
     previousWord?.let { setWord() }
     recyclerLabels.layoutManager = FlexboxLayoutManager(context!!)
+    buttonAddLabel.setOnClickListener {
+      val fragment = LabelsCheckboxFragment()
+      fragment.setCallback(object : CheckboxLabelCallback {
+        override fun onCheck(label: Label) {
+          checkedLabels.add(label)
+        }
+        
+        override fun onUncheck(label: Label) {
+          checkedLabels.remove(label)
+        }
+      })
+    }
   }
   
   override fun onBackPressed() {

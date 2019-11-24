@@ -27,6 +27,7 @@ android {
 dependencies {
   implementation project(':core')
   implementation project(':storage')
+  implementation project(':f-labels')
 
   def appDependencies = rootProject.ext.applicationDependencies
   def testDependencies = rootProject.ext.testDependencies

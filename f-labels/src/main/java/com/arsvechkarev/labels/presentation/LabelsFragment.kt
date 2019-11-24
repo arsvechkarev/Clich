@@ -8,8 +8,10 @@ import com.arsvechkarev.core.domain.model.Label
 import com.arsvechkarev.core.extensions.inBackground
 import com.arsvechkarev.core.extensions.observe
 import com.arsvechkarev.core.extensions.popBackStack
+import com.arsvechkarev.core.extensions.showKeyboard
 import com.arsvechkarev.labels.R
 import com.arsvechkarev.labels.dialog.CreateLabelDialog
+import com.arsvechkarev.labels.list.DefaultLabelCallback
 import com.arsvechkarev.labels.list.LabelsAdapter
 import com.arsvechkarev.labels.list.Mode.Default
 import com.arsvechkarev.storage.database.CentralDatabase
@@ -28,7 +30,24 @@ class LabelsFragment : BaseFragment(), CreateLabelDialog.Callback {
   
   private val adapter by lazy {
     LabelsAdapter(
-      Default(StandardLabelActionCallback(requireActivity()))
+      Default(object : DefaultLabelCallback {
+        override fun onStartEditing() {
+          showKeyboard()
+        }
+        
+        override fun onSaveLabel(label: Label, newName: String) {
+          label.name = newName
+          inBackground {
+            CentralDatabase.instance.labelsDao().update(label)
+          }
+        }
+        
+        override fun onDeletingLabel(label: Label) {
+          inBackground {
+            CentralDatabase.instance.labelsDao().delete(label)
+          }
+        }
+      })
     )
   }
   
