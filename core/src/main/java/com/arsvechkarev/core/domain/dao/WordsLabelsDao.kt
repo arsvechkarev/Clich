@@ -2,7 +2,9 @@ package com.arsvechkarev.core.domain.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
 import com.arsvechkarev.core.domain.model.Label
 import com.arsvechkarev.core.domain.model.Word
@@ -11,8 +13,11 @@ import com.arsvechkarev.core.domain.model.WordsLabelsJoin
 @Dao
 interface WordsLabelsDao {
   
-  @Insert
-  fun insert(wordsLabelsJoin: WordsLabelsJoin)
+  @Insert(onConflict = REPLACE)
+  suspend fun insert(wordsLabelsJoin: WordsLabelsJoin)
+  
+  @Delete
+  suspend fun delete(wordsLabelsJoin: WordsLabelsJoin)
   
   @Query(
     """

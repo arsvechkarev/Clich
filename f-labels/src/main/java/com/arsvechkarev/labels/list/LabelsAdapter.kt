@@ -26,8 +26,7 @@ class LabelsAdapter(
         mode.clickListener
       )
       is Checkbox -> CheckboxLabelViewHolder(
-        parent.inflate(R.layout.item_label_checkbox),
-        mode.labelCallback
+        parent.inflate(R.layout.item_label_checkbox), mode.word
       )
     }
   }

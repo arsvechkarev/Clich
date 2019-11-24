@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.arsvechkarev.core.domain.model.Label
 import com.arsvechkarev.core.extensions.inflate
 import com.arsvechkarev.info.R
+import kotlinx.android.synthetic.main.item_current_label.view.textLabel
 
 class CurrentLabelsAdapter(
   private val clickListener: (Label) -> Unit = {}
@@ -30,6 +31,7 @@ class CurrentLabelsAdapter(
   
   class CurrentLabelsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     fun bind(item: Label, clickListener: (Label) -> Unit) {
+      itemView.textLabel.text = item.name
       itemView.setOnClickListener { clickListener(item) }
     }
   }

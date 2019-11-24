@@ -11,13 +11,13 @@ class InfoViewModel @Inject constructor(
   private val database: CentralDatabase
 ) : BaseViewModel() {
   
-  fun getLabels(word: Word): LiveData<List<Label>> {
+  fun getLabelsForWord(word: Word): LiveData<List<Label>> {
     return database.wordsAndLabelsDao().getLabelsForWord(word.id!!)
   }
   
-  fun saveWord(word: Word) {
+  fun insertWord(word: Word) {
     launchGlobal {
-      database.wordDao().create(word)
+      database.wordDao().insert(word)
     }
   }
   

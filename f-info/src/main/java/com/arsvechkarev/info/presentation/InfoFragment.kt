@@ -1,10 +1,11 @@
 package com.arsvechkarev.info.presentation
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import com.arsvechkarev.core.BaseFragment
+import com.arsvechkarev.core.coreActivity
 import com.arsvechkarev.core.di.viewmodel.ViewModelFactory
-import com.arsvechkarev.core.domain.model.Label
 import com.arsvechkarev.core.domain.model.Word
 import com.arsvechkarev.core.extensions.gone
 import com.arsvechkarev.core.extensions.observe
@@ -13,7 +14,6 @@ import com.arsvechkarev.core.extensions.viewModelOf
 import com.arsvechkarev.info.R
 import com.arsvechkarev.info.di.DaggerInfoComponent
 import com.arsvechkarev.info.list.CurrentLabelsAdapter
-import com.arsvechkarev.labels.list.CheckboxLabelCallback
 import com.arsvechkarev.labels.presentation.LabelsCheckboxFragment
 import com.google.android.flexbox.FlexboxLayoutManager
 import kotlinx.android.synthetic.main.fragment_info.buttonAddLabel
@@ -33,8 +33,6 @@ class InfoFragment : BaseFragment() {
   private val labelsAdapter = CurrentLabelsAdapter()
   private var previousWord: Word? = null
   
-  private val checkedLabels = ArrayList<Label>()
-  
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     DaggerInfoComponent.create().inject(this)
     viewModel = viewModelOf(viewModelFactory)
@@ -43,16 +41,15 @@ class InfoFragment : BaseFragment() {
     previousWord?.let { setWord() }
     recyclerLabels.layoutManager = FlexboxLayoutManager(context!!)
     buttonAddLabel.setOnClickListener {
-      val fragment = LabelsCheckboxFragment()
-      fragment.setCallback(object : CheckboxLabelCallback {
-        override fun onCheck(label: Label) {
-          checkedLabels.add(label)
-        }
-        
-        override fun onUncheck(label: Label) {
-          checkedLabels.remove(label)
-        }
-      })
+      val newWord = if (previousWord == null) {
+        val word = Word(word = "", definition = "")
+        viewModel.insertWord(word)
+        word
+      } else {
+        previousWord!!
+      }
+      val fragment = LabelsCheckboxFragment.of(newWord)
+      coreActivity.goToFragmentFromRoot(fragment, LabelsCheckboxFragment::class, true)
     }
   }
   
@@ -63,7 +60,8 @@ class InfoFragment : BaseFragment() {
   private fun setWord() {
     textNewWord.gone()
     previousWord!!.let { word ->
-      viewModel.getLabels(word).observe(this) { labels ->
+      viewModel.getLabelsForWord(word).observe(this) { labels ->
+        Log.d("zxcvb", "labels = $labels")
         labelsAdapter.submitList(labels)
       }
       editTextWord.setText(word.word)
@@ -87,7 +85,7 @@ class InfoFragment : BaseFragment() {
           word = editTextWord.text.toString(),
           definition = editTextDefinition.text.toString()
         )
-        viewModel.saveWord(newWord)
+        viewModel.insertWord(newWord)
       }
     }
   }
