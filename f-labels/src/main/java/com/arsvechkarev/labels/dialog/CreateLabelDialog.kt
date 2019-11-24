@@ -37,15 +37,12 @@ class CreateLabelDialog : DialogFragment() {
   
   override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
     val view = requireActivity().layoutInflater.inflate(R.layout.dialog_create_label, null)
-    
     val buttonCreate = view.findViewById<Button>(R.id.buttonCreate)
-    editTextLabelName = view.findViewById<EditText>(R.id.editTextLabelName)
-    
+    editTextLabelName = view.findViewById(R.id.editTextLabelName)
     buttonCreate.setOnClickListener {
       callback.onCreateClick(editTextLabelName.string())
       dismiss()
     }
-    
     return AlertDialog.Builder(activity!!)
       .setView(view)
       .create()

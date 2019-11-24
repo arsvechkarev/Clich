@@ -9,6 +9,9 @@ import com.arsvechkarev.labels.list.Mode.Checkbox
 import com.arsvechkarev.labels.list.Mode.Default
 import com.arsvechkarev.labels.list.Mode.Simple
 
+/**
+ * Adapter for displaying labels depending on [mode]
+ */
 class LabelsAdapter(
   private val mode: Mode
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {

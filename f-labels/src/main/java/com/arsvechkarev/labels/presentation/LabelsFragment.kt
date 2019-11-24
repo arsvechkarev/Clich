@@ -25,7 +25,6 @@ import kotlinx.android.synthetic.main.fragment_labels.toolbar
 class LabelsFragment : BaseFragment(), CreateLabelDialog.Callback {
   
   override val layoutId: Int = R.layout.fragment_labels
-  
   private lateinit var layoutManager: LinearLayoutManager
   
   fun hideK() {

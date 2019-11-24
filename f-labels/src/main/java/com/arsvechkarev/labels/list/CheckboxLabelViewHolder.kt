@@ -22,17 +22,12 @@ class CheckboxLabelViewHolder(
     }
     itemView.textLabel.text = item.name
     itemView.checkbox.setOnCheckedChangeListener { _, isChecked ->
-      if (isChecked) {
-        inBackground {
-          CentralDatabase.instance.wordsAndLabelsDao().insert(
-            WordsLabelsJoin(word.id!!, item.id!!)
-          )
-        }
-      } else {
-        inBackground {
-          CentralDatabase.instance.wordsAndLabelsDao().delete(
-            WordsLabelsJoin(word.id!!, item.id!!)
-          )
+      inBackground {
+        val wordsLabelsJoin = WordsLabelsJoin(word.id!!, item.id!!)
+        if (isChecked) {
+          CentralDatabase.instance.wordsAndLabelsDao().insert(wordsLabelsJoin)
+        } else {
+          CentralDatabase.instance.wordsAndLabelsDao().delete(wordsLabelsJoin)
         }
       }
     }

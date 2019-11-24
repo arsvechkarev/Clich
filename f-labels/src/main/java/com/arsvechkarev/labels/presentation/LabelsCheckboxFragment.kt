@@ -21,6 +21,7 @@ class LabelsCheckboxFragment : BaseFragment() {
   private lateinit var labels: List<Label>
   private val labelsAdapter by lazy { LabelsAdapter(Mode.Checkbox(word, labels)) }
   
+  @Suppress("UNCHECKED_CAST")
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     word = arguments!!.get(WORD_KEY) as Word
     labels = arguments!!.get(LABELS_KEY) as List<Label>
