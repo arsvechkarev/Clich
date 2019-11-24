@@ -40,6 +40,7 @@ class InfoFragment : BaseFragment() {
     previousWord = arguments?.get(WORD_KEY) as Word?
     previousWord?.let { setWord() }
     recyclerLabels.layoutManager = FlexboxLayoutManager(context!!)
+    recyclerLabels.adapter = labelsAdapter
     buttonAddLabel.setOnClickListener {
       val newWord = if (previousWord == null) {
         val word = Word(word = "", definition = "")
