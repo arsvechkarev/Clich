@@ -17,6 +17,6 @@ import androidx.room.ForeignKey
   )]
 )
 data class WordsLabelsJoin(
-  val wordId: Int,
+  val wordId: Long,
   val labelId: Int
 )

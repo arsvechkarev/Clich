@@ -21,9 +21,19 @@ class InfoViewModel @Inject constructor(
     }
   }
   
+  suspend fun insertWordAndGetId(word: Word): Long{
+    return database.wordDao().insert(word)
+  }
+  
   fun updateWord(word: Word) {
     launchGlobal {
       database.wordDao().update(word)
+    }
+  }
+  
+  fun deleteWord(word: Word) {
+    launchGlobal {
+      database.wordDao().delete(word)
     }
   }
   

@@ -1,7 +1,6 @@
 package com.arsvechkarev.info.presentation
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import com.arsvechkarev.core.BaseFragment
 import com.arsvechkarev.core.coreActivity
@@ -22,6 +21,9 @@ import kotlinx.android.synthetic.main.fragment_info.editTextWord
 import kotlinx.android.synthetic.main.fragment_info.imageBack
 import kotlinx.android.synthetic.main.fragment_info.recyclerLabels
 import kotlinx.android.synthetic.main.fragment_info.textNewWord
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class InfoFragment : BaseFragment() {
@@ -38,7 +40,23 @@ class InfoFragment : BaseFragment() {
     viewModel = viewModelOf(viewModelFactory)
     imageBack.setOnClickListener { popBackStack() }
     previousWord = arguments?.get(WORD_KEY) as Word?
-    previousWord?.let { setWord() }
+    
+    if (previousWord == null) {
+      GlobalScope.launch(Dispatchers.Main) {
+        val id = viewModel.insertWordAndGetId(Word.empty())
+        previousWord = Word(id, "", "")
+        viewModel.getLabelsForWord(previousWord!!).observe(this@InfoFragment) { labels ->
+          labelsAdapter.submitList(labels)
+        }
+      }
+    } else {
+      previousWord?.let { setWord() }
+      viewModel.getLabelsForWord(previousWord!!).observe(this) { labels ->
+        labelsAdapter.submitList(labels)
+      }
+    }
+  
+    
     recyclerLabels.layoutManager = FlexboxLayoutManager(context!!)
     recyclerLabels.adapter = labelsAdapter
     buttonAddLabel.setOnClickListener {
@@ -49,7 +67,7 @@ class InfoFragment : BaseFragment() {
       } else {
         previousWord!!
       }
-      val fragment = LabelsCheckboxFragment.of(newWord)
+      val fragment = LabelsCheckboxFragment.of(previousWord!!)
       coreActivity.goToFragmentFromRoot(fragment, LabelsCheckboxFragment::class, true)
     }
   }
@@ -62,7 +80,6 @@ class InfoFragment : BaseFragment() {
     textNewWord.gone()
     previousWord!!.let { word ->
       viewModel.getLabelsForWord(word).observe(this) { labels ->
-        Log.d("zxcvb", "labels = $labels")
         labelsAdapter.submitList(labels)
       }
       editTextWord.setText(word.word)
@@ -88,6 +105,8 @@ class InfoFragment : BaseFragment() {
         )
         viewModel.insertWord(newWord)
       }
+    } else {
+      viewModel.deleteWord(previousWord!!)
     }
   }
   

@@ -9,7 +9,13 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class Word(
   @PrimaryKey(autoGenerate = true)
-  val id: Int? = null,
+  val id: Long? = null,
   var word: String,
   var definition: String
-) : Parcelable
+) : Parcelable {
+  companion object {
+    fun empty() : Word {
+      return Word(word = "", definition = "")
+    }
+  }
+}

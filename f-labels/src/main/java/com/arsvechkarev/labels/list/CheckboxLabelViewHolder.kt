@@ -1,6 +1,5 @@
 package com.arsvechkarev.labels.list
 
-import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.arsvechkarev.core.domain.model.Label
@@ -21,14 +20,12 @@ class CheckboxLabelViewHolder(
     itemView.checkbox.setOnCheckedChangeListener { _, isChecked ->
       if (isChecked) {
         inBackground {
-          Log.d("zxcvb", "is checked")
           CentralDatabase.instance.wordsAndLabelsDao().insert(
             WordsLabelsJoin(word.id!!, item.id!!)
           )
         }
       } else {
         inBackground {
-          Log.d("zxcvb", "is unchecked")
           CentralDatabase.instance.wordsAndLabelsDao().delete(
             WordsLabelsJoin(word.id!!, item.id!!)
           )

@@ -27,7 +27,7 @@ interface WordsLabelsDao {
            WHERE words_labels_join.wordId=:wordId
            """
   )
-  fun getLabelsForWord(wordId: Int): LiveData<List<Label>>
+  fun getLabelsForWord(wordId: Long): LiveData<List<Label>>
   
   @Query(
     """
