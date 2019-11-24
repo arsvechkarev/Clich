@@ -10,6 +10,7 @@ sealed class Mode {
   class Simple(val clickListener: (Label) -> Unit) : Mode()
   
   class Checkbox(
-    val word: Word
+    val word: Word,
+    val labels: List<Label>
   ) : Mode()
 }

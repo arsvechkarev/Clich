@@ -5,6 +5,7 @@ import android.view.View
 import com.arsvechkarev.core.BaseFragment
 import com.arsvechkarev.core.coreActivity
 import com.arsvechkarev.core.di.viewmodel.ViewModelFactory
+import com.arsvechkarev.core.domain.model.Label
 import com.arsvechkarev.core.domain.model.Word
 import com.arsvechkarev.core.extensions.gone
 import com.arsvechkarev.core.extensions.observe
@@ -34,6 +35,7 @@ class InfoFragment : BaseFragment() {
   
   private val labelsAdapter = CurrentLabelsAdapter()
   private var previousWord: Word? = null
+  private lateinit var wordsLabels: List<Label>
   
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     DaggerInfoComponent.create().inject(this)
@@ -46,28 +48,22 @@ class InfoFragment : BaseFragment() {
         val id = viewModel.insertWordAndGetId(Word.empty())
         previousWord = Word(id, "", "")
         viewModel.getLabelsForWord(previousWord!!).observe(this@InfoFragment) { labels ->
-          labelsAdapter.submitList(labels)
+          wordsLabels = labels
+          labelsAdapter.submitList(wordsLabels)
         }
       }
     } else {
       previousWord?.let { setWord() }
       viewModel.getLabelsForWord(previousWord!!).observe(this) { labels ->
-        labelsAdapter.submitList(labels)
+        wordsLabels = labels
+        labelsAdapter.submitList(wordsLabels)
       }
     }
-  
     
     recyclerLabels.layoutManager = FlexboxLayoutManager(context!!)
     recyclerLabels.adapter = labelsAdapter
     buttonAddLabel.setOnClickListener {
-      val newWord = if (previousWord == null) {
-        val word = Word(word = "", definition = "")
-        viewModel.insertWord(word)
-        word
-      } else {
-        previousWord!!
-      }
-      val fragment = LabelsCheckboxFragment.of(previousWord!!)
+      val fragment = LabelsCheckboxFragment.of(previousWord!!, ArrayList(wordsLabels))
       coreActivity.goToFragmentFromRoot(fragment, LabelsCheckboxFragment::class, true)
     }
   }
