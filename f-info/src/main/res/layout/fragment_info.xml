@@ -1,98 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:background="?colorWindowBackground"
-  android:clickable="true"
-  android:focusable="true"
-  android:orientation="vertical">
+  android:background="?colorWindowBackground">
 
-  <ImageView
-    android:id="@+id/imageBack"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="16dp"
-    android:layout_marginTop="16dp"
-    android:background="?selectableItemBackgroundBorderless"
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?colorWindowBackground"
     android:clickable="true"
-    android:focusable="true"
-    android:src="@drawable/ic_arrow_back"
-    android:tint="?colorIcon"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"/>
+    android:focusable="true">
 
-  <TextView
-    android:id="@+id/textNewWord"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:fontFamily="@font/metropolis_semi_bold"
-    android:text="New word"
-    android:textColor="?colorTextSecondary"
-    android:textSize="18sp"
-    app:layout_constraintBottom_toBottomOf="@id/imageBack"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="@id/imageBack"/>
+    <ImageView
+      android:id="@+id/imageBack"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="16dp"
+      android:layout_marginTop="16dp"
+      android:background="?selectableItemBackgroundBorderless"
+      android:clickable="true"
+      android:focusable="true"
+      android:src="@drawable/ic_arrow_back"
+      android:tint="?colorIcon"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"/>
 
-  <EditText
-    android:id="@+id/editTextWord"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="16dp"
-    android:layout_marginTop="40dp"
-    android:layout_marginEnd="16dp"
-    android:background="@null"
-    android:fontFamily="@font/metropolis_semi_bold"
-    android:hint="Word"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/imageBack"/>
+    <TextView
+      android:id="@+id/textNewWord"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:fontFamily="@font/metropolis_semi_bold"
+      android:text="New word"
+      android:textColor="?colorTextSecondary"
+      android:textSize="18sp"
+      app:layout_constraintBottom_toBottomOf="@id/imageBack"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="@id/imageBack"/>
 
-
-  <EditText
-    android:id="@+id/editTextDefinition"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="16dp"
-    android:layout_marginTop="24dp"
-    android:layout_marginEnd="16dp"
-    android:background="@null"
-    android:fontFamily="@font/metropolis_regular"
-    android:hint="Definition"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/editTextWord"/>
-
-  <androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/recyclerLabels"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="16dp"
-    app:layoutManager="com.google.android.flexbox.FlexboxLayoutManager"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/editTextDefinition"/>
-
-  <com.google.android.material.button.MaterialButton
-    android:id="@+id/buttonAddLabel"
-    style="@style/Widget.MaterialComponents.Button.TextButton"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_margin="16dp"
-    android:clickable="true"
-    app:icon="@drawable/ic_add"
-    android:textAllCaps="false"
-    android:letterSpacing="0.04"
-    android:textSize="15sp"
-    android:fontFamily="@font/metropolis_semi_bold"
-    app:iconTint="?colorTextPrimary"
-    android:focusable="true"
-    android:text="Add labels"
-    android:textColor="?colorTextPrimary"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/recyclerLabels"
-    app:rippleColor="?colorRipple"/>
+    <EditText
+      android:id="@+id/editTextWord"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="24dp"
+      android:layout_marginTop="40dp"
+      android:layout_marginEnd="16dp"
+      android:background="@null"
+      android:fontFamily="@font/metropolis_semi_bold"
+      android:hint="Word"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/imageBack"/>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <EditText
+      android:id="@+id/editTextDefinition"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="24dp"
+      android:layout_marginTop="24dp"
+      android:layout_marginEnd="16dp"
+      android:background="@null"
+      android:fontFamily="@font/metropolis_regular"
+      android:hint="Definition"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/editTextWord"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+      android:id="@+id/recyclerLabels"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="16dp"
+      android:layout_marginTop="32dp"
+      android:layout_marginEnd="16dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/editTextDefinition"/>
+
+    <com.google.android.material.button.MaterialButton
+      android:id="@+id/buttonAddLabel"
+      style="@style/Widget.MaterialComponents.Button.TextButton"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_margin="16dp"
+      android:layout_marginBottom="24dp"
+      android:clickable="true"
+      android:focusable="true"
+      android:fontFamily="@font/metropolis_semi_bold"
+      android:letterSpacing="0.04"
+      android:text="Add labels"
+      android:textAllCaps="false"
+      android:textColor="?colorTextPrimary"
+      android:textSize="15sp"
+      app:icon="@drawable/ic_add"
+      app:iconTint="?colorTextPrimary"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/recyclerLabels"
+      app:rippleColor="?colorRipple"/>
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

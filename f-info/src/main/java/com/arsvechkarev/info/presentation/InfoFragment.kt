@@ -47,24 +47,31 @@ class InfoFragment : BaseFragment() {
       GlobalScope.launch(Dispatchers.Main) {
         val id = viewModel.insertWordAndGetId(Word.empty())
         previousWord = Word(id, "", "")
-        viewModel.getLabelsForWord(previousWord!!).observe(this@InfoFragment) { labels ->
-          wordsLabels = labels
-          labelsAdapter.submitList(wordsLabels)
-        }
+        handleLabels()
       }
     } else {
       previousWord?.let { setWord() }
-      viewModel.getLabelsForWord(previousWord!!).observe(this) { labels ->
-        wordsLabels = labels
-        labelsAdapter.submitList(wordsLabels)
+      handleLabels()
+    }
+  
+    val flexboxLayoutManager = object : FlexboxLayoutManager(context!!) {
+      override fun canScrollVertically(): Boolean {
+        return false
       }
     }
     
-    recyclerLabels.layoutManager = FlexboxLayoutManager(context!!)
+    recyclerLabels.layoutManager = flexboxLayoutManager
     recyclerLabels.adapter = labelsAdapter
     buttonAddLabel.setOnClickListener {
       val fragment = LabelsCheckboxFragment.of(previousWord!!, ArrayList(wordsLabels))
       coreActivity.goToFragmentFromRoot(fragment, LabelsCheckboxFragment::class, true)
+    }
+  }
+  
+  private fun handleLabels() {
+    viewModel.getLabelsForWord(previousWord!!).observe(this@InfoFragment) { labels ->
+      wordsLabels = labels
+      labelsAdapter.submitList(wordsLabels)
     }
   }
   
