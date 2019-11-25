@@ -24,6 +24,11 @@ inline fun <reified T : Fragment> AppCompatActivity.switchFragment(
   transaction.commit()
 }
 
+fun <T : Fragment> AppCompatActivity.isFragmentVisible(fragmentClass: KClass<T>): Boolean {
+  return supportFragmentManager.findFragmentByTag(fragmentClass.java.simpleName)?.isVisible?: false
+}
+
+
 inline fun <reified T : Fragment> AppCompatActivity.goToFragment(
   @IdRes contentResId: Int,
   fragment: T,
@@ -42,7 +47,7 @@ fun <T : Fragment> AppCompatActivity.goToFragment(
   addToBackStack: Boolean = false
 ) {
   val transaction = supportFragmentManager.beginTransaction()
-    .add(contentResId, fragment, fragmentClass.java.simpleName)
+    .replace(contentResId, fragment, fragmentClass.java.simpleName)
   if (addToBackStack) transaction.addToBackStack(null)
   transaction.commit()
   
