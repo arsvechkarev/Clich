@@ -3,7 +3,8 @@ package com.arsvechkarev.clich
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.drawerlayout.widget.DrawerLayout
+import androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_LOCKED_CLOSED
+import androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_UNLOCKED
 import androidx.fragment.app.Fragment
 import com.arsvechkarev.core.BaseFragment
 import com.arsvechkarev.core.CoreActivity
@@ -40,11 +41,11 @@ class MainActivity : AppCompatActivity(), CoreActivity {
     switchFragment(R.id.baseContainer, WordsListFragment())
     supportFragmentManager.addOnBackStackChangedListener {
       if (supportFragmentManager.backStackEntryCount == 0 && isFragmentVisible(WordsListFragment::class)) {
-        layoutDrawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+        layoutDrawer.setDrawerLockMode(LOCK_MODE_UNLOCKED)
       }
     }
     buttonGoToLabels.setOnClickListener {
-      layoutDrawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+      layoutDrawer.setDrawerLockMode(LOCK_MODE_LOCKED_CLOSED)
       transferToFragment(LabelsFragment())
       layoutDrawer.close()
     }
@@ -60,7 +61,7 @@ class MainActivity : AppCompatActivity(), CoreActivity {
     addToBackStack: Boolean
   ) {
     goToFragment(R.id.layoutDrawer, fragment, fragmentClass, addToBackStack)
-    layoutDrawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+    layoutDrawer.setDrawerLockMode(LOCK_MODE_LOCKED_CLOSED)
   }
   
   override fun <T : BaseFragment> subscribeOnBackStackChanges(fragment: T) {

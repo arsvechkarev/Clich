@@ -2,7 +2,9 @@
 <resources>
 
   <dimen name="item_label_image_size">24dp</dimen>
-  <dimen name="item_label_margin_default">12dp</dimen>
+  <dimen name="item_label_margin_default">4dp</dimen>
   <dimen name="item_label_margin_text_start">16dp</dimen>
+
+  <dimen name="item_label_margin_simple">10dp</dimen>
 
 </resources>
