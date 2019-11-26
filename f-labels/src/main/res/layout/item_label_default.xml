@@ -4,11 +4,19 @@
   android:layout_width="match_parent"
   android:layout_height="wrap_content">
 
+  <View
+    android:id="@+id/dividerTop"
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:background="?colorDivider"
+    android:visibility="gone"
+    app:layout_constraintTop_toTopOf="parent"/>
+
   <ImageView
     android:id="@+id/imageStart"
     android:layout_width="@dimen/item_label_image_size"
     android:layout_height="@dimen/item_label_image_size"
-    android:layout_margin="@dimen/item_label_margin_default"
+    android:layout_margin="12dp"
     android:src="@drawable/ic_label"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintStart_toStartOf="parent"
@@ -16,30 +24,36 @@
 
   <EditText
     android:id="@+id/editTextLabel"
-    android:layout_width="wrap_content"
+    android:layout_width="0dp"
     android:layout_height="wrap_content"
-    android:layout_marginStart="@dimen/item_label_margin_text_start"
-    android:layout_marginTop="@dimen/item_label_margin_default"
-    android:layout_marginBottom="@dimen/item_label_margin_default"
-    android:hint="Label name long btw"
+    android:layout_marginStart="@dimen/item_label_margin_text"
+    android:layout_marginTop="@dimen/item_label_margin_top_bottom"
+    android:layout_marginEnd="@dimen/item_label_margin_text"
+    android:layout_marginBottom="@dimen/item_label_margin_top_bottom"
+    android:background="@null"
+    android:fontFamily="@font/metropolis_semi_bold"
+    android:hint="Enter label name"
     android:textColor="?colorTextPrimary"
+    android:textSize="@dimen/text_h4"
     android:visibility="invisible"
     app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toStartOf="@id/imageEnd"
     app:layout_constraintStart_toEndOf="@id/imageStart"
     app:layout_constraintTop_toTopOf="parent"/>
 
   <TextView
     android:id="@+id/textLabel"
-    android:layout_width="wrap_content"
+    android:layout_width="0dp"
     android:layout_height="wrap_content"
-    android:layout_marginStart="@dimen/item_label_margin_text_start"
-    android:layout_marginTop="@dimen/item_label_margin_default"
-    android:layout_marginBottom="@dimen/item_label_margin_default"
+    android:layout_marginStart="@dimen/item_label_margin_text"
+    android:layout_marginTop="@dimen/item_label_margin_top_bottom"
+    android:layout_marginEnd="@dimen/item_label_margin_text"
+    android:layout_marginBottom="@dimen/item_label_margin_top_bottom"
     android:fontFamily="@font/metropolis_semi_bold"
-    android:text="Label name long btw"
     android:textColor="?colorTextPrimary"
     android:textSize="@dimen/text_h4"
     app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toStartOf="@id/imageEnd"
     app:layout_constraintStart_toEndOf="@id/imageStart"
     app:layout_constraintTop_toTopOf="parent"/>
 
@@ -47,13 +61,22 @@
     android:id="@+id/imageEnd"
     android:layout_width="@dimen/item_label_image_size"
     android:layout_height="@dimen/item_label_image_size"
-    android:layout_margin="@dimen/item_label_margin_default"
+    android:layout_margin="12dp"
     android:background="?selectableItemBackgroundBorderless"
     android:clickable="true"
     android:focusable="true"
     android:src="@drawable/ic_edit"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toEndOf="@id/editTextLabel"
     app:layout_constraintTop_toTopOf="parent"/>
+
+  <View
+    android:id="@+id/dividerBottom"
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:background="?colorDivider"
+    android:visibility="gone"
+    app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
