@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
+import com.arsvechkarev.core.extensions.onTextChanged
 import com.arsvechkarev.core.extensions.showKeyboard
 import com.arsvechkarev.core.extensions.string
 import com.arsvechkarev.labels.R
@@ -38,7 +39,11 @@ class CreateLabelDialog : DialogFragment() {
   override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
     val view = requireActivity().layoutInflater.inflate(R.layout.dialog_create_label, null)
     val buttonCreate = view.findViewById<Button>(R.id.buttonCreate)
+    buttonCreate.isEnabled = false
     editTextLabelName = view.findViewById(R.id.editTextLabelName)
+    editTextLabelName.onTextChanged {
+      buttonCreate.isEnabled = !it.isBlank()
+    }
     buttonCreate.setOnClickListener {
       callback.onCreateClick(editTextLabelName.string())
       dismiss()
