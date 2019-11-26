@@ -21,16 +21,15 @@ import com.arsvechkarev.labels.presentation.LabelsFragment
 import com.arsvechkarev.storage.database.CentralDatabase
 import com.arsvechkarev.words.presentation.WordsListFragment
 import kotlinx.android.synthetic.main.activity_main.baseContainer
-import kotlinx.android.synthetic.main.activity_main.buttonGoToLabels
 import kotlinx.android.synthetic.main.activity_main.layoutDrawer
-import kotlinx.android.synthetic.main.activity_main.recyclerLabels
 import kotlinx.android.synthetic.main.activity_main.toolbar
+import kotlinx.android.synthetic.main.partial_layout_drawer.buttonGoToLabels
+import kotlinx.android.synthetic.main.partial_layout_drawer.recyclerLabels
 import kotlin.reflect.KClass
 
 class MainActivity : AppCompatActivity(), CoreActivity {
   
   private val labelsAdapter = LabelsAdapter(Mode.Simple {})
-  
   override val snackBarPlace: View by lazy { baseContainer }
   
   override fun onCreate(savedInstanceState: Bundle?) {

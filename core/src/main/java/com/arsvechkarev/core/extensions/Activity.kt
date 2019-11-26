@@ -28,7 +28,6 @@ fun <T : Fragment> AppCompatActivity.isFragmentVisible(fragmentClass: KClass<T>)
   return supportFragmentManager.findFragmentByTag(fragmentClass.java.simpleName)?.isVisible?: false
 }
 
-
 inline fun <reified T : Fragment> AppCompatActivity.goToFragment(
   @IdRes contentResId: Int,
   fragment: T,
@@ -55,5 +54,6 @@ fun <T : Fragment> AppCompatActivity.goToFragment(
 
 fun <T : Fragment> AppCompatActivity.findFragment(fragmentClass: KClass<T>): BaseFragment? {
   val fragment = supportFragmentManager.findFragmentByTag(fragmentClass.java.simpleName)
-  return fragment as BaseFragment?
+  if (fragment != null && fragment.isVisible) return fragment as BaseFragment?
+  return null
 }

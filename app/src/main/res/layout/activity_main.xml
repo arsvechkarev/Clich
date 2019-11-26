@@ -48,25 +48,6 @@
 
   </androidx.constraintlayout.widget.ConstraintLayout>
 
-  <com.google.android.material.navigation.NavigationView
-    android:id="@+id/navigationView"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_gravity="start"
-    android:background="?colorWindowBackground"
-    android:fitsSystemWindows="true">
-
-    <Button
-      android:id="@+id/buttonGoToLabels"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="labels"/>
-
-    <androidx.recyclerview.widget.RecyclerView
-      android:id="@+id/recyclerLabels"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"/>
-
-  </com.google.android.material.navigation.NavigationView>
+  <include layout="@layout/partial_layout_drawer"/>
 
 </androidx.drawerlayout.widget.DrawerLayout>
