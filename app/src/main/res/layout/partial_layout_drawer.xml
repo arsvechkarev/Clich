@@ -28,15 +28,25 @@
         android:textColor="?colorAccent"
         android:textSize="@dimen/text_app_name"/>
 
-      <androidx.constraintlayout.widget.ConstraintLayout
+      <View
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="1dp"
+        android:layout_marginTop="16dp"
+        android:background="?colorDivider"/>
+
+      <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/buttonGoToLabels"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:focusable="true">
 
         <TextView
           android:id="@+id/textAllLabels"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_marginStart="24dp"
+          android:layout_marginStart="16dp"
           android:layout_marginTop="16dp"
           android:layout_marginBottom="16dp"
           android:fontFamily="@font/metropolis_semi_bold"
@@ -48,7 +58,7 @@
           app:layout_constraintTop_toTopOf="parent"/>
 
         <ImageView
-          android:id="@+id/buttonGoToLabels"
+          android:id="@+id/imageEdit"
           android:layout_width="20dp"
           android:layout_height="20dp"
           android:layout_margin="8dp"
