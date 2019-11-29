@@ -5,12 +5,14 @@ import android.view.View
 import com.arsvechkarev.core.BaseFragment
 import com.arsvechkarev.core.domain.model.Label
 import com.arsvechkarev.core.domain.model.Word
+import com.arsvechkarev.core.extensions.gone
 import com.arsvechkarev.core.extensions.observe
 import com.arsvechkarev.core.extensions.setupWith
 import com.arsvechkarev.labels.R
 import com.arsvechkarev.labels.list.LabelsAdapter
 import com.arsvechkarev.labels.list.Mode
 import com.arsvechkarev.storage.database.CentralDatabase
+import kotlinx.android.synthetic.main.fragment_labels.fabNewLabel
 import kotlinx.android.synthetic.main.fragment_labels.recyclerLabels
 
 class LabelsCheckboxFragment : BaseFragment() {
@@ -23,6 +25,7 @@ class LabelsCheckboxFragment : BaseFragment() {
   
   @Suppress("UNCHECKED_CAST")
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    fabNewLabel.gone()
     word = arguments!!.get(WORD_KEY) as Word
     labels = arguments!!.get(LABELS_KEY) as List<Label>
     recyclerLabels.setupWith(labelsAdapter)

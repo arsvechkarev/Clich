@@ -34,43 +34,53 @@
         android:layout_marginTop="16dp"
         android:background="?colorDivider"/>
 
-      <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/buttonGoToLabels"
+      <com.google.android.material.card.MaterialCardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="?selectableItemBackgroundBorderless"
-        android:clickable="true"
-        android:focusable="true">
+        android:layout_margin="8dp"
+        app:cardBackgroundColor="?colorWindowBackground"
+        app:cardCornerRadius="6dp"
+        app:cardElevation="0dp"
+        app:rippleColor="?colorRipple">
 
-        <TextView
-          android:id="@+id/textAllLabels"
+        <androidx.constraintlayout.widget.ConstraintLayout
+          android:id="@+id/buttonGoToLabels"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_marginStart="16dp"
-          android:layout_marginTop="16dp"
-          android:layout_marginBottom="16dp"
-          android:fontFamily="@font/metropolis_semi_bold"
-          android:text="Labels"
-          android:textColor="?colorTextSecondary"
-          android:textSize="@dimen/text_h4"
-          app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="parent"/>
-
-        <ImageView
-          android:id="@+id/imageEdit"
-          android:layout_width="20dp"
-          android:layout_height="20dp"
-          android:layout_margin="8dp"
           android:background="?selectableItemBackgroundBorderless"
           android:clickable="true"
-          android:focusable="true"
-          android:src="@drawable/ic_edit"
-          app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintStart_toEndOf="@id/textAllLabels"
-          app:layout_constraintTop_toTopOf="parent"/>
+          android:focusable="true">
 
-      </androidx.constraintlayout.widget.ConstraintLayout>
+          <TextView
+            android:id="@+id/textAllLabels"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:fontFamily="@font/metropolis_semi_bold"
+            android:text="Labels"
+            android:textColor="?colorTextSecondary"
+            android:textSize="@dimen/text_h4"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+          <ImageView
+            android:id="@+id/imageEdit"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_margin="8dp"
+            android:background="?selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/ic_edit"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/textAllLabels"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+      </com.google.android.material.card.MaterialCardView>
 
       <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerLabels"

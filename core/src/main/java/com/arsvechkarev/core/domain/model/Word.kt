@@ -11,7 +11,7 @@ data class Word(
   @PrimaryKey(autoGenerate = true)
   val id: Long? = null,
   var word: String,
-  var definition: String
+  var definition: String? = null
 ) : Parcelable {
   companion object {
     fun empty() : Word {

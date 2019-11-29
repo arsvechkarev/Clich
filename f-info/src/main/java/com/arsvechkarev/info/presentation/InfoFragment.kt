@@ -86,18 +86,17 @@ class InfoFragment : BaseFragment() {
         labelsAdapter.submitList(labels)
       }
       editTextWord.setText(word.word)
-      editTextDefinition.setText(word.definition)
+      editTextDefinition.setText(word.definition ?: "")
     }
   }
   
   private fun saveWord() {
-    if (editTextWord.text.toString().isNotBlank()
-      && editTextDefinition.text.toString().isNotBlank()
-    ) {
+    if (editTextWord.text.toString().isNotBlank()) {
       previousWord?.let {
         // Word has been passed -> updating existing word
         it.word = editTextWord.text.toString()
-        it.definition = editTextDefinition.text.toString()
+        val definitionText = editTextDefinition.text.toString()
+        it.definition = if (definitionText.isNotBlank()) definitionText else null
         viewModel.updateWord(it)
       }
       if (previousWord == null) {
