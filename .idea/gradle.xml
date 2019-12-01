@@ -14,7 +14,9 @@
             <option value="$PROJECT_DIR$/f-labels" />
             <option value="$PROJECT_DIR$/f-words" />
             <option value="$PROJECT_DIR$/storage" />
-            <option value="$PROJECT_DIR$/test" />
+            <option value="$PROJECT_DIR$/test-common" />
+            <option value="$PROJECT_DIR$/test-ui" />
+            <option value="$PROJECT_DIR$/test-unit" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

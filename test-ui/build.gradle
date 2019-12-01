@@ -1,7 +1,5 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
-apply plugin: 'kotlin-android-extensions'
 
 android {
   def configs = rootProject.ext
@@ -26,29 +24,18 @@ android {
 
 dependencies {
   implementation project(':core')
-  implementation project(':storage')
-  implementation project(':f-info')
+  api project(':test-common')
 
   def appDependencies = rootProject.ext.applicationDependencies
+  def testDependencies = rootProject.ext.testDependencies
 
   implementation appDependencies.kotlin
   implementation appDependencies.appCompat
-  implementation appDependencies.ktx
 
-  implementation appDependencies.materialDesign
-  implementation appDependencies.lifecycleExtensions
-  implementation appDependencies.legacySupport
-  implementation appDependencies.constraintLayout
-
-  implementation appDependencies.coroutinesCore
-  implementation appDependencies.coroutinesAndroid
-
-  implementation appDependencies.dagger
-  kapt appDependencies.daggerCompiler
-
-  implementation appDependencies.retrofit
-  implementation appDependencies.okhttpLoggingInterceptor
-
-  testImplementation project(':test-unit')
-  androidTestImplementation project(':test-ui')
+  api testDependencies.kakao
+  api testDependencies.androidTestRunner
+  api testDependencies.androidTestRules
+  api testDependencies.androidTestCore
+  api testDependencies.androidTestExt
+  api testDependencies.androidTestFragments
 }

@@ -43,5 +43,6 @@ dependencies {
   implementation appDependencies.dagger
   kapt appDependencies.daggerCompiler
 
-  testImplementation project(':test')
+  testImplementation project(':test-unit')
+  androidTestImplementation project(':test-ui')
 }

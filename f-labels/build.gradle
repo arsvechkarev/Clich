@@ -29,11 +29,11 @@ dependencies {
   implementation project(':storage')
 
   def appDependencies = rootProject.ext.applicationDependencies
-  def testDependencies = rootProject.ext.testDependencies
 
   implementation appDependencies.kotlin
   implementation appDependencies.appCompat
   implementation appDependencies.ktx
+
   implementation appDependencies.materialDesign
   implementation appDependencies.lifecycleExtensions
   implementation appDependencies.legacySupport
@@ -48,7 +48,6 @@ dependencies {
   implementation appDependencies.retrofit
   implementation appDependencies.okhttpLoggingInterceptor
 
-  testImplementation project(':test')
-  androidTestImplementation testDependencies.testRunner
-  androidTestImplementation testDependencies.espresso
+  testImplementation project(':test-unit')
+  androidTestImplementation project(':test-ui')
 }
