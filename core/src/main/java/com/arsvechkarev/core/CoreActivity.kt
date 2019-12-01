@@ -5,7 +5,7 @@ import androidx.fragment.app.Fragment
 import kotlin.reflect.KClass
 
 /**
- * Bridge that fragment can access functionality of main activity through
+ * Bridge that fragment can access functionality of main activity with
  */
 interface CoreActivity {
   
@@ -23,6 +23,9 @@ interface CoreActivity {
     addToBackStack: Boolean = false
   )
   
+  /**
+   * Subscribe for every change in fragment back stack. See [BaseFragment.onBackStackUpdate]
+   */
   fun <T : BaseFragment> subscribeOnBackStackChanges(fragment: T)
 }
 

@@ -6,6 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 
+/**
+ * Base class for all fragments
+ */
 abstract class BaseFragment : Fragment() {
   
   abstract val layoutId: Int
@@ -20,5 +23,8 @@ abstract class BaseFragment : Fragment() {
   
   open fun onBackPressed() {}
   
-  open fun update() {}
+  /**
+   * Invokes with every change in back stack. Do not forget to invoke [CoreActivity.subscribeOnBackStackChanges]
+   */
+  open fun onBackStackUpdate() {}
 }

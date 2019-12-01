@@ -4,6 +4,9 @@ import android.content.Context
 import androidx.test.platform.app.InstrumentationRegistry
 import java.io.ObjectOutputStream
 
+/**
+ * Helper to work with files during instrumentation tests
+ */
 object FileHelper {
   
   fun <T> write(filename: String, value: T) {

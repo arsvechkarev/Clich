@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity(), CoreActivity {
   
   override fun <T : BaseFragment> subscribeOnBackStackChanges(fragment: T) {
     supportFragmentManager.addOnBackStackChangedListener {
-      fragment.update()
+      fragment.onBackStackUpdate()
     }
   }
   

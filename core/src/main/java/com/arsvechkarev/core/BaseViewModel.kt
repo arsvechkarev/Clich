@@ -16,6 +16,7 @@ abstract class BaseViewModel(
 ) : ViewModel(), CoroutineScope {
   
   override val coroutineContext: CoroutineDispatcher = dispatcherProvider.Main
+ 
   val jobs: MutableList<Job> = ArrayList()
   
   fun launchCoroutine(block: suspend CoroutineScope.() -> Unit) {
