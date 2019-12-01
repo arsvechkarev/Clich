@@ -1,4 +1,4 @@
-package com.arsvechkarev.test
+package com.arsvechkarev.testunit
 
 import com.arsvechkarev.core.Storage
 import com.arsvechkarev.core.domain.model.Word
