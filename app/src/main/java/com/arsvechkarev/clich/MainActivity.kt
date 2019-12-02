@@ -22,6 +22,7 @@ import com.arsvechkarev.labels.presentation.LabelsFragment
 import com.arsvechkarev.storage.database.CentralDatabase
 import com.arsvechkarev.words.presentation.WordsListFragment
 import kotlinx.android.synthetic.main.activity_main.baseContainer
+import kotlinx.android.synthetic.main.activity_main.editTextSearchWord
 import kotlinx.android.synthetic.main.activity_main.layoutDrawer
 import kotlinx.android.synthetic.main.activity_main.toolbar
 import kotlinx.android.synthetic.main.partial_layout_drawer.buttonGoToLabels
@@ -41,6 +42,7 @@ class MainActivity : AppCompatActivity(), CoreActivity {
     switchFragment(R.id.baseContainer, WordsListFragment())
     supportFragmentManager.addOnBackStackChangedListener {
       if (supportFragmentManager.backStackEntryCount == 0 && isFragmentVisible(WordsListFragment::class)) {
+        editTextSearchWord.clearFocus()
         layoutDrawer.setDrawerLockMode(LOCK_MODE_UNLOCKED)
       }
     }
