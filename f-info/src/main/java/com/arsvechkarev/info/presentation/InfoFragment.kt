@@ -10,6 +10,7 @@ import com.arsvechkarev.core.domain.model.Word
 import com.arsvechkarev.core.extensions.gone
 import com.arsvechkarev.core.extensions.observe
 import com.arsvechkarev.core.extensions.popBackStack
+import com.arsvechkarev.core.extensions.showKeyboard
 import com.arsvechkarev.core.extensions.viewModelOf
 import com.arsvechkarev.info.R
 import com.arsvechkarev.info.di.DaggerInfoComponent
@@ -68,15 +69,23 @@ class InfoFragment : BaseFragment() {
     }
   }
   
-  private fun handleLabels() {
-    viewModel.getLabelsForWord(previousWord!!).observe(this@InfoFragment) { labels ->
-      wordsLabels = labels
-      labelsAdapter.submitList(wordsLabels)
+  override fun onResume() {
+    super.onResume()
+    if (previousWord == null) {
+      editTextWord.requestFocus()
+      showKeyboard()
     }
   }
   
   override fun onBackPressed() {
     saveWord()
+  }
+  
+  private fun handleLabels() {
+    viewModel.getLabelsForWord(previousWord!!).observe(this@InfoFragment) { labels ->
+      wordsLabels = labels
+      labelsAdapter.submitList(wordsLabels)
+    }
   }
   
   private fun setWord() {
