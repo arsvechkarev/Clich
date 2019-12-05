@@ -37,9 +37,15 @@ class WordsListFragment : BaseFragment() {
     viewModel = viewModelOf(viewModelFactory)
     recyclerWords.setupWith(adapter)
     viewModel.fetchWords().observe(this, Observer(::handleList))
+    coreActivity.subscribeOnBackStackChanges(this)
     fabNewWord.setOnClickListener {
       coreActivity.goToFragmentFromRoot(InfoFragment(), InfoFragment::class, true)
     }
+  }
+  
+  override fun onBackStackUpdate() {
+    Log.d("fiffy", "backstack")
+    viewModel.fetchWords()
   }
   
   private fun handleList(it: List<Word>) {

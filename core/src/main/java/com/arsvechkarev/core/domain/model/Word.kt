@@ -15,9 +15,9 @@ data class Word(
 ) : Parcelable {
   companion object {
     fun stub(): Word {
-      return Word(-1, "none", "none")
+      return Word(null, "none", "none")
     }
   }
   
-  val isStub get() = (id == (-1).toLong()) && word == "none" && definition == "none"
+  val isStub get() = id == null && word == "none" && definition == "none"
 }
