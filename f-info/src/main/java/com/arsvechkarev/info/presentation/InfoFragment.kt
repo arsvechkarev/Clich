@@ -1,6 +1,7 @@
 package com.arsvechkarev.info.presentation
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import com.arsvechkarev.core.BaseFragment
 import com.arsvechkarev.core.coreActivity
@@ -46,8 +47,8 @@ class InfoFragment : BaseFragment() {
     
     if (previousWord == null) {
       GlobalScope.launch(Dispatchers.Main) {
-        val id = viewModel.insertWordAndGetId(Word.empty())
-        previousWord = Word(id, "", "")
+        val id = viewModel.insertWordAndGetId(Word.stub())
+        previousWord = Word(id, "none", "none")
         handleLabels()
       }
     } else {
@@ -117,6 +118,7 @@ class InfoFragment : BaseFragment() {
         viewModel.insertWord(newWord)
       }
     } else {
+      Log.d("wordsing", "deleting, word = $previousWord")
       viewModel.deleteWord(previousWord!!)
     }
   }

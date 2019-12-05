@@ -1,12 +1,15 @@
 package com.arsvechkarev.words.presentation
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.Observer
 import com.arsvechkarev.core.BaseFragment
 import com.arsvechkarev.core.coreActivity
 import com.arsvechkarev.core.di.viewmodel.ViewModelFactory
+import com.arsvechkarev.core.domain.model.Label
 import com.arsvechkarev.core.domain.model.Word
+import com.arsvechkarev.core.extensions.observe
 import com.arsvechkarev.core.extensions.setupWith
 import com.arsvechkarev.core.extensions.showToast
 import com.arsvechkarev.core.extensions.viewModelOf
@@ -20,6 +23,7 @@ import javax.inject.Inject
 
 class WordsListFragment : BaseFragment() {
   
+  private var mainList: List<Word> = ArrayList()
   override val layoutId: Int = R.layout.fragment_words_list
   @Inject lateinit var viewModelFactory: ViewModelFactory
   private lateinit var viewModel: WordsListViewModel
@@ -42,12 +46,24 @@ class WordsListFragment : BaseFragment() {
     if (it.isEmpty()) {
       showToast("empty list")
     } else {
+      Log.d("wordsing", "list update, list = $it")
+      mainList = it
       adapter.submitList(it)
     }
   }
   
   private fun injectThis() {
     DaggerWordsListComponent.create().inject(this)
+  }
+  
+  fun showWordsOf(label: Label) {
+    viewModel.getWordsOf(label).observe(this) {
+      adapter.submitList(it)
+    }
+  }
+  
+  fun showMainList() {
+    adapter.submitList(mainList)
   }
   
 }

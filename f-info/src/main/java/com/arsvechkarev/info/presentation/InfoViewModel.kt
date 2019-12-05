@@ -1,5 +1,6 @@
 package com.arsvechkarev.info.presentation
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import com.arsvechkarev.core.BaseViewModel
 import com.arsvechkarev.core.domain.model.Label
@@ -21,7 +22,8 @@ class InfoViewModel @Inject constructor(
     }
   }
   
-  suspend fun insertWordAndGetId(word: Word): Long{
+  suspend fun insertWordAndGetId(word: Word): Long {
+    Log.d("wordsing", "saving, word = $word")
     return database.wordDao().insert(word)
   }
   
@@ -34,6 +36,7 @@ class InfoViewModel @Inject constructor(
   fun deleteWord(word: Word) {
     launchGlobal {
       database.wordDao().delete(word)
+      Log.d("wordsing", "deleeeeeeeeeeeeeeeeeeeeting")
     }
   }
   

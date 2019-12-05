@@ -14,8 +14,10 @@ data class Word(
   var definition: String? = null
 ) : Parcelable {
   companion object {
-    fun empty() : Word {
-      return Word(word = "", definition = "")
+    fun stub(): Word {
+      return Word(-1, "none", "none")
     }
   }
+  
+  val isStub get() = (id == (-1).toLong()) && word == "none" && definition == "none"
 }

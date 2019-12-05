@@ -31,15 +31,19 @@ import kotlin.reflect.KClass
 
 class MainActivity : AppCompatActivity(), CoreActivity {
   
-  private val labelsAdapter = LabelsAdapter(Mode.Simple {})
   override val snackBarPlace: View by lazy { baseContainer }
+  
+  private var wordsListFragment = WordsListFragment()
+  private val labelsAdapter = LabelsAdapter(Mode.Simple {
+    wordsListFragment.showWordsOf(it)
+  })
   
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_main)
     setSupportActionBar(toolbar)
     layoutDrawer.setupToggle(this, toolbar)
-    switchFragment(R.id.baseContainer, WordsListFragment())
+    switchFragment(R.id.baseContainer, wordsListFragment)
     supportFragmentManager.addOnBackStackChangedListener {
       if (supportFragmentManager.backStackEntryCount == 0 && isFragmentVisible(WordsListFragment::class)) {
         editTextSearchWord.clearFocus()
