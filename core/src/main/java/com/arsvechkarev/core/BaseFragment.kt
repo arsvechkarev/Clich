@@ -21,7 +21,12 @@ abstract class BaseFragment : Fragment() {
     return inflater.inflate(layoutId, container, false)
   }
   
-  open fun onBackPressed() {}
+  /**
+   * Invokes when user clicks back button. Returns true if was handled, false otherwise
+   */
+  open fun onBackPressed(): Boolean {
+    return false
+  }
   
   /**
    * Invokes with every change in back stack. Do not forget to invoke [CoreActivity.subscribeOnBackStackChanges]

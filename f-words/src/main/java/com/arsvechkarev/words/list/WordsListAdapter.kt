@@ -4,10 +4,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.arsvechkarev.core.domain.model.Word
+import com.arsvechkarev.core.domain.model.words
 import com.arsvechkarev.core.extensions.inflate
 import com.arsvechkarev.words.R
 import kotlinx.android.synthetic.main.item_word.view.textWord
-import timber.log.Timber
+import log.Logger.debug
 
 class WordsListAdapter(
   private val clickListener: (Word) -> Unit = {}
@@ -26,7 +27,7 @@ class WordsListAdapter(
   }
   
   fun submitList(list: List<Word>) {
-    Timber.d("submitting list, list = ${list.words()}")
+    debug { "submitting list: ${list.words()}" }
     data = list
     notifyDataSetChanged()
   }
@@ -38,12 +39,4 @@ class WordsListAdapter(
       itemView.textWord.text = item.word
     }
   }
-}
-
-private fun List<Word>.words(): String {
-  val sb = StringBuilder()
-  forEach {
-    sb.append(it.word).append(",")
-  }
-  return sb.toString()
 }

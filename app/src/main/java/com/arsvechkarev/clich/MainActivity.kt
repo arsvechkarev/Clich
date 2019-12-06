@@ -84,7 +84,7 @@ class MainActivity : AppCompatActivity(), CoreActivity {
     if (layoutDrawer.isOpen()) {
       layoutDrawer.close()
     } else {
-      if (labelsSelected) {
+      if (labelsSelected && isFragmentVisible(WordsListFragment::class)) {
         wordsListFragment.showMainList()
         labelsSelected = false
       } else {

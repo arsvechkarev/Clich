@@ -26,6 +26,15 @@ fun <T> LiveData<T>.observeOnce(fragment: Fragment, observer: Observer<T>) {
   })
 }
 
+fun <T> LiveData<T>.observeOnce(fragment: Fragment, block: (T) -> Unit) {
+  observe(fragment, object : Observer<T> {
+    override fun onChanged(t: T) {
+      block(t)
+      removeObserver(this)
+    }
+  })
+}
+
 inline fun <reified T : ViewModel> Fragment.viewModelOf(
   factory: ViewModelProvider.Factory,
   block: T.() -> Unit = {}

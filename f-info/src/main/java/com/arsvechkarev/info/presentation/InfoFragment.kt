@@ -78,8 +78,9 @@ class InfoFragment : BaseFragment() {
     }
   }
   
-  override fun onBackPressed() {
+  override fun onBackPressed(): Boolean {
     saveWord()
+    return super.onBackPressed()
   }
   
   private fun handleLabels() {

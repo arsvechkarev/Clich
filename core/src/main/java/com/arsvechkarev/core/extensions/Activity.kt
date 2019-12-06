@@ -28,6 +28,10 @@ fun <T : Fragment> AppCompatActivity.isFragmentVisible(fragmentClass: KClass<T>)
   return supportFragmentManager.findFragmentByTag(fragmentClass.java.simpleName)?.isVisible?: false
 }
 
+fun <T : Fragment> AppCompatActivity.isFragmentNotVisible(fragmentClass: KClass<T>): Boolean {
+  return supportFragmentManager.findFragmentByTag(fragmentClass.java.simpleName)?.isVisible?: false
+}
+
 inline fun <reified T : Fragment> AppCompatActivity.goToFragment(
   @IdRes contentResId: Int,
   fragment: T,

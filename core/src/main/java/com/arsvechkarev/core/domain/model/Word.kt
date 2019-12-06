@@ -21,3 +21,11 @@ data class Word(
   
   val isStub get() = id == null && word == "none" && definition == "none"
 }
+
+fun List<Word>.words(): String {
+  val sb = StringBuilder()
+  forEach {
+    sb.append(it.word).append(",")
+  }
+  return sb.toString()
+}
