@@ -22,14 +22,15 @@ abstract class BaseFragment : Fragment() {
   }
   
   /**
+   * Invokes with every change in back stack. Do not forget to invoke [CoreActivity.subscribeOnBackStackChanges]
+   */
+  open fun onBackStackUpdate() {}
+  
+  /**
    * Invokes when user clicks back button. Returns true if was handled, false otherwise
    */
   open fun onBackPressed(): Boolean {
     return false
   }
   
-  /**
-   * Invokes with every change in back stack. Do not forget to invoke [CoreActivity.subscribeOnBackStackChanges]
-   */
-  open fun onBackStackUpdate() {}
 }

@@ -15,7 +15,6 @@ import com.arsvechkarev.core.extensions.observe
 import com.arsvechkarev.core.extensions.setupToggle
 import com.arsvechkarev.core.extensions.setupWith
 import com.arsvechkarev.core.extensions.switchFragment
-import com.arsvechkarev.info.presentation.InfoFragment
 import com.arsvechkarev.labels.list.LabelsAdapter
 import com.arsvechkarev.labels.list.Mode
 import com.arsvechkarev.labels.presentation.LabelsFragment
@@ -27,18 +26,16 @@ import kotlinx.android.synthetic.main.activity_main.layoutDrawer
 import kotlinx.android.synthetic.main.activity_main.toolbar
 import kotlinx.android.synthetic.main.partial_layout_drawer.buttonGoToLabels
 import kotlinx.android.synthetic.main.partial_layout_drawer.recyclerLabels
+import log.Logger.debug
 import kotlin.reflect.KClass
 
 class MainActivity : AppCompatActivity(), CoreActivity {
-  
-  private var labelsSelected = false
   
   override val snackBarPlace: View by lazy { baseContainer }
   
   private var wordsListFragment = WordsListFragment()
   private val labelsAdapter = LabelsAdapter(Mode.Simple {
     wordsListFragment.showWordsOf(it)
-    labelsSelected = true
     layoutDrawer.close()
   })
   
@@ -84,18 +81,22 @@ class MainActivity : AppCompatActivity(), CoreActivity {
     if (layoutDrawer.isOpen()) {
       layoutDrawer.close()
     } else {
-      if (labelsSelected && isFragmentVisible(WordsListFragment::class)) {
-        wordsListFragment.showMainList()
-        labelsSelected = false
+      val backStackEntryCount = supportFragmentManager.backStackEntryCount
+      debug { "back stack = $backStackEntryCount" }
+      val visible = backStackEntryCount == 0
+      debug { "is words visible = $visible" }
+      if (visible) {
+        val wordsBack = findFragment(WordsListFragment::class)?.onBackPressed() == false
+  
+        debug { "words = $wordsBack" }
+  
+        if (wordsBack) {
+          super.onBackPressed()
+        }
       } else {
-        findFragment(InfoFragment::class)?.onBackPressed()
-        findFragment(WordsListFragment::class)?.onBackPressed()
         super.onBackPressed()
       }
     }
   }
   
-  private fun applyLabelsFilter() {
-    // TODO (22.11.2019): Do this
-  }
 }

@@ -23,6 +23,8 @@ import javax.inject.Inject
 
 class WordsListFragment : BaseFragment() {
   
+  private var labelsAreDisplayed = false
+  
   private var mainList: List<Word> = ArrayList()
   override val layoutId: Int = R.layout.fragment_words_list
   @Inject lateinit var viewModelFactory: ViewModelFactory
@@ -37,14 +39,17 @@ class WordsListFragment : BaseFragment() {
     viewModel = viewModelOf(viewModelFactory)
     recyclerWords.setupWith(adapter)
     viewModel.fetchWords().observe(this, Observer(::handleList))
-    coreActivity.subscribeOnBackStackChanges(this)
     fabNewWord.setOnClickListener {
       coreActivity.goToFragmentFromRoot(InfoFragment(), InfoFragment::class, true)
     }
   }
   
-  override fun onBackStackUpdate() {
-    viewModel.fetchWords()
+  override fun onBackPressed(): Boolean {
+    if (labelsAreDisplayed) {
+      showMainList()
+      return true
+    }
+    return false
   }
   
   private fun handleList(it: List<Word>) {
@@ -65,12 +70,14 @@ class WordsListFragment : BaseFragment() {
     debug { "showing labels" }
     viewModel.getWordsOf(label).observeOnce(this) {
       adapter.submitList(it)
+      labelsAreDisplayed = true
     }
   }
   
   fun showMainList() {
     debug { "showing main list" }
     adapter.submitList(mainList)
+    labelsAreDisplayed = false
   }
   
 }
