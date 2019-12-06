@@ -31,6 +31,8 @@ androidExtensions {
 dependencies {
   def appDependencies = rootProject.ext.applicationDependencies
 
+  api 'com.jakewharton.timber:timber:4.7.1'
+
   implementation appDependencies.kotlin
   implementation appDependencies.appCompat
   implementation appDependencies.ktx

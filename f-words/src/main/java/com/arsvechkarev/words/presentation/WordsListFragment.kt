@@ -9,7 +9,7 @@ import com.arsvechkarev.core.coreActivity
 import com.arsvechkarev.core.di.viewmodel.ViewModelFactory
 import com.arsvechkarev.core.domain.model.Label
 import com.arsvechkarev.core.domain.model.Word
-import com.arsvechkarev.core.extensions.observe
+import com.arsvechkarev.core.extensions.observeOnce
 import com.arsvechkarev.core.extensions.setupWith
 import com.arsvechkarev.core.extensions.showToast
 import com.arsvechkarev.core.extensions.viewModelOf
@@ -19,6 +19,7 @@ import com.arsvechkarev.words.di.DaggerWordsListComponent
 import com.arsvechkarev.words.list.WordsListAdapter
 import kotlinx.android.synthetic.main.fragment_words_list.fabNewWord
 import kotlinx.android.synthetic.main.fragment_words_list.recyclerWords
+import timber.log.Timber
 import javax.inject.Inject
 
 class WordsListFragment : BaseFragment() {
@@ -63,12 +64,14 @@ class WordsListFragment : BaseFragment() {
   }
   
   fun showWordsOf(label: Label) {
-    viewModel.getWordsOf(label).observe(this) {
+    Timber.d("showing labels")
+    viewModel.getWordsOf(label).observeOnce(this, Observer {
       adapter.submitList(it)
-    }
+    })
   }
   
   fun showMainList() {
+    Timber.d("showing main list")
     adapter.submitList(mainList)
   }
   

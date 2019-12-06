@@ -12,8 +12,18 @@ import androidx.lifecycle.ViewModelProviders
 fun <T> LiveData<T>.observe(activity: AppCompatActivity, block: (T) -> Unit) {
   observe(activity, Observer { block(it) })
 }
+
 fun <T> LiveData<T>.observe(fragment: Fragment, block: (T) -> Unit) {
   observe(fragment, Observer { block(it) })
+}
+
+fun <T> LiveData<T>.observeOnce(fragment: Fragment, observer: Observer<T>) {
+  observe(fragment, object : Observer<T> {
+    override fun onChanged(t: T) {
+      observer.onChanged(t)
+      removeObserver(this)
+    }
+  })
 }
 
 inline fun <reified T : ViewModel> Fragment.viewModelOf(

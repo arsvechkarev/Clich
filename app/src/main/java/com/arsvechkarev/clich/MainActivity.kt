@@ -31,14 +31,14 @@ import kotlin.reflect.KClass
 
 class MainActivity : AppCompatActivity(), CoreActivity {
   
-  private var isLabelsSelected = false
+  private var labelsSelected = false
   
   override val snackBarPlace: View by lazy { baseContainer }
   
   private var wordsListFragment = WordsListFragment()
   private val labelsAdapter = LabelsAdapter(Mode.Simple {
     wordsListFragment.showWordsOf(it)
-    isLabelsSelected = true
+    labelsSelected = true
     layoutDrawer.close()
   })
   
@@ -84,9 +84,9 @@ class MainActivity : AppCompatActivity(), CoreActivity {
     if (layoutDrawer.isOpen()) {
       layoutDrawer.close()
     } else {
-      if (isLabelsSelected) {
+      if (labelsSelected) {
         wordsListFragment.showMainList()
-        isLabelsSelected = false
+        labelsSelected = false
       } else {
         findFragment(InfoFragment::class)?.onBackPressed()
         findFragment(WordsListFragment::class)?.onBackPressed()

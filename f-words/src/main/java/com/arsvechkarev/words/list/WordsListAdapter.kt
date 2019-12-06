@@ -7,6 +7,7 @@ import com.arsvechkarev.core.domain.model.Word
 import com.arsvechkarev.core.extensions.inflate
 import com.arsvechkarev.words.R
 import kotlinx.android.synthetic.main.item_word.view.textWord
+import timber.log.Timber
 
 class WordsListAdapter(
   private val clickListener: (Word) -> Unit = {}
@@ -25,6 +26,7 @@ class WordsListAdapter(
   }
   
   fun submitList(list: List<Word>) {
+    Timber.d("submitting list, list = ${list.words()}")
     data = list
     notifyDataSetChanged()
   }
@@ -36,4 +38,12 @@ class WordsListAdapter(
       itemView.textWord.text = item.word
     }
   }
+}
+
+private fun List<Word>.words(): String {
+  val sb = StringBuilder()
+  forEach {
+    sb.append(it.word).append(",")
+  }
+  return sb.toString()
 }
