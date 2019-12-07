@@ -18,7 +18,7 @@ import com.arsvechkarev.info.list.CurrentLabelsAdapter
 import com.arsvechkarev.labels.list.viewholders.CheckedChangedCallback
 import com.arsvechkarev.labels.presentation.LabelsCheckboxFragment
 import com.google.android.flexbox.FlexboxLayoutManager
-import kotlinx.android.synthetic.main.fragment_info.buttonAddLabel
+import kotlinx.android.synthetic.main.fragment_info.buttonAddLabels
 import kotlinx.android.synthetic.main.fragment_info.editTextDefinition
 import kotlinx.android.synthetic.main.fragment_info.editTextWord
 import kotlinx.android.synthetic.main.fragment_info.imageBack
@@ -69,7 +69,7 @@ class InfoFragment : BaseFragment() {
     
     recyclerLabels.layoutManager = flexboxLayoutManager
     recyclerLabels.adapter = labelsAdapter
-    buttonAddLabel.setOnClickListener {
+    buttonAddLabels.setOnClickListener {
       val fragment = if (previousWord == null) {
         LabelsCheckboxFragment.of(ArrayList(currentLabels)).also {
           it.callback = callback
