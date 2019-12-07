@@ -22,7 +22,7 @@ import kotlinx.android.synthetic.main.fragment_info.buttonAddLabels
 import kotlinx.android.synthetic.main.fragment_info.editTextDefinition
 import kotlinx.android.synthetic.main.fragment_info.editTextWord
 import kotlinx.android.synthetic.main.fragment_info.imageBack
-import kotlinx.android.synthetic.main.fragment_info.recyclerLabels
+import kotlinx.android.synthetic.main.fragment_info.recyclerWordsLabels
 import kotlinx.android.synthetic.main.fragment_info.textNewWord
 import log.Logger.debug
 import javax.inject.Inject
@@ -69,9 +69,9 @@ class InfoFragment : BaseFragment() {
         return false
       }
     }
-    
-    recyclerLabels.layoutManager = flexboxLayoutManager
-    recyclerLabels.adapter = labelsAdapter
+  
+    recyclerWordsLabels.layoutManager = flexboxLayoutManager
+    recyclerWordsLabels.adapter = labelsAdapter
     buttonAddLabels.setOnClickListener {
       val fragment = if (previousWord == null) {
         LabelsCheckboxFragment.of(ArrayList(currentLabels)).also {
