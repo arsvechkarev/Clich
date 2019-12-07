@@ -34,6 +34,7 @@ dependencies {
 
   api testDependencies.kakao
   api testDependencies.espresso
+  api testDependencies.espressoContrib
   api testDependencies.androidTestRunner
   api testDependencies.androidTestRules
   api testDependencies.androidTestCore

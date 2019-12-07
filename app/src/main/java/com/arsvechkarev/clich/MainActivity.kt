@@ -26,7 +26,7 @@ import kotlinx.android.synthetic.main.activity_main.editTextSearchWord
 import kotlinx.android.synthetic.main.activity_main.layoutDrawer
 import kotlinx.android.synthetic.main.activity_main.toolbar
 import kotlinx.android.synthetic.main.partial_layout_drawer.buttonGoToLabels
-import kotlinx.android.synthetic.main.partial_layout_drawer.recyclerLabels
+import kotlinx.android.synthetic.main.partial_layout_drawer.recyclerDrawerLabels
 import log.Logger.debug
 import kotlin.reflect.KClass
 
@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity(), CoreActivity {
       transferToFragment(LabelsFragment())
       layoutDrawer.close()
     }
-    recyclerLabels.setupWith(labelsAdapter)
+    recyclerDrawerLabels.setupWith(labelsAdapter)
     CentralDatabase.instance.labelsDao().getAll().observe(this) {
       labelsAdapter.submitList(it)
     }
