@@ -33,6 +33,7 @@ dependencies {
   implementation appDependencies.appCompat
 
   api testDependencies.kakao
+  api testDependencies.espresso
   api testDependencies.androidTestRunner
   api testDependencies.androidTestRules
   api testDependencies.androidTestCore

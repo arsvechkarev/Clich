@@ -57,4 +57,7 @@ dependencies {
   implementation appDependencies.appCompat
   implementation appDependencies.materialDesign
   implementation appDependencies.legacySupport
+
+  testImplementation project(':test-unit')
+  androidTestImplementation project(':test-ui')
 }
