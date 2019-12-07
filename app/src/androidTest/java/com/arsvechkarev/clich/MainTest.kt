@@ -12,6 +12,7 @@ import com.arsvechkarev.clich.screens.NewLabelDialogScreen
 import com.arsvechkarev.clich.screens.WordInfoScreen
 import com.arsvechkarev.clich.screens.WordsListScreen
 import com.arsvechkarev.clich.screens.WordsListScreen.WordItem
+import com.arsvechkarev.testui.onScreen
 import org.junit.FixMethodOrder
 import org.junit.Rule
 import org.junit.Test
@@ -36,9 +37,7 @@ class MainTest {
    */
   @Test
   fun test1_Creating_new_word_and_checking_that_it_is_displayed_after() {
-    onScreen<WordsListScreen> {
-      fabNewWord.click()
-    }
+    onScreen<WordsListScreen>().fabNewWord.click()
     
     onScreen<WordInfoScreen> {
       textNewWord.isDisplayed()
@@ -74,21 +73,16 @@ class MainTest {
   /**
    * Plan of the test:
    *
-   * 1. Click to new word button
-   * 2. Create word
-   * 3. Check if it is displayed in the recycler
-   * 4. Click on this item
-   * 5. Go to info fragment and check if data displayed correctly
+   * 1. Open drawer
+   * 2. Click to all labels button
+   * 3. Create a new label
+   * 4. Make sure it is displayed in labels recycler
+   * 5. Make sure it is displayed in drawer recycler
    */
   @Test
   fun test2_Creating_a_new_label_and_make_sure_that_it_is_displayed() {
-    onScreen<MainScreen> {
-      drawer.open()
-    }
-    
-    onScreen<DrawerScreen> {
-      buttonLabels.click()
-    }
+    onScreen<MainScreen>().drawer.open()
+    onScreen<DrawerScreen>().buttonLabels.click()
     
     onScreen<AllLabelsScreen> {
       fabNewLabel.click()
@@ -108,9 +102,7 @@ class MainTest {
       pressBack()
     }
   
-    onScreen<MainScreen> {
-      drawer.open()
-    }
+    onScreen<MainScreen>().drawer.open()
     
     onScreen<DrawerScreen> {
       recyclerDrawerLabels {
