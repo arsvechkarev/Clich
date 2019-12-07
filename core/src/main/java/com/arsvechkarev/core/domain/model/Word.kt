@@ -15,7 +15,7 @@ data class Word(
 ) : Parcelable {
   companion object {
     fun stub(): Word {
-      return Word(null, "none", "none")
+      return Word(null, "", "")
     }
   }
   

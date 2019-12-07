@@ -6,11 +6,16 @@ import com.arsvechkarev.core.domain.model.Label
 import com.arsvechkarev.core.extensions.inflate
 import com.arsvechkarev.labels.R
 import com.arsvechkarev.labels.list.Mode.Checkbox
+import com.arsvechkarev.labels.list.Mode.CheckboxNotCreatedWord
 import com.arsvechkarev.labels.list.Mode.Default
 import com.arsvechkarev.labels.list.Mode.Simple
+import com.arsvechkarev.labels.list.viewholders.CheckboxLabelViewHolder
+import com.arsvechkarev.labels.list.viewholders.CheckboxNotCreatedWordViewHolder
+import com.arsvechkarev.labels.list.viewholders.DefaultLabelViewHolder
+import com.arsvechkarev.labels.list.viewholders.SimpleLabelViewHolder
 
 /**
- * Adapter for displaying labels depending on [mode]
+ * Adapter for displaying alreadySelectedLabels depending on [mode]
  */
 class LabelsAdapter(
   private val mode: Mode
@@ -29,7 +34,10 @@ class LabelsAdapter(
         mode.clickListener
       )
       is Checkbox -> CheckboxLabelViewHolder(
-        parent.inflate(R.layout.item_label_checkbox), mode.word, mode.labels
+        parent.inflate(R.layout.item_label_checkbox), mode.word, mode.alreadySelectedLabels
+      )
+      is CheckboxNotCreatedWord -> CheckboxNotCreatedWordViewHolder(
+        parent.inflate(R.layout.item_label_checkbox), mode.callback, mode.alreadySelectedLabels
       )
     }
   }
@@ -41,6 +49,7 @@ class LabelsAdapter(
       is Default -> (holder as DefaultLabelViewHolder).bind(data[position])
       is Simple -> (holder as SimpleLabelViewHolder).bind(data[position])
       is Checkbox -> (holder as CheckboxLabelViewHolder).bind(data[position])
+      is CheckboxNotCreatedWord -> (holder as CheckboxNotCreatedWordViewHolder).bind(data[position])
     }
   }
   

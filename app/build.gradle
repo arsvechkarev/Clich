@@ -57,5 +57,4 @@ dependencies {
   implementation appDependencies.appCompat
   implementation appDependencies.materialDesign
   implementation appDependencies.legacySupport
-  implementation "androidx.constraintlayout:constraintlayout:1.1.3"
 }

@@ -11,23 +11,31 @@ import com.arsvechkarev.core.extensions.setupWith
 import com.arsvechkarev.labels.R
 import com.arsvechkarev.labels.list.LabelsAdapter
 import com.arsvechkarev.labels.list.Mode
+import com.arsvechkarev.labels.list.viewholders.CheckedChangedCallback
 import com.arsvechkarev.storage.database.CentralDatabase
 import kotlinx.android.synthetic.main.fragment_labels.fabNewLabel
 import kotlinx.android.synthetic.main.fragment_labels.recyclerLabels
 
 class LabelsCheckboxFragment : BaseFragment() {
   
+  lateinit var callback: CheckedChangedCallback
+  
   override val layoutId = R.layout.fragment_labels
   
-  private lateinit var word: Word
-  private lateinit var labels: List<Label>
-  private val labelsAdapter by lazy { LabelsAdapter(Mode.Checkbox(word, labels)) }
+  private var word: Word? = null
+  private lateinit var alreadySelectedLabels: List<Label>
+  private lateinit var labelsAdapter: LabelsAdapter
   
   @Suppress("UNCHECKED_CAST")
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     fabNewLabel.gone()
-    word = arguments!!.get(WORD_KEY) as Word
-    labels = arguments!!.get(LABELS_KEY) as List<Label>
+    word = arguments!!.get(WORD_KEY) as Word?
+    alreadySelectedLabels = arguments!!.get(LABELS_KEY) as List<Label>
+    labelsAdapter = if (word == null) {
+      LabelsAdapter(Mode.CheckboxNotCreatedWord(callback, alreadySelectedLabels))
+    } else {
+      LabelsAdapter(Mode.Checkbox(word!!, alreadySelectedLabels))
+    }
     recyclerLabels.setupWith(labelsAdapter)
     CentralDatabase.instance.labelsDao().getAll().observe(this) {
       labelsAdapter.submitList(it)
@@ -42,6 +50,14 @@ class LabelsCheckboxFragment : BaseFragment() {
     fun of(word: Word, labelsList: ArrayList<Label>): LabelsCheckboxFragment {
       val bundle = Bundle()
       bundle.putParcelable(WORD_KEY, word)
+      bundle.putParcelableArrayList(LABELS_KEY, labelsList)
+      val fragment = LabelsCheckboxFragment()
+      fragment.arguments = bundle
+      return fragment
+    }
+    
+    fun of(labelsList: ArrayList<Label>): LabelsCheckboxFragment {
+      val bundle = Bundle()
       bundle.putParcelableArrayList(LABELS_KEY, labelsList)
       val fragment = LabelsCheckboxFragment()
       fragment.arguments = bundle

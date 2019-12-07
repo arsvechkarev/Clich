@@ -15,6 +15,7 @@ import com.arsvechkarev.core.extensions.observe
 import com.arsvechkarev.core.extensions.setupToggle
 import com.arsvechkarev.core.extensions.setupWith
 import com.arsvechkarev.core.extensions.switchFragment
+import com.arsvechkarev.info.presentation.InfoFragment
 import com.arsvechkarev.labels.list.LabelsAdapter
 import com.arsvechkarev.labels.list.Mode
 import com.arsvechkarev.labels.presentation.LabelsFragment
@@ -86,14 +87,17 @@ class MainActivity : AppCompatActivity(), CoreActivity {
       val visible = backStackEntryCount == 0
       debug { "is words visible = $visible" }
       if (visible) {
-        val wordsBack = findFragment(WordsListFragment::class)?.onBackPressed() == false
-  
+        val pressed = findFragment(WordsListFragment::class)?.onBackPressed()
+        debug { "back pressed result = $pressed" }
+        val wordsBack = pressed == false
+        
         debug { "words = $wordsBack" }
-  
+        
         if (wordsBack) {
           super.onBackPressed()
         }
       } else {
+        findFragment(InfoFragment::class)?.onBackPressed()
         super.onBackPressed()
       }
     }

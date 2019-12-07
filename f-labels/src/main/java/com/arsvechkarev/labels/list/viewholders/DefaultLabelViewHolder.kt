@@ -1,4 +1,4 @@
-package com.arsvechkarev.labels.list
+package com.arsvechkarev.labels.list.viewholders
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
@@ -8,6 +8,7 @@ import com.arsvechkarev.core.extensions.invisible
 import com.arsvechkarev.core.extensions.string
 import com.arsvechkarev.core.extensions.visible
 import com.arsvechkarev.labels.R
+import com.arsvechkarev.labels.list.DefaultLabelCallback
 import kotlinx.android.synthetic.main.item_label_default.view.dividerBottom
 import kotlinx.android.synthetic.main.item_label_default.view.dividerTop
 import kotlinx.android.synthetic.main.item_label_default.view.editTextLabel

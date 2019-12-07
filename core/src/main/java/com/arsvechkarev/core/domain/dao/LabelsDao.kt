@@ -14,6 +14,9 @@ interface LabelsDao {
   @Insert
   suspend fun create(label: Label)
   
+  @Insert
+  suspend fun create(label: List<Label>)
+  
   @Update
   suspend fun update(label: Label)
   

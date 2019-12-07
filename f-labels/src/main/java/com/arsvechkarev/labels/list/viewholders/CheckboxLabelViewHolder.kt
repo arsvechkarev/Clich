@@ -1,4 +1,4 @@
-package com.arsvechkarev.labels.list
+package com.arsvechkarev.labels.list.viewholders
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView

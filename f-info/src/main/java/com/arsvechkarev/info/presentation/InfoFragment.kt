@@ -1,7 +1,6 @@
 package com.arsvechkarev.info.presentation
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import com.arsvechkarev.core.BaseFragment
 import com.arsvechkarev.core.coreActivity
@@ -16,6 +15,7 @@ import com.arsvechkarev.core.extensions.viewModelOf
 import com.arsvechkarev.info.R
 import com.arsvechkarev.info.di.DaggerInfoComponent
 import com.arsvechkarev.info.list.CurrentLabelsAdapter
+import com.arsvechkarev.labels.list.viewholders.CheckedChangedCallback
 import com.arsvechkarev.labels.presentation.LabelsCheckboxFragment
 import com.google.android.flexbox.FlexboxLayoutManager
 import kotlinx.android.synthetic.main.fragment_info.buttonAddLabel
@@ -24,20 +24,31 @@ import kotlinx.android.synthetic.main.fragment_info.editTextWord
 import kotlinx.android.synthetic.main.fragment_info.imageBack
 import kotlinx.android.synthetic.main.fragment_info.recyclerLabels
 import kotlinx.android.synthetic.main.fragment_info.textNewWord
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import log.Logger.debug
 import javax.inject.Inject
 
 class InfoFragment : BaseFragment() {
   
   override val layoutId: Int = R.layout.fragment_info
+  
   @Inject lateinit var viewModelFactory: ViewModelFactory
   private lateinit var viewModel: InfoViewModel
-  
   private val labelsAdapter = CurrentLabelsAdapter()
+  
   private var previousWord: Word? = null
-  private lateinit var wordsLabels: List<Label>
+  private var currentLabels: MutableList<Label> = ArrayList()
+  
+  private val callback = object : CheckedChangedCallback {
+    override fun onLabelSelected(label: Label) {
+      currentLabels.add(label)
+      labelsAdapter.submitList(currentLabels)
+    }
+    
+    override fun onLabelUnselected(label: Label) {
+      currentLabels.remove(label)
+      labelsAdapter.submitList(currentLabels)
+    }
+  }
   
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     DaggerInfoComponent.create().inject(this)
@@ -45,17 +56,11 @@ class InfoFragment : BaseFragment() {
     imageBack.setOnClickListener { popBackStack() }
     previousWord = arguments?.get(WORD_KEY) as Word?
     
-    if (previousWord == null) {
-      GlobalScope.launch(Dispatchers.Main) {
-        val id = viewModel.insertWordAndGetId(Word.stub())
-        previousWord = Word(id, "none", "none")
-        handleLabels()
-      }
-    } else {
+    if (previousWord != null) {
       previousWord?.let { setWord() }
       handleLabels()
     }
-  
+    
     val flexboxLayoutManager = object : FlexboxLayoutManager(context!!) {
       override fun canScrollVertically(): Boolean {
         return false
@@ -65,7 +70,13 @@ class InfoFragment : BaseFragment() {
     recyclerLabels.layoutManager = flexboxLayoutManager
     recyclerLabels.adapter = labelsAdapter
     buttonAddLabel.setOnClickListener {
-      val fragment = LabelsCheckboxFragment.of(previousWord!!, ArrayList(wordsLabels))
+      val fragment = if (previousWord == null) {
+        LabelsCheckboxFragment.of(ArrayList(currentLabels)).also {
+          it.callback = callback
+        }
+      } else {
+        LabelsCheckboxFragment.of(previousWord!!, ArrayList(currentLabels))
+      }
       coreActivity.goToFragmentFromRoot(fragment, LabelsCheckboxFragment::class, true)
     }
   }
@@ -85,8 +96,8 @@ class InfoFragment : BaseFragment() {
   
   private fun handleLabels() {
     viewModel.getLabelsForWord(previousWord!!).observe(this@InfoFragment) { labels ->
-      wordsLabels = labels
-      labelsAdapter.submitList(wordsLabels)
+      currentLabels = labels.toMutableList()
+      labelsAdapter.submitList(currentLabels)
     }
   }
   
@@ -102,12 +113,14 @@ class InfoFragment : BaseFragment() {
   }
   
   private fun saveWord() {
+    debug { "saving?" }
     if (editTextWord.text.toString().isNotBlank()) {
       previousWord?.let {
         // Word has been passed -> updating existing word
         it.word = editTextWord.text.toString()
         val definitionText = editTextDefinition.text.toString()
         it.definition = if (definitionText.isNotBlank()) definitionText else null
+        debug { "update existing word = $it" }
         viewModel.updateWord(it)
       }
       if (previousWord == null) {
@@ -116,11 +129,9 @@ class InfoFragment : BaseFragment() {
           word = editTextWord.text.toString(),
           definition = editTextDefinition.text.toString()
         )
-        viewModel.insertWord(newWord)
+        debug { "saving brand new word = $newWord" }
+        viewModel.saveWordWithLabels(newWord, currentLabels)
       }
-    } else {
-      Log.d("wordsing", "deleting, word = $previousWord")
-      viewModel.deleteWord(previousWord!!)
     }
   }
   
