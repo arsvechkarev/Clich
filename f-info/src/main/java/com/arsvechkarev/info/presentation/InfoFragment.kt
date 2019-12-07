@@ -53,7 +53,10 @@ class InfoFragment : BaseFragment() {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     DaggerInfoComponent.create().inject(this)
     viewModel = viewModelOf(viewModelFactory)
-    imageBack.setOnClickListener { popBackStack() }
+    imageBack.setOnClickListener {
+      saveWord()
+      popBackStack()
+    }
     previousWord = arguments?.get(WORD_KEY) as Word?
     
     if (previousWord != null) {

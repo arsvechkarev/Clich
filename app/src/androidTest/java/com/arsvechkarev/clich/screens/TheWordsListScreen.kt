@@ -1,4 +1,4 @@
-package com.arsvechkarev.clich
+package com.arsvechkarev.clich.screens
 
 import android.view.View
 import com.agoda.kakao.recycler.KRecyclerItem
@@ -6,18 +6,19 @@ import com.agoda.kakao.recycler.KRecyclerView
 import com.agoda.kakao.screen.Screen
 import com.agoda.kakao.text.KButton
 import com.agoda.kakao.text.KTextView
+import com.arsvechkarev.clich.R
 import org.hamcrest.Matcher
 
-class WordsListScreen2 : Screen<WordsListScreen2>() {
+class TheWordsListScreen : Screen<TheWordsListScreen>() {
   
   val fabNewWord = KButton { withId(R.id.fabNewWord) }
   
-  val recyclerLabels = KRecyclerView(
+  val recyclerWords = KRecyclerView(
     builder = { withId(R.id.recyclerWords) },
-    itemTypeBuilder = { itemType(::MainItem) }
+    itemTypeBuilder = { itemType(TheWordsListScreen::WordItem) }
   )
   
-  class MainItem(parent: Matcher<View>) : KRecyclerItem<MainItem>(parent) {
+  class WordItem(parent: Matcher<View>) : KRecyclerItem<WordItem>(parent) {
     val textWord = KTextView(parent) { withId(R.id.textWord) }
   }
   
