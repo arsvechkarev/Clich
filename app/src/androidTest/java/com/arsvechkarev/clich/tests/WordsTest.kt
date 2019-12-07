@@ -7,8 +7,10 @@ import com.arsvechkarev.clich.MainActivity
 import com.arsvechkarev.clich.screens.WordInfoScreen
 import com.arsvechkarev.clich.screens.WordsListScreen
 import com.arsvechkarev.clich.screens.WordsListScreen.WordItem
+import com.arsvechkarev.storage.database.CentralDatabase
 import com.arsvechkarev.testui.clearAndTypeText
 import com.arsvechkarev.testui.onScreen
+import org.junit.AfterClass
 import org.junit.FixMethodOrder
 import org.junit.Rule
 import org.junit.Test
@@ -21,6 +23,13 @@ class WordsTest {
   
   @get:Rule
   val activityRule = ActivityTestRule(MainActivity::class.java)
+  
+  companion object {
+    @AfterClass
+    fun tearDown() {
+      CentralDatabase.instance.clearAllTables()
+    }
+  }
   
   /**
    * 1. Click to new word button

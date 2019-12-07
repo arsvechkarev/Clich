@@ -1,13 +1,18 @@
 package com.arsvechkarev.clich.tests
 
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
+import androidx.test.rule.ActivityTestRule
 import com.agoda.kakao.screen.Screen
+import com.arsvechkarev.clich.MainActivity
 import com.arsvechkarev.clich.screens.AllLabelsScreen
 import com.arsvechkarev.clich.screens.DrawerScreen
 import com.arsvechkarev.clich.screens.MainScreen
 import com.arsvechkarev.clich.screens.NewLabelDialogScreen
+import com.arsvechkarev.storage.database.CentralDatabase
 import com.arsvechkarev.testui.onScreen
+import org.junit.AfterClass
 import org.junit.FixMethodOrder
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.MethodSorters
@@ -15,6 +20,16 @@ import org.junit.runners.MethodSorters
 @RunWith(AndroidJUnit4ClassRunner::class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 class LabelsTest {
+  
+  @get:Rule
+  val activityRule = ActivityTestRule(MainActivity::class.java)
+  
+  companion object {
+    @AfterClass
+    fun tearDown() {
+      CentralDatabase.instance.clearAllTables()
+    }
+  }
   
   /**
    * 1. Open drawer
