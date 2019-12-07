@@ -3,15 +3,15 @@ package com.arsvechkarev.clich
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import androidx.test.rule.ActivityTestRule
 import com.agoda.kakao.screen.Screen.Companion.onScreen
+import com.arsvechkarev.clich.screens.AllLabelsScreen
+import com.arsvechkarev.clich.screens.AllLabelsScreen.MainItem
 import com.arsvechkarev.clich.screens.DrawerScreen
 import com.arsvechkarev.clich.screens.DrawerScreen.RecyclerDrawerItem
 import com.arsvechkarev.clich.screens.MainScreen
-import com.arsvechkarev.clich.screens.TheInfoScreen
-import com.arsvechkarev.clich.screens.TheLabelsScreen
-import com.arsvechkarev.clich.screens.TheLabelsScreen.MainItem
-import com.arsvechkarev.clich.screens.TheNewLabelDialogScreen
-import com.arsvechkarev.clich.screens.TheWordsListScreen
-import com.arsvechkarev.clich.screens.TheWordsListScreen.WordItem
+import com.arsvechkarev.clich.screens.NewLabelDialogScreen
+import com.arsvechkarev.clich.screens.WordInfoScreen
+import com.arsvechkarev.clich.screens.WordsListScreen
+import com.arsvechkarev.clich.screens.WordsListScreen.WordItem
 import org.junit.FixMethodOrder
 import org.junit.Rule
 import org.junit.Test
@@ -36,11 +36,11 @@ class MainTest {
    */
   @Test
   fun test1_Creating_new_word_and_checking_that_it_is_displayed_after() {
-    onScreen<TheWordsListScreen> {
+    onScreen<WordsListScreen> {
       fabNewWord.click()
     }
     
-    onScreen<TheInfoScreen> {
+    onScreen<WordInfoScreen> {
       textNewWord.isDisplayed()
       
       editTextWord.typeText("cat")
@@ -49,7 +49,7 @@ class MainTest {
       imageBack.click()
     }
     
-    onScreen<TheWordsListScreen> {
+    onScreen<WordsListScreen> {
       recyclerWords {
         hasSize(1)
         firstChild<WordItem> {
@@ -60,7 +60,7 @@ class MainTest {
       
     }
     
-    onScreen<TheInfoScreen> {
+    onScreen<WordInfoScreen> {
       textNewWord.isNotDisplayed()
       
       editTextWord.hasText("cat")
@@ -71,8 +71,17 @@ class MainTest {
     
   }
   
+  /**
+   * Plan of the test:
+   *
+   * 1. Click to new word button
+   * 2. Create word
+   * 3. Check if it is displayed in the recycler
+   * 4. Click on this item
+   * 5. Go to info fragment and check if data displayed correctly
+   */
   @Test
-  fun test2_Creating_a_new_label() {
+  fun test2_Creating_a_new_label_and_make_sure_that_it_is_displayed() {
     onScreen<MainScreen> {
       drawer.open()
     }
@@ -81,10 +90,10 @@ class MainTest {
       buttonLabels.click()
     }
     
-    onScreen<TheLabelsScreen> {
+    onScreen<AllLabelsScreen> {
       fabNewLabel.click()
       
-      onScreen<TheNewLabelDialogScreen> {
+      onScreen<NewLabelDialogScreen> {
         editTextLabelName.typeText("Animals")
         buttonCreate.click()
       }

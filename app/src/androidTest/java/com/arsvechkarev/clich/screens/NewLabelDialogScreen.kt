@@ -5,7 +5,7 @@ import com.agoda.kakao.screen.Screen
 import com.agoda.kakao.text.KButton
 import com.arsvechkarev.clich.R
 
-class TheNewLabelDialogScreen : Screen<TheNewLabelDialogScreen>() {
+class NewLabelDialogScreen : Screen<NewLabelDialogScreen>() {
   
   val editTextLabelName = KEditText { withId(R.id.editTextLabelName) }
   

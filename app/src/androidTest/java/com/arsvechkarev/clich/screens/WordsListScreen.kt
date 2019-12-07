@@ -9,13 +9,13 @@ import com.agoda.kakao.text.KTextView
 import com.arsvechkarev.clich.R
 import org.hamcrest.Matcher
 
-class TheWordsListScreen : Screen<TheWordsListScreen>() {
+class WordsListScreen : Screen<WordsListScreen>() {
   
   val fabNewWord = KButton { withId(R.id.fabNewWord) }
   
   val recyclerWords = KRecyclerView(
     builder = { withId(R.id.recyclerWords) },
-    itemTypeBuilder = { itemType(TheWordsListScreen::WordItem) }
+    itemTypeBuilder = { itemType(WordsListScreen::WordItem) }
   )
   
   class WordItem(parent: Matcher<View>) : KRecyclerItem<WordItem>(parent) {

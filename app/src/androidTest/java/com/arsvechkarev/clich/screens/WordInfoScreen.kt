@@ -1,4 +1,4 @@
-package com.arsvechkarev.info
+package com.arsvechkarev.clich.screens
 
 import android.view.View
 import com.agoda.kakao.edit.KEditText
@@ -8,9 +8,10 @@ import com.agoda.kakao.recycler.KRecyclerView
 import com.agoda.kakao.screen.Screen
 import com.agoda.kakao.text.KButton
 import com.agoda.kakao.text.KTextView
+import com.arsvechkarev.clich.R
 import org.hamcrest.Matcher
 
-class InfoScreen : Screen<InfoScreen>() {
+class WordInfoScreen : Screen<WordInfoScreen>() {
   
   val imageBack = KImageView { withId(R.id.imageBack) }
   val textNewWord = KTextView { withId(R.id.textNewWord) }
@@ -22,7 +23,7 @@ class InfoScreen : Screen<InfoScreen>() {
   
   val recyclerLabels = KRecyclerView(
     builder = { withId(R.id.recyclerLabels) },
-    itemTypeBuilder = { itemType(::MainItem) }
+    itemTypeBuilder = { itemType(WordInfoScreen::MainItem) }
   )
   
   class MainItem(parent: Matcher<View>) : KRecyclerItem<MainItem>(parent) {
