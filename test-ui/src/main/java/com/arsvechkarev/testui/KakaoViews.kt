@@ -14,36 +14,43 @@ fun <T> assertDisplayed(vararg views: KBaseView<T>) {
 }
 
 infix fun <T : KBaseView<T>> T.isDisplayedAnd(block: T.() -> Unit) {
-  this.apply {
+  apply {
     isDisplayed()
     block()
   }
 }
 
 infix fun KTextView.isDisplayedAndHasText(text: String) {
-  this.apply {
+  apply {
     isDisplayed()
     hasText(text)
   }
 }
 
 infix fun KTextView.isDisplayedAndHasText(@StringRes textResId: Int) {
-  this.apply {
+  apply {
     isDisplayed()
     hasText(textResId)
   }
 }
 
 infix fun KEditText.isDisplayedAndHasHint(text: String) {
-  this.apply {
+  apply {
     isDisplayed()
     hasHint(text)
   }
 }
 
 infix fun KEditText.isDisplayedAndHasHint(@StringRes textResId: Int) {
-  this.apply {
+  apply {
     isDisplayed()
     hasHint(textResId)
+  }
+}
+
+infix fun KEditText.clearAndTypeText(text: String) {
+  apply {
+    clearText()
+    typeText(text)
   }
 }

@@ -8,9 +8,11 @@ import androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_UNLOCKED
 import androidx.fragment.app.Fragment
 import com.arsvechkarev.core.BaseFragment
 import com.arsvechkarev.core.CoreActivity
+import com.arsvechkarev.core.extensions.close
 import com.arsvechkarev.core.extensions.findFragment
 import com.arsvechkarev.core.extensions.goToFragment
 import com.arsvechkarev.core.extensions.isFragmentVisible
+import com.arsvechkarev.core.extensions.isOpen
 import com.arsvechkarev.core.extensions.observe
 import com.arsvechkarev.core.extensions.setupToggle
 import com.arsvechkarev.core.extensions.setupWith

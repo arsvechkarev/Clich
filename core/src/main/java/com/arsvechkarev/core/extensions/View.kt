@@ -17,6 +17,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.text.HtmlCompat
+import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.arsvechkarev.core.R
 
@@ -41,6 +42,14 @@ fun DrawerLayout.setupToggle(activity: AppCompatActivity, toolbar: Toolbar) {
   toggle.syncState()
 }
 
+
+fun DrawerLayout.close() {
+  closeDrawer(GravityCompat.START)
+}
+
+fun DrawerLayout.isOpen(): Boolean {
+  return isDrawerOpen(GravityCompat.START)
+}
 
 fun ScrollView.scrollToTop() {
   this.smoothScrollTo(0, 0)
