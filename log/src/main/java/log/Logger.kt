@@ -2,16 +2,23 @@ package log
 
 object Logger {
   
+  private var isActive = false
+  
   fun activate() {
+    isActive = true
     MyTimber.plant(MyTimber.DebugTree())
   }
   
   fun debug(lazyMessage: () -> String) {
-    MyTimber.d(lazyMessage.invoke())
+    if (isActive) {
+      MyTimber.d(lazyMessage.invoke())
+    }
   }
   
   fun error(lazyMessage: () -> String, throwable: Throwable) {
-    MyTimber.d(throwable, lazyMessage.invoke())
+    if (isActive) {
+      MyTimber.d(throwable, lazyMessage.invoke())
+    }
   }
   
 }

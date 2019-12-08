@@ -11,7 +11,6 @@ import com.arsvechkarev.core.CoreActivity
 import com.arsvechkarev.core.extensions.close
 import com.arsvechkarev.core.extensions.findFragment
 import com.arsvechkarev.core.extensions.goToFragment
-import com.arsvechkarev.core.extensions.isFragmentVisible
 import com.arsvechkarev.core.extensions.isOpen
 import com.arsvechkarev.core.extensions.observe
 import com.arsvechkarev.core.extensions.setupToggle
@@ -29,7 +28,6 @@ import kotlinx.android.synthetic.main.activity_main.layoutDrawer
 import kotlinx.android.synthetic.main.activity_main.toolbar
 import kotlinx.android.synthetic.main.partial_layout_drawer.buttonGoToLabels
 import kotlinx.android.synthetic.main.partial_layout_drawer.recyclerDrawerLabels
-import log.Logger.debug
 import kotlin.reflect.KClass
 
 class MainActivity : AppCompatActivity(), CoreActivity {
@@ -49,7 +47,7 @@ class MainActivity : AppCompatActivity(), CoreActivity {
     layoutDrawer.setupToggle(this, toolbar)
     switchFragment(R.id.baseContainer, wordsListFragment)
     supportFragmentManager.addOnBackStackChangedListener {
-      if (supportFragmentManager.backStackEntryCount == 0 && isFragmentVisible(WordsListFragment::class)) {
+      if (supportFragmentManager.backStackEntryCount == 0) {
         editTextSearchWord.clearFocus()
         layoutDrawer.setDrawerLockMode(LOCK_MODE_UNLOCKED)
       }
@@ -84,18 +82,8 @@ class MainActivity : AppCompatActivity(), CoreActivity {
     if (layoutDrawer.isOpen()) {
       layoutDrawer.close()
     } else {
-      val backStackEntryCount = supportFragmentManager.backStackEntryCount
-      debug { "back stack = $backStackEntryCount" }
-      val visible = backStackEntryCount == 0
-      debug { "is words visible = $visible" }
-      if (visible) {
-        val pressed = findFragment(WordsListFragment::class)?.onBackPressed()
-        debug { "back pressed result = $pressed" }
-        val wordsBack = pressed == false
-        
-        debug { "words = $wordsBack" }
-        
-        if (wordsBack) {
+      if (supportFragmentManager.backStackEntryCount == 0) {
+        if (findFragment(WordsListFragment::class)?.onBackPressed() == false) {
           super.onBackPressed()
         }
       } else {

@@ -24,7 +24,7 @@
         android:background="?colorWindowBackground"
         android:minHeight="?actionBarSize"
         app:navigationIcon="@drawable/ic_arrow_back"
-        app:title="Labels"/>
+        app:title="@string/title_labels"/>
 
     </com.google.android.material.appbar.AppBarLayout>
 
