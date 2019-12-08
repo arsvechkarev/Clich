@@ -31,7 +31,7 @@ import kotlinx.android.synthetic.main.activity_main.textLabelName
 import kotlinx.android.synthetic.main.activity_main.textSearchWord
 import kotlinx.android.synthetic.main.activity_main.toolbar
 import kotlinx.android.synthetic.main.partial_layout_drawer.layoutGoToLabels
-import kotlinx.android.synthetic.main.partial_layout_drawer.layoutLabelsStub
+import kotlinx.android.synthetic.main.partial_layout_drawer.layoutLabelsDrawerStub
 import kotlinx.android.synthetic.main.partial_layout_drawer.recyclerDrawerLabels
 import kotlin.reflect.KClass
 
@@ -68,10 +68,10 @@ class MainActivity : AppCompatActivity(), CoreActivity {
     recyclerDrawerLabels.setupWith(labelsAdapter)
     CentralDatabase.instance.labelsDao().getAll().observe(this) {
       if (it.isEmpty()) {
-        layoutLabelsStub.visible()
+        layoutLabelsDrawerStub.visible()
         recyclerDrawerLabels.gone()
       } else {
-        layoutLabelsStub.gone()
+        layoutLabelsDrawerStub.gone()
         recyclerDrawerLabels.visible()
         labelsAdapter.submitList(it)
       }

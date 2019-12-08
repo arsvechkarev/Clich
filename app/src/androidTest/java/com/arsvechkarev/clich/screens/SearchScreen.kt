@@ -2,7 +2,6 @@ package com.arsvechkarev.clich.screens
 
 import android.view.View
 import com.agoda.kakao.edit.KEditText
-import com.agoda.kakao.image.KImageView
 import com.agoda.kakao.recycler.KRecyclerItem
 import com.agoda.kakao.recycler.KRecyclerView
 import com.agoda.kakao.screen.Screen
@@ -21,13 +20,6 @@ class SearchScreen : Screen<SearchScreen>() {
   
   class SearchScreenItem(parent: Matcher<View>) : KRecyclerItem<SearchScreenItem>(parent) {
     val textWord = KTextView(parent) { withId(R.id.textWord) }
-    val editTextLabel = KEditText(parent) { withId(R.id.editTextLabel) }
-    
-    val imageStart = KImageView(parent) { withId(R.id.imageStart) }
-    val imageEnd = KImageView(parent) { withId(R.id.imageEnd) }
-    
-    val dividerTop = KEditText(parent) { withId(R.id.dividerTop) }
-    val dividerBottom = KEditText(parent) { withId(R.id.dividerBottom) }
   }
   
 }

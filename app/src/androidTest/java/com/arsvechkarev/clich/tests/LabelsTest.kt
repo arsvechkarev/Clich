@@ -4,6 +4,7 @@ import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import androidx.test.rule.ActivityTestRule
 import com.agoda.kakao.screen.Screen.Companion.onScreen
 import com.arsvechkarev.clich.MainActivity
+import com.arsvechkarev.clich.R
 import com.arsvechkarev.clich.screens.AllLabelsScreen
 import com.arsvechkarev.clich.screens.AllLabelsScreen.AllLabelsScreenItem
 import com.arsvechkarev.clich.screens.DrawerScreen
@@ -78,14 +79,30 @@ class LabelsTest {
   }
   
   @Test
-  fun text2_Change_label_and_then_delete_it() {
+  fun text2_Delete_label() {
     screen<MainScreen>().drawer.open()
     screen<DrawerScreen>().layoutGoToLabels.click()
     
     onScreen<AllLabelsScreen> {
-      recyclerLabels.firstChild<AllLabelsScreenItem> {
+      layoutLabelsStub.isNotDisplayed()
       
+      recyclerLabels.firstChild<AllLabelsScreenItem> {
+        imageEnd.click()
+        
+        dividerTop.isVisible()
+        dividerBottom.isVisible()
+        
+        imageStart.hasDrawable(R.drawable.ic_delete)
+        imageEnd.hasDrawable(R.drawable.ic_checkmark)
+        
+        editTextLabel.isVisible()
+        textLabel.isNotDisplayed()
+        
+        imageStart.click()
       }
+      
+      recyclerLabels.isNotDisplayed()
+      layoutLabelsStub.isDisplayed()
     }
   }
 }

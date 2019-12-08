@@ -7,6 +7,7 @@ import com.arsvechkarev.core.domain.model.Label
 import com.arsvechkarev.core.domain.model.Word
 import com.arsvechkarev.core.extensions.gone
 import com.arsvechkarev.core.extensions.observe
+import com.arsvechkarev.core.extensions.popBackStack
 import com.arsvechkarev.core.extensions.setupWith
 import com.arsvechkarev.core.extensions.visible
 import com.arsvechkarev.labels.R
@@ -15,8 +16,9 @@ import com.arsvechkarev.labels.list.Mode
 import com.arsvechkarev.labels.list.viewholders.CheckedChangedCallback
 import com.arsvechkarev.storage.database.CentralDatabase
 import kotlinx.android.synthetic.main.fragment_labels.fabNewLabel
-import kotlinx.android.synthetic.main.fragment_labels.layoutStub
+import kotlinx.android.synthetic.main.fragment_labels.layoutLabelsStub
 import kotlinx.android.synthetic.main.fragment_labels.recyclerLabels
+import kotlinx.android.synthetic.main.fragment_labels.toolbar
 
 class LabelsCheckboxFragment : BaseFragment() {
   
@@ -33,6 +35,9 @@ class LabelsCheckboxFragment : BaseFragment() {
     fabNewLabel.gone()
     word = arguments!!.get(WORD_KEY) as Word?
     alreadySelectedLabels = arguments!!.get(LABELS_KEY) as List<Label>
+    toolbar.setNavigationOnClickListener {
+      popBackStack()
+    }
     labelsAdapter = if (word == null) {
       LabelsAdapter(Mode.CheckboxNotCreatedWord(callback, alreadySelectedLabels))
     } else {
@@ -41,10 +46,10 @@ class LabelsCheckboxFragment : BaseFragment() {
     recyclerLabels.setupWith(labelsAdapter)
     CentralDatabase.instance.labelsDao().getAll().observe(this) {
       if (it.isEmpty()) {
-        layoutStub.visible()
+        layoutLabelsStub.visible()
         recyclerLabels.gone()
       } else {
-        layoutStub.gone()
+        layoutLabelsStub.gone()
         recyclerLabels.visible()
         labelsAdapter.submitList(it)
       }

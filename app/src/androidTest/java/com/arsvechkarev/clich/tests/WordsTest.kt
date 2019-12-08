@@ -1,10 +1,12 @@
 package com.arsvechkarev.clich.tests
 
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.matcher.RootMatchers.isPlatformPopup
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
+import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.ActivityTestRule
 import com.agoda.kakao.screen.Screen.Companion.onScreen
 import com.arsvechkarev.clich.MainActivity
@@ -125,9 +127,9 @@ class WordsTest {
     onScreen<WordInfoScreen> {
       imageBack.click()
       
+      // TODO (08.12.2019): Figure out how to click on menu
+      openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getInstrumentation().targetContext)
       onView(withText(R.string.text_delete_word)).inRoot(isPlatformPopup()).perform(click())
-      
-      pressBack()
     }
     
     onScreen<WordsListScreen> {
