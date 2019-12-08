@@ -35,7 +35,7 @@ class WordsListFragment : BaseFragment() {
   }
   
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    injectThis()
+    DaggerWordsListComponent.create().inject(this)
     viewModel = viewModelOf(viewModelFactory)
     recyclerWords.setupWith(adapter)
     viewModel.fetchWords().observe(this, Observer(::handleList))
@@ -60,10 +60,6 @@ class WordsListFragment : BaseFragment() {
       mainList = it
       adapter.submitList(mainList)
     }
-  }
-  
-  private fun injectThis() {
-    DaggerWordsListComponent.create().inject(this)
   }
   
   fun showWordsOf(label: Label) {

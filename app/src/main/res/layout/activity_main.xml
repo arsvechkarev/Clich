@@ -31,12 +31,11 @@
         android:background="@drawable/bg_toolbar"
         android:minHeight="?attr/actionBarSize">
 
-        <EditText
-          android:id="@+id/editTextSearchWord"
+        <TextView
+          android:id="@+id/textSearchWord"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:background="@null"
-          android:hint="Search words..."/>
+          android:text="Search words..."/>
 
       </androidx.appcompat.widget.Toolbar>
 

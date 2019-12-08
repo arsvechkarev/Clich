@@ -49,6 +49,7 @@ dependencies {
   implementation project(':f-info')
   implementation project(':f-labels')
   implementation project(':f-words')
+  implementation project(':f-search')
 
   def appDependencies = rootProject.ext.applicationDependencies
 

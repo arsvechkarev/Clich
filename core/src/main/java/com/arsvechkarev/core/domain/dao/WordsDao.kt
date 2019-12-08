@@ -17,9 +17,12 @@ interface WordsDao {
   @Update
   suspend fun update(word: Word)
   
+  @Delete
+  suspend fun delete(word: Word)
+  
   @Query("SELECT * FROM words")
   fun getAll(): LiveData<List<Word>>
   
-  @Delete
-  suspend fun delete(word: Word)
+  @Query("SELECT * FROM words WHERE words.word LIKE :input")
+  fun search(input: String): LiveData<List<Word>>
 }

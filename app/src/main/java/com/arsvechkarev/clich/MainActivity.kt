@@ -20,11 +20,12 @@ import com.arsvechkarev.info.presentation.InfoFragment
 import com.arsvechkarev.labels.list.LabelsAdapter
 import com.arsvechkarev.labels.list.Mode
 import com.arsvechkarev.labels.presentation.LabelsFragment
+import com.arsvechkarev.search.presentation.SearchFragment
 import com.arsvechkarev.storage.database.CentralDatabase
 import com.arsvechkarev.words.presentation.WordsListFragment
 import kotlinx.android.synthetic.main.activity_main.baseContainer
-import kotlinx.android.synthetic.main.activity_main.editTextSearchWord
 import kotlinx.android.synthetic.main.activity_main.layoutDrawer
+import kotlinx.android.synthetic.main.activity_main.textSearchWord
 import kotlinx.android.synthetic.main.activity_main.toolbar
 import kotlinx.android.synthetic.main.partial_layout_drawer.buttonGoToLabels
 import kotlinx.android.synthetic.main.partial_layout_drawer.recyclerDrawerLabels
@@ -48,18 +49,21 @@ class MainActivity : AppCompatActivity(), CoreActivity {
     switchFragment(R.id.baseContainer, wordsListFragment)
     supportFragmentManager.addOnBackStackChangedListener {
       if (supportFragmentManager.backStackEntryCount == 0) {
-        editTextSearchWord.clearFocus()
         layoutDrawer.setDrawerLockMode(LOCK_MODE_UNLOCKED)
+      } else {
+        layoutDrawer.setDrawerLockMode(LOCK_MODE_LOCKED_CLOSED)
       }
     }
     buttonGoToLabels.setOnClickListener {
-      layoutDrawer.setDrawerLockMode(LOCK_MODE_LOCKED_CLOSED)
       transferToFragment(LabelsFragment())
       layoutDrawer.close()
     }
     recyclerDrawerLabels.setupWith(labelsAdapter)
     CentralDatabase.instance.labelsDao().getAll().observe(this) {
       labelsAdapter.submitList(it)
+    }
+    textSearchWord.setOnClickListener {
+      transferToFragment(SearchFragment())
     }
   }
   

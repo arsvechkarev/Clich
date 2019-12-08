@@ -45,9 +45,6 @@ dependencies {
   implementation appDependencies.dagger
   kapt appDependencies.daggerCompiler
 
-  implementation appDependencies.retrofit
-  implementation appDependencies.okhttpLoggingInterceptor
-
   testImplementation project(':test-unit')
   androidTestImplementation project(':test-ui')
 }

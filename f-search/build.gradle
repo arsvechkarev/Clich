@@ -27,7 +27,8 @@ android {
 dependencies {
   implementation project(':core')
   implementation project(':storage')
-  implementation project(':f-labels')
+  implementation project(':f-info')
+  implementation project(':f-words')
 
   def appDependencies = rootProject.ext.applicationDependencies
 
@@ -39,7 +40,6 @@ dependencies {
   implementation appDependencies.lifecycleExtensions
   implementation appDependencies.legacySupport
   implementation appDependencies.constraintLayout
-  implementation appDependencies.flexboxLayout
 
   implementation appDependencies.coroutinesCore
   implementation appDependencies.coroutinesAndroid
