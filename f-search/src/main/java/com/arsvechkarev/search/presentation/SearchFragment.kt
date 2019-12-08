@@ -5,15 +5,18 @@ import android.view.View
 import com.arsvechkarev.core.BaseFragment
 import com.arsvechkarev.core.coreActivity
 import com.arsvechkarev.core.di.viewmodel.ViewModelFactory
+import com.arsvechkarev.core.extensions.hideKeyboard
 import com.arsvechkarev.core.extensions.observe
+import com.arsvechkarev.core.extensions.observeOnce
 import com.arsvechkarev.core.extensions.onTextChanged
 import com.arsvechkarev.core.extensions.popBackStack
 import com.arsvechkarev.core.extensions.setupWith
+import com.arsvechkarev.core.extensions.showKeyboard
 import com.arsvechkarev.core.extensions.viewModelOf
 import com.arsvechkarev.info.presentation.InfoFragment
 import com.arsvechkarev.search.R
 import com.arsvechkarev.search.di.DaggerSearchComponent
-import com.arsvechkarev.words.list.WordsListAdapter
+import com.arsvechkarev.search.labels.WordsListAdapter
 import kotlinx.android.synthetic.main.fragment_search.editTextSearchWord
 import kotlinx.android.synthetic.main.fragment_search.imageBack
 import kotlinx.android.synthetic.main.fragment_search.recyclerWords
@@ -27,6 +30,7 @@ class SearchFragment : BaseFragment() {
   private lateinit var viewModel: SearchViewModel
   
   private val adapter = WordsListAdapter {
+    hideKeyboard(editTextSearchWord)
     coreActivity.goToFragmentFromRoot(InfoFragment.of(it), InfoFragment::class, true)
   }
   
@@ -34,6 +38,9 @@ class SearchFragment : BaseFragment() {
     DaggerSearchComponent.create().inject(this)
     viewModel = viewModelOf(viewModelFactory)
     recyclerWords.setupWith(adapter)
+    viewModel.getAllWords().observeOnce(this) { words ->
+      adapter.submitList(words)
+    }
     editTextSearchWord.onTextChanged { text ->
       if (text.isNotBlank()) {
         viewModel.searchWords(text).observe(this@SearchFragment) { words ->
@@ -42,7 +49,14 @@ class SearchFragment : BaseFragment() {
       }
     }
     imageBack.setOnClickListener {
+      hideKeyboard(editTextSearchWord)
       popBackStack()
     }
+  }
+  
+  override fun onResume() {
+    super.onResume()
+    editTextSearchWord.requestFocus()
+    showKeyboard()
   }
 }

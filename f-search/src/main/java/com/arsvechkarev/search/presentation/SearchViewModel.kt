@@ -15,4 +15,8 @@ class SearchViewModel @Inject constructor(
     return database.wordDao().search(formattedInput)
   }
   
+  fun getAllWords(): LiveData<List<Word>> {
+    return database.wordDao().getAll()
+  }
+  
 }

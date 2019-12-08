@@ -35,7 +35,9 @@
           android:id="@+id/textSearchWord"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:text="Search words..."/>
+          android:textColor="?colorTextEditTextHint"
+          android:textSize="@dimen/text_h3"
+          android:text="@string/text_search_words"/>
 
       </androidx.appcompat.widget.Toolbar>
 

@@ -8,29 +8,32 @@
   android:focusable="true">
 
   <androidx.cardview.widget.CardView
+    android:id="@+id/toolbar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="8dp"
+    app:cardBackgroundColor="?colorWindowBackground"
     app:cardElevation="4dp"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-      android:id="@+id/toolbar"
-      android:padding="6dp"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:minHeight="?attr/actionBarSize">
+      android:minHeight="?attr/actionBarSize"
+      android:padding="6dp">
 
       <ImageView
         android:id="@+id/imageBack"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_margin="8dp"
-        android:padding="6dp"
+        android:background="?selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:focusable="true"
         android:src="@drawable/ic_arrow_back"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/editTextSearchWord"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
@@ -38,10 +41,12 @@
         android:id="@+id/editTextSearchWord"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginStart="16dp"
         android:background="@null"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:hint="Search words..."
+        android:hint="@string/text_search_hint"
+        android:inputType="text"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/imageBack"
         app:layout_constraintTop_toTopOf="parent"/>
 
@@ -53,8 +58,8 @@
   <androidx.recyclerview.widget.RecyclerView
     android:id="@+id/recyclerWords"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:clipToPadding="false"
-    android:paddingTop="80dp"/>
+    android:layout_height="0dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/toolbar"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
