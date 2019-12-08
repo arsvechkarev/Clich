@@ -20,7 +20,10 @@ interface WordsLabelsDao {
   suspend fun delete(wordsLabelsJoin: WordsLabelsJoin)
   
   @Query("DELETE FROM words_labels_join WHERE words_labels_join.labelId = :labelId")
-  suspend fun delete(labelId: Long)
+  suspend fun deleteFromLabel(labelId: Long)
+  
+  @Query("DELETE FROM words_labels_join WHERE words_labels_join.wordId = :wordId")
+  suspend fun deleteFromWord(wordId: Long)
   
   @Query(
     """

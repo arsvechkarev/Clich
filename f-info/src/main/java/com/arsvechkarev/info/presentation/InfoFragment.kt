@@ -2,6 +2,7 @@ package com.arsvechkarev.info.presentation
 
 import android.os.Bundle
 import android.view.View
+import android.widget.PopupMenu
 import com.arsvechkarev.core.BaseFragment
 import com.arsvechkarev.core.coreActivity
 import com.arsvechkarev.core.di.viewmodel.ViewModelFactory
@@ -12,6 +13,7 @@ import com.arsvechkarev.core.extensions.observe
 import com.arsvechkarev.core.extensions.popBackStack
 import com.arsvechkarev.core.extensions.showKeyboard
 import com.arsvechkarev.core.extensions.viewModelOf
+import com.arsvechkarev.core.extensions.visible
 import com.arsvechkarev.info.R
 import com.arsvechkarev.info.di.DaggerInfoComponent
 import com.arsvechkarev.info.list.CurrentLabelsAdapter
@@ -22,6 +24,7 @@ import kotlinx.android.synthetic.main.fragment_info.buttonAddLabels
 import kotlinx.android.synthetic.main.fragment_info.editTextDefinition
 import kotlinx.android.synthetic.main.fragment_info.editTextWord
 import kotlinx.android.synthetic.main.fragment_info.imageBack
+import kotlinx.android.synthetic.main.fragment_info.imageMenu
 import kotlinx.android.synthetic.main.fragment_info.recyclerWordsLabels
 import kotlinx.android.synthetic.main.fragment_info.textNewWord
 import log.Logger.debug
@@ -82,6 +85,20 @@ class InfoFragment : BaseFragment() {
       }
       coreActivity.goToFragmentFromRoot(fragment, LabelsCheckboxFragment::class, true)
     }
+    
+    imageMenu.setOnClickListener {
+      val popup = PopupMenu(context!!, imageMenu)
+      popup.inflate(R.menu.menu_info)
+      popup.setOnMenuItemClickListener {
+        if (it.itemId == R.id.itemDelete) {
+          popBackStack()
+          viewModel.deleteWord(previousWord!!)
+          return@setOnMenuItemClickListener true
+        }
+        return@setOnMenuItemClickListener false
+      }
+      popup.show()
+    }
   }
   
   override fun onResume() {
@@ -106,6 +123,7 @@ class InfoFragment : BaseFragment() {
   
   private fun setWord() {
     textNewWord.gone()
+    imageMenu.visible()
     previousWord!!.let { word ->
       viewModel.getLabelsForWord(word).observe(this) { labels ->
         labelsAdapter.submitList(labels)

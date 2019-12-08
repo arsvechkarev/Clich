@@ -24,6 +24,7 @@ class InfoViewModel @Inject constructor(
   
   fun deleteWord(word: Word) {
     launchGlobal {
+      database.wordsAndLabelsDao().deleteFromWord(word.id!!)
       database.wordDao().delete(word)
     }
   }
