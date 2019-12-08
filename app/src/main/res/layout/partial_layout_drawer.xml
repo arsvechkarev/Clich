@@ -88,6 +88,24 @@
         android:layout_height="wrap_content"
         android:nestedScrollingEnabled="false"/>
 
+      <LinearLayout
+        android:id="@+id/layoutLabelsStub"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="8dp"
+        android:visibility="gone">
+
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:fontFamily="@font/metropolis_semi_bold"
+          android:gravity="center"
+          android:text="@string/text_stub_no_labels_drawer"
+          android:textSize="@dimen/text_h4"/>
+
+      </LinearLayout>
+
     </LinearLayout>
 
   </androidx.core.widget.NestedScrollView>

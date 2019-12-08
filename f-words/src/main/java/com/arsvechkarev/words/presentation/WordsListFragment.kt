@@ -9,14 +9,17 @@ import com.arsvechkarev.core.di.viewmodel.ViewModelFactory
 import com.arsvechkarev.core.domain.model.Label
 import com.arsvechkarev.core.domain.model.Word
 import com.arsvechkarev.core.domain.model.words
+import com.arsvechkarev.core.extensions.gone
 import com.arsvechkarev.core.extensions.observeOnce
 import com.arsvechkarev.core.extensions.setupWith
 import com.arsvechkarev.core.extensions.viewModelOf
+import com.arsvechkarev.core.extensions.visible
 import com.arsvechkarev.info.presentation.InfoFragment
 import com.arsvechkarev.words.R
 import com.arsvechkarev.words.di.DaggerWordsListComponent
 import com.arsvechkarev.words.list.WordsListAdapter
 import kotlinx.android.synthetic.main.fragment_words_list.fabNewWord
+import kotlinx.android.synthetic.main.fragment_words_list.layoutStub
 import kotlinx.android.synthetic.main.fragment_words_list.recyclerWords
 import log.Logger.debug
 import javax.inject.Inject
@@ -54,11 +57,15 @@ class WordsListFragment : BaseFragment() {
   
   private fun handleList(it: List<Word>) {
     if (it.isEmpty()) {
+      layoutStub.visible()
+      recyclerWords.gone()
       debug { "got empty list" }
     } else {
       debug { "list update: ${it.words()}" }
       mainList = it
       adapter.submitList(mainList)
+      layoutStub.gone()
+      recyclerWords.visible()
     }
   }
   

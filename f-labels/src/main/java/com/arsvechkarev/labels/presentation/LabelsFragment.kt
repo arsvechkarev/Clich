@@ -19,6 +19,7 @@ import com.arsvechkarev.labels.list.LabelsAdapter
 import com.arsvechkarev.labels.list.Mode.Default
 import com.arsvechkarev.storage.database.CentralDatabase
 import kotlinx.android.synthetic.main.fragment_labels.fabNewLabel
+import kotlinx.android.synthetic.main.fragment_labels.layoutStub
 import kotlinx.android.synthetic.main.fragment_labels.recyclerLabels
 import kotlinx.android.synthetic.main.fragment_labels.toolbar
 
@@ -69,7 +70,16 @@ class LabelsFragment : BaseFragment(), CreateLabelDialog.Callback {
     recyclerLabels.layoutManager = layoutManager
     recyclerLabels.adapter = adapter
     toolbar.setNavigationOnClickListener { popBackStack() }
-    CentralDatabase.instance.labelsDao().getAll().observe(this, adapter::submitList)
+    CentralDatabase.instance.labelsDao().getAll().observe(this) {
+      if (it.isEmpty()) {
+        layoutStub.visible()
+        recyclerLabels.gone()
+      } else {
+        layoutStub.gone()
+        recyclerLabels.visible()
+        adapter.submitList(it)
+      }
+    }
     fabNewLabel.setOnClickListener {
       CreateLabelDialog().show(childFragmentManager, null)
     }

@@ -5,6 +5,7 @@ import android.view.View
 import com.arsvechkarev.core.BaseFragment
 import com.arsvechkarev.core.coreActivity
 import com.arsvechkarev.core.di.viewmodel.ViewModelFactory
+import com.arsvechkarev.core.extensions.gone
 import com.arsvechkarev.core.extensions.hideKeyboard
 import com.arsvechkarev.core.extensions.observe
 import com.arsvechkarev.core.extensions.observeOnce
@@ -13,12 +14,14 @@ import com.arsvechkarev.core.extensions.popBackStack
 import com.arsvechkarev.core.extensions.setupWith
 import com.arsvechkarev.core.extensions.showKeyboard
 import com.arsvechkarev.core.extensions.viewModelOf
+import com.arsvechkarev.core.extensions.visible
 import com.arsvechkarev.info.presentation.InfoFragment
 import com.arsvechkarev.search.R
 import com.arsvechkarev.search.di.DaggerSearchComponent
 import com.arsvechkarev.search.labels.WordsListAdapter
 import kotlinx.android.synthetic.main.fragment_search.editTextSearchWord
 import kotlinx.android.synthetic.main.fragment_search.imageBack
+import kotlinx.android.synthetic.main.fragment_search.layoutStub
 import kotlinx.android.synthetic.main.fragment_search.recyclerWords
 import javax.inject.Inject
 
@@ -39,7 +42,14 @@ class SearchFragment : BaseFragment() {
     viewModel = viewModelOf(viewModelFactory)
     recyclerWords.setupWith(adapter)
     viewModel.getAllWords().observeOnce(this) { words ->
-      adapter.submitList(words)
+      if (words.isEmpty()) {
+        layoutStub.visible()
+        recyclerWords.gone()
+      } else {
+        adapter.submitList(words)
+        layoutStub.gone()
+        recyclerWords.visible()
+      }
     }
     editTextSearchWord.onTextChanged { text ->
       if (text.isNotBlank()) {

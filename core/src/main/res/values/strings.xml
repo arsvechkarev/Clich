@@ -8,4 +8,7 @@
 
   <string name="text_search_words">Search words…</string>
   <string name="text_search_hint">Search words…</string>
+  <string name="text_stub_no_labels_drawer">
+    No labels yet\nClick above to create one
+  </string>
 </resources>

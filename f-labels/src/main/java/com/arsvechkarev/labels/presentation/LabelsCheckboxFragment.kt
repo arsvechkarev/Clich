@@ -8,12 +8,14 @@ import com.arsvechkarev.core.domain.model.Word
 import com.arsvechkarev.core.extensions.gone
 import com.arsvechkarev.core.extensions.observe
 import com.arsvechkarev.core.extensions.setupWith
+import com.arsvechkarev.core.extensions.visible
 import com.arsvechkarev.labels.R
 import com.arsvechkarev.labels.list.LabelsAdapter
 import com.arsvechkarev.labels.list.Mode
 import com.arsvechkarev.labels.list.viewholders.CheckedChangedCallback
 import com.arsvechkarev.storage.database.CentralDatabase
 import kotlinx.android.synthetic.main.fragment_labels.fabNewLabel
+import kotlinx.android.synthetic.main.fragment_labels.layoutStub
 import kotlinx.android.synthetic.main.fragment_labels.recyclerLabels
 
 class LabelsCheckboxFragment : BaseFragment() {
@@ -38,7 +40,14 @@ class LabelsCheckboxFragment : BaseFragment() {
     }
     recyclerLabels.setupWith(labelsAdapter)
     CentralDatabase.instance.labelsDao().getAll().observe(this) {
-      labelsAdapter.submitList(it)
+      if (it.isEmpty()) {
+        layoutStub.visible()
+        recyclerLabels.gone()
+      } else {
+        layoutStub.gone()
+        recyclerLabels.visible()
+        labelsAdapter.submitList(it)
+      }
     }
   }
   
