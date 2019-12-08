@@ -23,6 +23,11 @@ class WordsListAdapter(
     holder.bind(getItem(position))
   }
   
+  override fun submitList(list: List<Word>?) {
+    super.submitList(list)
+    notifyDataSetChanged()
+  }
+  
   inner class WordsListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     
     fun bind(item: Word) {

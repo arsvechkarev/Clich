@@ -53,5 +53,6 @@ class LabelsAdapter(
   
   override fun submitList(data: List<Label>?) {
     super.submitList(data?.sorted())
+    notifyDataSetChanged()
   }
 }

@@ -23,6 +23,11 @@ class CurrentLabelsAdapter(
     holder.bind(getItem(position), clickListener)
   }
   
+  override fun submitList(list: List<Label>?) {
+    super.submitList(list)
+    notifyDataSetChanged()
+  }
+  
   class CurrentLabelsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     fun bind(item: Label, clickListener: (Label) -> Unit) {
       itemView.textLabel.text = item.name
