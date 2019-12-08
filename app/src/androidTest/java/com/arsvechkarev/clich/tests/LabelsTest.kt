@@ -12,6 +12,8 @@ import com.arsvechkarev.clich.screens.MainScreen
 import com.arsvechkarev.clich.screens.NewLabelDialogScreen
 import com.arsvechkarev.core.extensions.inBackground
 import com.arsvechkarev.storage.database.CentralDatabase
+import com.arsvechkarev.testui.clearAndTypeText
+import com.arsvechkarev.testui.isDisplayedAndHasText
 import com.arsvechkarev.testui.screen
 import org.junit.AfterClass
 import org.junit.FixMethodOrder
@@ -79,7 +81,7 @@ class LabelsTest {
   }
   
   @Test
-  fun text2_Delete_label() {
+  fun text2_Edit_label_delete_it_and_make_sure_it_is_not_displayed() {
     screen<MainScreen>().drawer.open()
     screen<DrawerScreen>().layoutGoToLabels.click()
     
@@ -87,16 +89,34 @@ class LabelsTest {
       layoutLabelsStub.isNotDisplayed()
       
       recyclerLabels.firstChild<AllLabelsScreenItem> {
+        
         imageEnd.click()
         
         dividerTop.isVisible()
         dividerBottom.isVisible()
-        
         imageStart.hasDrawable(R.drawable.ic_delete)
         imageEnd.hasDrawable(R.drawable.ic_checkmark)
-        
         editTextLabel.isVisible()
         textLabel.isNotDisplayed()
+        
+        imageEnd.click()
+  
+        dividerTop.isNotDisplayed()
+        dividerBottom.isNotDisplayed()
+        imageStart.hasDrawable(R.drawable.ic_label)
+        imageEnd.hasDrawable(R.drawable.ic_edit)
+        editTextLabel.isNotDisplayed()
+        textLabel isDisplayedAndHasText "Animals"
+        
+        imageEnd.click()
+        
+        editTextLabel clearAndTypeText "Other stuff"
+        
+        imageEnd.click()
+        
+        textLabel isDisplayedAndHasText "Other stuff"
+        
+        imageEnd.click()
         
         imageStart.click()
       }
