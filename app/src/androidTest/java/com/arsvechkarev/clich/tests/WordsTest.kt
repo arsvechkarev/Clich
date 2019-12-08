@@ -9,7 +9,7 @@ import com.arsvechkarev.clich.screens.WordsListScreen
 import com.arsvechkarev.clich.screens.WordsListScreen.WordItem
 import com.arsvechkarev.storage.database.CentralDatabase
 import com.arsvechkarev.testui.clearAndTypeText
-import com.arsvechkarev.testui.onScreen
+import com.arsvechkarev.testui.screen
 import org.junit.AfterClass
 import org.junit.FixMethodOrder
 import org.junit.Rule
@@ -40,7 +40,7 @@ class WordsTest {
    */
   @Test
   fun test1_Creating_new_word_and_checking_that_it_is_displayed_after() {
-    onScreen<WordsListScreen>().fabNewWord.click()
+    screen<WordsListScreen>().fabNewWord.click()
     
     onScreen<WordInfoScreen> {
       textNewWord.isDisplayed()

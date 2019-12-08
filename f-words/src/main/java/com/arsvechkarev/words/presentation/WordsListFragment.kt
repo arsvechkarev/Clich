@@ -74,7 +74,7 @@ class WordsListFragment : BaseFragment() {
     }
   }
   
-  fun showMainList() {
+  private fun showMainList() {
     debug { "showing main list" }
     adapter.submitList(mainList)
     labelsAreDisplayed = false

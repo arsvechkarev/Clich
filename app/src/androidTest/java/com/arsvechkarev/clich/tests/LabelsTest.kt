@@ -2,14 +2,14 @@ package com.arsvechkarev.clich.tests
 
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import androidx.test.rule.ActivityTestRule
-import com.agoda.kakao.screen.Screen
+import com.agoda.kakao.screen.Screen.Companion.onScreen
 import com.arsvechkarev.clich.MainActivity
 import com.arsvechkarev.clich.screens.AllLabelsScreen
 import com.arsvechkarev.clich.screens.DrawerScreen
 import com.arsvechkarev.clich.screens.MainScreen
 import com.arsvechkarev.clich.screens.NewLabelDialogScreen
 import com.arsvechkarev.storage.database.CentralDatabase
-import com.arsvechkarev.testui.onScreen
+import com.arsvechkarev.testui.screen
 import org.junit.AfterClass
 import org.junit.FixMethodOrder
 import org.junit.Rule
@@ -40,13 +40,13 @@ class LabelsTest {
    */
   @Test
   fun test1_Creating_new_label_and_make_sure_that_it_is_displayed() {
-    onScreen<MainScreen>().drawer.open()
-    onScreen<DrawerScreen>().buttonLabels.click()
+    screen<MainScreen>().drawer.open()
+    screen<DrawerScreen>().buttonLabels.click()
     
-    Screen.onScreen<AllLabelsScreen> {
+    onScreen<AllLabelsScreen> {
       fabNewLabel.click()
       
-      Screen.onScreen<NewLabelDialogScreen> {
+      onScreen<NewLabelDialogScreen> {
         editTextLabelName.typeText("Animals")
         buttonCreate.click()
       }
@@ -61,9 +61,9 @@ class LabelsTest {
       pressBack()
     }
     
-    onScreen<MainScreen>().drawer.open()
+    screen<MainScreen>().drawer.open()
     
-    Screen.onScreen<DrawerScreen> {
+    onScreen<DrawerScreen> {
       recyclerDrawerLabels {
         hasSize(1)
         firstChild<DrawerScreen.RecyclerDrawerItem> {

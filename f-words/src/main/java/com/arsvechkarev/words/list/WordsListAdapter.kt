@@ -2,34 +2,25 @@ package com.arsvechkarev.words.list
 
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.arsvechkarev.core.DisplayableItem.DiffCallBack
 import com.arsvechkarev.core.domain.model.Word
-import com.arsvechkarev.core.domain.model.words
 import com.arsvechkarev.core.extensions.inflate
 import com.arsvechkarev.words.R
+import com.arsvechkarev.words.list.WordsListAdapter.WordsListViewHolder
 import kotlinx.android.synthetic.main.item_word.view.textWord
-import log.Logger.debug
 
 class WordsListAdapter(
   private val clickListener: (Word) -> Unit = {}
-) : RecyclerView.Adapter<WordsListAdapter.WordsListViewHolder>() {
-  
-  private var data: List<Word> = ArrayList()
+) : ListAdapter<Word, WordsListViewHolder>(DiffCallBack()) {
   
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WordsListViewHolder {
     return WordsListViewHolder(parent.inflate(R.layout.item_word))
   }
   
-  override fun getItemCount() = data.size
-  
   override fun onBindViewHolder(holder: WordsListViewHolder, position: Int) {
-    holder.bind(data[position])
-  }
-  
-  fun submitList(list: List<Word>) {
-    debug { "submitting list: ${list.words()}" }
-    data = list
-    notifyDataSetChanged()
+    holder.bind(getItem(position))
   }
   
   inner class WordsListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

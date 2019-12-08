@@ -1,4 +1,4 @@
-package com.arsvechkarev.core.recycler
+package com.arsvechkarev.core
 
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -11,14 +11,9 @@ import androidx.recyclerview.widget.RecyclerView
 interface DisplayableItem {
   
   /**
-   * Type to bind recycler adapter
-   */
-  val type: Int
-  
-  /**
    * Id to distinguish two different elements
    */
-  val id: String
+  val id: Long?
   
   /**
    * Every class inherits from [DisplayableItem] should override equals in order to compare elements
@@ -29,12 +24,12 @@ interface DisplayableItem {
   /**
    * Callback for updating items in recycler view
    */
-  class DiffCallBack : DiffUtil.ItemCallback<DisplayableItem>() {
+  class DiffCallBack <T : DisplayableItem> : DiffUtil.ItemCallback<T>() {
     
-    override fun areItemsTheSame(oldItem: DisplayableItem, newItem: DisplayableItem) =
+    override fun areItemsTheSame(oldItem: T, newItem: T) =
       oldItem.id == newItem.id
     
-    override fun areContentsTheSame(oldItem: DisplayableItem, newItem: DisplayableItem) =
+    override fun areContentsTheSame(oldItem: T, newItem: T) =
       oldItem == newItem
   }
 }
