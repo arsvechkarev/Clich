@@ -1,7 +1,9 @@
 package com.arsvechkarev.labels.list
 
 import android.view.ViewGroup
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.arsvechkarev.core.DisplayableItem.DiffCallBack
 import com.arsvechkarev.core.domain.model.Label
 import com.arsvechkarev.core.extensions.inflate
 import com.arsvechkarev.labels.R
@@ -19,9 +21,7 @@ import com.arsvechkarev.labels.list.viewholders.SimpleLabelViewHolder
  */
 class LabelsAdapter(
   private val mode: Mode
-) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-  
-  private var data: List<Label> = ArrayList()
+) : ListAdapter<Label, RecyclerView.ViewHolder>(DiffCallBack()) {
   
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
     return when (mode) {
@@ -42,19 +42,16 @@ class LabelsAdapter(
     }
   }
   
-  override fun getItemCount() = data.size
-  
   override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
     when (mode) {
-      is Default -> (holder as DefaultLabelViewHolder).bind(data[position])
-      is Simple -> (holder as SimpleLabelViewHolder).bind(data[position])
-      is Checkbox -> (holder as CheckboxLabelViewHolder).bind(data[position])
-      is CheckboxNotCreatedWord -> (holder as CheckboxNotCreatedWordViewHolder).bind(data[position])
+      is Default -> (holder as DefaultLabelViewHolder).bind(getItem(position))
+      is Simple -> (holder as SimpleLabelViewHolder).bind(getItem(position))
+      is Checkbox -> (holder as CheckboxLabelViewHolder).bind(getItem(position))
+      is CheckboxNotCreatedWord -> (holder as CheckboxNotCreatedWordViewHolder).bind(getItem(position))
     }
   }
   
-  fun submitList(data: List<Label>) {
-    this.data = data.sorted()
-    notifyDataSetChanged()
+  override fun submitList(data: List<Label>?) {
+    super.submitList(data?.sorted())
   }
 }

@@ -37,5 +37,5 @@ interface WordsLabelsDao {
            WHERE words_labels_join.labelId=:labelId
            """
   )
-  fun getWordsOfLabel(labelId: Int): LiveData<List<Word>>
+  fun getWordsOfLabel(labelId: Long): LiveData<List<Word>>
 }

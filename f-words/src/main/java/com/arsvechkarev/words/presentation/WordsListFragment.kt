@@ -58,7 +58,7 @@ class WordsListFragment : BaseFragment() {
     } else {
       debug { "list update: ${it.words()}" }
       mainList = it
-      adapter.submitList(it)
+      adapter.submitList(mainList)
     }
   }
   

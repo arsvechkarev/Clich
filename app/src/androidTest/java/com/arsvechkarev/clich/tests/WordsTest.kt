@@ -88,7 +88,7 @@ class WordsTest {
       pressBack()
       pressBack()
     }
-    
+  
     onScreen<WordsListScreen> {
       recyclerWords {
         hasSize(1)
