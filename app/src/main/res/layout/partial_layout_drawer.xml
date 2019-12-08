@@ -24,7 +24,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="32dp"
         android:fontFamily="@font/metropolis_extra_bold"
-        android:text="Clich"
+        android:text="@string/app_name"
         android:textColor="?colorAccent"
         android:textSize="@dimen/text_app_name"/>
 
@@ -57,7 +57,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:fontFamily="@font/metropolis_semi_bold"
-            android:text="Labels"
+            android:text="@string/title_labels"
             android:textColor="?colorTextSecondary"
             android:textSize="@dimen/text_h4"
             app:layout_constraintBottom_toBottomOf="parent"
