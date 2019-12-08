@@ -1,15 +1,20 @@
 package com.arsvechkarev.clich.tests
 
+import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.matcher.RootMatchers.isPlatformPopup
+import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import androidx.test.rule.ActivityTestRule
 import com.agoda.kakao.screen.Screen.Companion.onScreen
 import com.arsvechkarev.clich.MainActivity
+import com.arsvechkarev.clich.R
 import com.arsvechkarev.clich.screens.WordInfoScreen
 import com.arsvechkarev.clich.screens.WordsListScreen
-import com.arsvechkarev.clich.screens.WordsListScreen.WordItem
+import com.arsvechkarev.clich.screens.WordsListScreen.WordsListScreenItem
+import com.arsvechkarev.core.extensions.inBackground
 import com.arsvechkarev.storage.database.CentralDatabase
 import com.arsvechkarev.testui.clearAndTypeText
-import com.arsvechkarev.testui.screen
 import org.junit.AfterClass
 import org.junit.FixMethodOrder
 import org.junit.Rule
@@ -27,23 +32,22 @@ class WordsTest {
   companion object {
     @AfterClass
     fun tearDown() {
-      CentralDatabase.instance.clearAllTables()
+      inBackground {
+        CentralDatabase.instance.clearAllTables()
+      }
     }
   }
   
-  /**
-   * 1. Click to new word button
-   * 2. Create word
-   * 3. Check if it is displayed in the recycler
-   * 4. Click on this item
-   * 5. Go to info fragment and check if data displayed correctly
-   */
   @Test
   fun test1_Creating_new_word_and_checking_that_it_is_displayed_after() {
-    screen<WordsListScreen>().fabNewWord.click()
+    onScreen<WordsListScreen> {
+      layoutStub.isDisplayed()
+      fabNewWord.click()
+    }
     
     onScreen<WordInfoScreen> {
       textNewWord.isDisplayed()
+      imageMenu.isNotDisplayed()
       
       editTextWord.typeText("cat")
       editTextDefinition.typeText("a small animal")
@@ -52,9 +56,11 @@ class WordsTest {
     }
     
     onScreen<WordsListScreen> {
+      layoutStub.isNotDisplayed()
+      
       recyclerWords {
         hasSize(1)
-        firstChild<WordItem> {
+        firstChild<WordsListScreenItem> {
           textWord.hasText("cat")
           click()
         }
@@ -63,6 +69,7 @@ class WordsTest {
     }
     
     onScreen<WordInfoScreen> {
+      imageMenu.isDisplayed()
       textNewWord.isNotDisplayed()
       
       editTextWord.hasText("cat")
@@ -75,7 +82,7 @@ class WordsTest {
   @Test
   fun test2_Editing_a_word() {
     onScreen<WordsListScreen> {
-      recyclerWords.firstChild<WordItem> {
+      recyclerWords.firstChild<WordsListScreenItem> {
         textWord.hasText("cat")
         click()
       }
@@ -88,11 +95,11 @@ class WordsTest {
       pressBack()
       pressBack()
     }
-  
+    
     onScreen<WordsListScreen> {
       recyclerWords {
         hasSize(1)
-        firstChild<WordItem> {
+        firstChild<WordsListScreenItem> {
           textWord.hasText("dog")
           click()
         }
@@ -102,6 +109,30 @@ class WordsTest {
     onScreen<WordInfoScreen> {
       editTextWord.hasText("dog")
       editTextDefinition.hasText("just a dog")
+    }
+  }
+  
+  @Test
+  fun text3_Deleting_a_word() {
+    onScreen<WordsListScreen> {
+      recyclerWords {
+        firstChild<WordsListScreenItem> {
+          click()
+        }
+      }
+    }
+    
+    onScreen<WordInfoScreen> {
+      imageBack.click()
+      
+      onView(withText(R.string.text_delete_word)).inRoot(isPlatformPopup()).perform(click())
+      
+      pressBack()
+    }
+    
+    onScreen<WordsListScreen> {
+      layoutStub.isDisplayed()
+      recyclerWords.isNotDisplayed()
     }
   }
 }

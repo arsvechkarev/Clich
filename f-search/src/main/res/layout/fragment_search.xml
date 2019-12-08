@@ -33,12 +33,12 @@
         android:focusable="true"
         android:src="@drawable/ic_arrow_back"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/editTextSearchWord"
+        app:layout_constraintEnd_toStartOf="@id/searchEditText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
       <EditText
-        android:id="@+id/editTextSearchWord"
+        android:id="@+id/searchEditText"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
@@ -76,7 +76,7 @@
   </LinearLayout>
 
   <androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/recyclerWords"
+    android:id="@+id/recyclerFoundWords"
     android:layout_width="match_parent"
     android:layout_height="0dp"
     app:layout_constraintBottom_toBottomOf="parent"

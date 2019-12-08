@@ -19,10 +19,10 @@ import com.arsvechkarev.info.presentation.InfoFragment
 import com.arsvechkarev.search.R
 import com.arsvechkarev.search.di.DaggerSearchComponent
 import com.arsvechkarev.search.labels.WordsListAdapter
-import kotlinx.android.synthetic.main.fragment_search.editTextSearchWord
 import kotlinx.android.synthetic.main.fragment_search.imageBack
 import kotlinx.android.synthetic.main.fragment_search.layoutStub
-import kotlinx.android.synthetic.main.fragment_search.recyclerWords
+import kotlinx.android.synthetic.main.fragment_search.recyclerFoundWords
+import kotlinx.android.synthetic.main.fragment_search.searchEditText
 import javax.inject.Inject
 
 class SearchFragment : BaseFragment() {
@@ -33,25 +33,25 @@ class SearchFragment : BaseFragment() {
   private lateinit var viewModel: SearchViewModel
   
   private val adapter = WordsListAdapter {
-    hideKeyboard(editTextSearchWord)
+    hideKeyboard(searchEditText)
     coreActivity.goToFragmentFromRoot(InfoFragment.of(it), InfoFragment::class, true)
   }
   
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     DaggerSearchComponent.create().inject(this)
     viewModel = viewModelOf(viewModelFactory)
-    recyclerWords.setupWith(adapter)
+    recyclerFoundWords.setupWith(adapter)
     viewModel.getAllWords().observeOnce(this) { words ->
       if (words.isEmpty()) {
         layoutStub.visible()
-        recyclerWords.gone()
+        recyclerFoundWords.gone()
       } else {
         adapter.submitList(words)
         layoutStub.gone()
-        recyclerWords.visible()
+        recyclerFoundWords.visible()
       }
     }
-    editTextSearchWord.onTextChanged { text ->
+    searchEditText.onTextChanged { text ->
       if (text.isNotBlank()) {
         viewModel.searchWords(text).observe(this@SearchFragment) { words ->
           adapter.submitList(words)
@@ -59,14 +59,14 @@ class SearchFragment : BaseFragment() {
       }
     }
     imageBack.setOnClickListener {
-      hideKeyboard(editTextSearchWord)
+      hideKeyboard(searchEditText)
       popBackStack()
     }
   }
   
   override fun onResume() {
     super.onResume()
-    editTextSearchWord.requestFocus()
+    searchEditText.requestFocus()
     showKeyboard()
   }
 }

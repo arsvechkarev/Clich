@@ -5,9 +5,11 @@ import androidx.test.rule.ActivityTestRule
 import com.agoda.kakao.screen.Screen.Companion.onScreen
 import com.arsvechkarev.clich.MainActivity
 import com.arsvechkarev.clich.screens.AllLabelsScreen
+import com.arsvechkarev.clich.screens.AllLabelsScreen.AllLabelsScreenItem
 import com.arsvechkarev.clich.screens.DrawerScreen
 import com.arsvechkarev.clich.screens.MainScreen
 import com.arsvechkarev.clich.screens.NewLabelDialogScreen
+import com.arsvechkarev.core.extensions.inBackground
 import com.arsvechkarev.storage.database.CentralDatabase
 import com.arsvechkarev.testui.screen
 import org.junit.AfterClass
@@ -27,7 +29,9 @@ class LabelsTest {
   companion object {
     @AfterClass
     fun tearDown() {
-      CentralDatabase.instance.clearAllTables()
+      inBackground {
+        CentralDatabase.instance.clearAllTables()
+      }
     }
   }
   
@@ -41,7 +45,7 @@ class LabelsTest {
   @Test
   fun test1_Creating_new_label_and_make_sure_that_it_is_displayed() {
     screen<MainScreen>().drawer.open()
-    screen<DrawerScreen>().buttonLabels.click()
+    screen<DrawerScreen>().layoutGoToLabels.click()
     
     onScreen<AllLabelsScreen> {
       fabNewLabel.click()
@@ -53,7 +57,7 @@ class LabelsTest {
       
       recyclerLabels {
         hasSize(1)
-        firstChild<AllLabelsScreen.MainItem> {
+        firstChild<AllLabelsScreenItem> {
           textLabel.hasText("Animals")
         }
       }
@@ -66,9 +70,21 @@ class LabelsTest {
     onScreen<DrawerScreen> {
       recyclerDrawerLabels {
         hasSize(1)
-        firstChild<DrawerScreen.RecyclerDrawerItem> {
+        firstChild<DrawerScreen.DrawerScreenItem> {
           textLabel.hasText("Animals")
         }
+      }
+    }
+  }
+  
+  @Test
+  fun text2_Change_label_and_then_delete_it() {
+    screen<MainScreen>().drawer.open()
+    screen<DrawerScreen>().layoutGoToLabels.click()
+    
+    onScreen<AllLabelsScreen> {
+      recyclerLabels.firstChild<AllLabelsScreenItem> {
+      
       }
     }
   }

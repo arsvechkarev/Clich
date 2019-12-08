@@ -15,6 +15,7 @@ class WordInfoScreen : Screen<WordInfoScreen>() {
   
   val imageBack = KImageView { withId(R.id.imageBack) }
   val textNewWord = KTextView { withId(R.id.textNewWord) }
+  val imageMenu = KImageView { withId(R.id.imageMenu) }
   
   val editTextWord = KEditText { withId(R.id.editTextWord) }
   val editTextDefinition = KEditText { withId(R.id.editTextDefinition) }
@@ -23,10 +24,10 @@ class WordInfoScreen : Screen<WordInfoScreen>() {
   
   val recyclerLabels = KRecyclerView(
     builder = { withId(R.id.recyclerLabels) },
-    itemTypeBuilder = { itemType(WordInfoScreen::MainItem) }
+    itemTypeBuilder = { itemType(::WordInfoScreenItem) }
   )
   
-  class MainItem(parent: Matcher<View>) : KRecyclerItem<MainItem>(parent) {
+  class WordInfoScreenItem(parent: Matcher<View>) : KRecyclerItem<WordInfoScreenItem>(parent) {
     val textLabel = KTextView(parent) { withId(R.id.textLabel) }
   }
 }

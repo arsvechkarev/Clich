@@ -18,10 +18,10 @@ class AllLabelsScreen : Screen<AllLabelsScreen>() {
   
   val recyclerLabels = KRecyclerView(
     builder = { withId(R.id.recyclerLabels) },
-    itemTypeBuilder = { itemType(::MainItem) }
+    itemTypeBuilder = { itemType(::AllLabelsScreenItem) }
   )
   
-  class MainItem(parent: Matcher<View>) : KRecyclerItem<MainItem>(parent) {
+  class AllLabelsScreenItem(parent: Matcher<View>) : KRecyclerItem<AllLabelsScreenItem>(parent) {
     val textLabel = KTextView(parent) { withId(R.id.textLabel) }
   }
 }

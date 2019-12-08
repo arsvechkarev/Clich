@@ -9,6 +9,6 @@ class MainScreen : Screen<MainScreen>() {
   
   val drawer = KDrawerView { withId(R.id.layoutDrawer) }
   
-  val searchEditText = KEditText { withId(R.id.editTextSearchWord) }
+  val searchEditText = KEditText { withId(R.id.searchEditText) }
   
 }
