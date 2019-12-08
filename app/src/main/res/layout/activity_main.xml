@@ -35,9 +35,18 @@
           android:id="@+id/textSearchWord"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
+          android:text="@string/text_search_words"
           android:textColor="?colorTextEditTextHint"
+          android:textSize="@dimen/text_h3"/>
+
+        <TextView
+          android:id="@+id/textLabelName"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:fontFamily="@font/metropolis_semi_bold"
+          android:textColor="?colorTextPrimary"
           android:textSize="@dimen/text_h3"
-          android:text="@string/text_search_words"/>
+          android:visibility="gone"/>
 
       </androidx.appcompat.widget.Toolbar>
 

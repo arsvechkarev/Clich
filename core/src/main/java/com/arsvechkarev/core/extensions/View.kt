@@ -2,6 +2,7 @@ package com.arsvechkarev.core.extensions
 
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
@@ -12,6 +13,7 @@ import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.ScrollView
 import android.widget.TextView
+import androidx.annotation.AttrRes
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
@@ -84,4 +86,11 @@ fun EditText.onTextChanged(block: (String) -> Unit) {
 
 fun TextView.showHtml(text: String) {
   this.text = HtmlCompat.fromHtml(text, HtmlCompat.FROM_HTML_MODE_LEGACY)
+}
+
+fun TextView.setAttrsTextColor(@AttrRes attrRes: Int) {
+  val theme = context.theme
+  val typedValue = TypedValue()
+  theme.resolveAttribute(attrRes, typedValue, true)
+  setTextColor(typedValue.data)
 }

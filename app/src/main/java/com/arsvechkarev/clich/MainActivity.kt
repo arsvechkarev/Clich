@@ -11,11 +11,13 @@ import com.arsvechkarev.core.CoreActivity
 import com.arsvechkarev.core.extensions.close
 import com.arsvechkarev.core.extensions.findFragment
 import com.arsvechkarev.core.extensions.goToFragment
+import com.arsvechkarev.core.extensions.gone
 import com.arsvechkarev.core.extensions.isOpen
 import com.arsvechkarev.core.extensions.observe
 import com.arsvechkarev.core.extensions.setupToggle
 import com.arsvechkarev.core.extensions.setupWith
 import com.arsvechkarev.core.extensions.switchFragment
+import com.arsvechkarev.core.extensions.visible
 import com.arsvechkarev.info.presentation.InfoFragment
 import com.arsvechkarev.labels.list.LabelsAdapter
 import com.arsvechkarev.labels.list.Mode
@@ -25,9 +27,10 @@ import com.arsvechkarev.storage.database.CentralDatabase
 import com.arsvechkarev.words.presentation.WordsListFragment
 import kotlinx.android.synthetic.main.activity_main.baseContainer
 import kotlinx.android.synthetic.main.activity_main.layoutDrawer
+import kotlinx.android.synthetic.main.activity_main.textLabelName
 import kotlinx.android.synthetic.main.activity_main.textSearchWord
 import kotlinx.android.synthetic.main.activity_main.toolbar
-import kotlinx.android.synthetic.main.partial_layout_drawer.buttonGoToLabels
+import kotlinx.android.synthetic.main.partial_layout_drawer.layoutGoToLabels
 import kotlinx.android.synthetic.main.partial_layout_drawer.recyclerDrawerLabels
 import kotlin.reflect.KClass
 
@@ -36,8 +39,11 @@ class MainActivity : AppCompatActivity(), CoreActivity {
   override val snackBarPlace: View by lazy { baseContainer }
   
   private var wordsListFragment = WordsListFragment()
-  private val labelsAdapter = LabelsAdapter(Mode.Simple {
-    wordsListFragment.showWordsOf(it)
+  private val labelsAdapter = LabelsAdapter(Mode.Simple { label ->
+    textLabelName.text = label.name
+    textSearchWord.gone()
+    textLabelName.visible()
+    wordsListFragment.showWordsOf(label)
     layoutDrawer.close()
   })
   
@@ -54,7 +60,7 @@ class MainActivity : AppCompatActivity(), CoreActivity {
         layoutDrawer.setDrawerLockMode(LOCK_MODE_LOCKED_CLOSED)
       }
     }
-    buttonGoToLabels.setOnClickListener {
+    layoutGoToLabels.setOnClickListener {
       transferToFragment(LabelsFragment())
       layoutDrawer.close()
     }
@@ -73,7 +79,6 @@ class MainActivity : AppCompatActivity(), CoreActivity {
     addToBackStack: Boolean
   ) {
     goToFragment(R.id.layoutDrawer, fragment, fragmentClass, addToBackStack)
-    layoutDrawer.setDrawerLockMode(LOCK_MODE_LOCKED_CLOSED)
   }
   
   override fun <T : BaseFragment> subscribeOnBackStackChanges(fragment: T) {
@@ -89,6 +94,9 @@ class MainActivity : AppCompatActivity(), CoreActivity {
       if (supportFragmentManager.backStackEntryCount == 0) {
         if (findFragment(WordsListFragment::class)?.onBackPressed() == false) {
           super.onBackPressed()
+        } else {
+          textSearchWord.visible()
+          textLabelName.gone()
         }
       } else {
         findFragment(InfoFragment::class)?.onBackPressed()
