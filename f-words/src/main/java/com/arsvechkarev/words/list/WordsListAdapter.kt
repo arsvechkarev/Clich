@@ -32,7 +32,7 @@ class WordsListAdapter(
     
     fun bind(item: Word) {
       itemView.setOnClickListener { clickListener(item) }
-      itemView.textWord.text = item.word
+      itemView.textWord.text = item.name
     }
   }
 }

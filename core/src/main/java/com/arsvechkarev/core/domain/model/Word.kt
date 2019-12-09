@@ -11,14 +11,14 @@ import kotlinx.android.parcel.Parcelize
 data class Word(
   @PrimaryKey(autoGenerate = true)
   override val id: Long? = null,
-  var word: String,
+  var name: String,
   var definition: String? = null
 ) : Parcelable, DisplayableItem
 
 fun List<Word>.words(): String {
   val sb = StringBuilder()
   forEach {
-    sb.append(it.word).append(",")
+    sb.append(it.name).append(",")
   }
   return sb.toString()
 }

@@ -128,7 +128,7 @@ class InfoFragment : BaseFragment() {
       viewModel.getLabelsForWord(word).observe(this) { labels ->
         labelsAdapter.submitList(labels)
       }
-      editTextWord.setText(word.word)
+      editTextWord.setText(word.name)
       editTextDefinition.setText(word.definition ?: "")
     }
   }
@@ -137,20 +137,20 @@ class InfoFragment : BaseFragment() {
     debug { "saving?" }
     if (editTextWord.text.toString().isNotBlank()) {
       previousWord?.let {
-        // Word has been passed -> updating existing word
-        it.word = editTextWord.text.toString()
+        // Word has been passed -> updating existing name
+        it.name = editTextWord.text.toString()
         val definitionText = editTextDefinition.text.toString()
         it.definition = if (definitionText.isNotBlank()) definitionText else null
-        debug { "update existing word = $it" }
+        debug { "update existing name = $it" }
         viewModel.updateWord(it)
       }
       if (previousWord == null) {
-        // Word hasn't been passed -> creating new word
+        // Word hasn't been passed -> creating new name
         val newWord = Word(
-          word = editTextWord.text.toString(),
+          name = editTextWord.text.toString(),
           definition = editTextDefinition.text.toString()
         )
-        debug { "saving brand new word = $newWord" }
+        debug { "saving brand new name = $newWord" }
         viewModel.saveWordWithLabels(newWord, currentLabels)
       }
     }

@@ -7,6 +7,7 @@
   <color name="light_colorControlNormal">#6B6B6B</color>
   <color name="light_colorSecondary">#1970BE</color>
   <color name="light_colorOnSecondary">#FFFFFF</color>
+  <color name="light_colorHighlight">#FFBE00</color>
 
   <color name="light_colorToolbar">#000</color>
   <color name="light_colorDrawer">#FBFBFB</color>
