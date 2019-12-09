@@ -114,7 +114,6 @@ class WordsTest {
     }
   }
   
-  @Test
   fun text3_Deleting_a_word() {
     onScreen<WordsListScreen> {
       recyclerWords {
