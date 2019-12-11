@@ -11,6 +11,7 @@ import com.arsvechkarev.clich.screens.WordInfoScreen
 import com.arsvechkarev.clich.screens.WordInfoScreen.WordInfoScreenItem
 import com.arsvechkarev.clich.screens.WordsListScreen
 import com.arsvechkarev.clich.screens.WordsListScreen.WordsListScreenItem
+import com.arsvechkarev.core.domain.dao.create
 import com.arsvechkarev.storage.database.CentralDatabase
 import com.arsvechkarev.testui.DatabaseRule
 import com.arsvechkarev.testui.background

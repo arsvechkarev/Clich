@@ -11,12 +11,6 @@ import com.arsvechkarev.core.domain.model.Word
 @Dao
 interface WordsDao {
   
-  suspend fun create(name: String) =
-    create(Word(name = name))
-  
-  suspend fun create(name: String, definition: String) =
-    create(Word(name = name, definition = definition))
-  
   @Insert
   suspend fun create(word: Word): Long
   
@@ -32,3 +26,10 @@ interface WordsDao {
   @Query("SELECT * FROM words WHERE words.name LIKE :input")
   fun search(input: String): LiveData<List<Word>>
 }
+
+suspend fun WordsDao.create(name: String) =
+  create(Word(name = name))
+
+suspend fun WordsDao.create(name: String, definition: String) =
+  create(Word(name = name, definition = definition))
+  

@@ -11,8 +11,6 @@ import com.arsvechkarev.core.domain.model.Label
 @Dao
 interface LabelsDao {
   
-  suspend fun create(name: String) = create(Label(name = name))
-  
   @Insert
   suspend fun create(label: Label): Long
   
@@ -30,5 +28,6 @@ interface LabelsDao {
   
   @Delete
   suspend fun delete(label: Label)
-  
 }
+
+suspend fun LabelsDao.create(name: String) = create(Label(name = name))

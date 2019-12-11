@@ -13,8 +13,6 @@ import com.arsvechkarev.core.domain.model.WordsLabelsJoin
 @Dao
 interface WordsLabelsDao {
   
-  suspend fun create(wordId: Long, labelId: Long) = create(WordsLabelsJoin(wordId, labelId))
-  
   @Insert(onConflict = REPLACE)
   suspend fun create(wordsLabelsJoin: WordsLabelsJoin)
   
@@ -47,3 +45,6 @@ interface WordsLabelsDao {
   )
   fun getWordsOfLabel(labelId: Long): LiveData<List<Word>>
 }
+
+suspend fun WordsLabelsDao.create(wordId: Long, labelId: Long) =
+  create(WordsLabelsJoin(wordId, labelId))
