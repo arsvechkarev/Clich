@@ -11,18 +11,15 @@ import com.arsvechkarev.clich.screens.WordInfoScreen
 import com.arsvechkarev.clich.screens.WordInfoScreen.WordInfoScreenItem
 import com.arsvechkarev.clich.screens.WordsListScreen
 import com.arsvechkarev.clich.screens.WordsListScreen.WordsListScreenItem
-import com.arsvechkarev.core.domain.model.Label
-import com.arsvechkarev.core.domain.model.Word
-import com.arsvechkarev.core.domain.model.WordsLabelsJoin
 import com.arsvechkarev.storage.database.CentralDatabase
+import com.arsvechkarev.testui.DatabaseRule
+import com.arsvechkarev.testui.background
 import com.arsvechkarev.testui.screen
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import org.junit.FixMethodOrder
 import org.junit.Rule
 import org.junit.Test
+import org.junit.rules.RuleChain
 import org.junit.runner.RunWith
 import org.junit.runners.MethodSorters
 import java.lang.Thread.sleep
@@ -32,39 +29,33 @@ import java.lang.Thread.sleep
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 class LabelsFilteringTest {
   
+  private val database = CentralDatabase.instance
+  
   @get:Rule
-  val activityRule = ActivityTestRule(MainActivity::class.java)
+  val chain: RuleChain = RuleChain.outerRule(ActivityTestRule(MainActivity::class.java))
+    .around(DatabaseRule())
   
   @Test
   fun text1_Filter_test() {
-    
-    GlobalScope.launch(Dispatchers.IO) {
+    background {
+      val labelIronManId = database.labelsDao().create("Iron Man")
+      val labelAnimalsId = database.labelsDao().create("Animals")
       
-      CentralDatabase.instance.clearAllTables()
+      val wordIronId = database.wordDao().create("iron")
+      val wordSuitId = database.wordDao().create("suit")
       
-      val labelIronManId = CentralDatabase.instance.labelsDao().create(Label(name = "Iron Man"))
-      val labelAnimalsId = CentralDatabase.instance.labelsDao().create(Label(name = "Animals"))
+      val wordBearId = database.wordDao().create("bear")
+      val wordFoxId = database.wordDao().create("fox")
+      val wordBirdId = database.wordDao().create("bird")
       
-      val wordIronId = CentralDatabase.instance.wordDao().create(Word(name = "iron"))
-      val wordSuitId = CentralDatabase.instance.wordDao().create(Word(name = "suit"))
+      database.wordDao().create("other stuff")
       
-      val wordBearId = CentralDatabase.instance.wordDao().create(Word(name = "bear"))
-      val wordFoxId = CentralDatabase.instance.wordDao().create(Word(name = "fox"))
-      val wordBirdId = CentralDatabase.instance.wordDao().create(Word(name = "bird"))
+      database.wordsAndLabelsDao().create(wordIronId, labelIronManId)
+      database.wordsAndLabelsDao().create(wordSuitId, labelIronManId)
       
-      CentralDatabase.instance.wordDao().create(Word(name = "other stuff"))
-      
-      CentralDatabase.instance.wordsAndLabelsDao()
-        .create(WordsLabelsJoin(wordIronId, labelIronManId))
-      CentralDatabase.instance.wordsAndLabelsDao()
-        .create(WordsLabelsJoin(wordSuitId, labelIronManId))
-      
-      CentralDatabase.instance.wordsAndLabelsDao()
-        .create(WordsLabelsJoin(wordBearId, labelAnimalsId))
-      CentralDatabase.instance.wordsAndLabelsDao()
-        .create(WordsLabelsJoin(wordFoxId, labelAnimalsId))
-      CentralDatabase.instance.wordsAndLabelsDao()
-        .create(WordsLabelsJoin(wordBirdId, labelAnimalsId))
+      database.wordsAndLabelsDao().create(wordBearId, labelAnimalsId)
+      database.wordsAndLabelsDao().create(wordFoxId, labelAnimalsId)
+      database.wordsAndLabelsDao().create(wordBirdId, labelAnimalsId)
     }
     
     sleep(1000)

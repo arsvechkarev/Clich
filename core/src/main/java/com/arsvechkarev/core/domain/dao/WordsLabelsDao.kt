@@ -13,6 +13,8 @@ import com.arsvechkarev.core.domain.model.WordsLabelsJoin
 @Dao
 interface WordsLabelsDao {
   
+  suspend fun create(wordId: Long, labelId: Long) = create(WordsLabelsJoin(wordId, labelId))
+  
   @Insert(onConflict = REPLACE)
   suspend fun create(wordsLabelsJoin: WordsLabelsJoin)
   

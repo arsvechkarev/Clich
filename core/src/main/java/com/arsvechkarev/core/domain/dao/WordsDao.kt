@@ -11,6 +11,12 @@ import com.arsvechkarev.core.domain.model.Word
 @Dao
 interface WordsDao {
   
+  suspend fun create(name: String) =
+    create(Word(name = name))
+  
+  suspend fun create(name: String, definition: String) =
+    create(Word(name = name, definition = definition))
+  
   @Insert
   suspend fun create(word: Word): Long
   
