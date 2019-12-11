@@ -14,5 +14,4 @@ abstract class SearchViewModelModule {
   @IntoMap
   @ViewModelKey(SearchViewModel::class)
   internal abstract fun postSearchViewModel(searchViewModel: SearchViewModel): ViewModel
-  
 }

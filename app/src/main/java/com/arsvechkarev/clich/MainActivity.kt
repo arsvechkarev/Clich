@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity(), CoreActivity {
     textLabelName.text = label.name
     textSearchWord.gone()
     textLabelName.visible()
-    wordsListFragment.showWordsOf(label)
+    switchFragment(R.id.baseContainer, WordsListFragment.of(label), true)
     layoutDrawer.close()
   })
   
@@ -99,17 +99,13 @@ class MainActivity : AppCompatActivity(), CoreActivity {
     if (layoutDrawer.isOpen()) {
       layoutDrawer.close()
     } else {
-      if (supportFragmentManager.backStackEntryCount == 0) {
-        if (findFragment(WordsListFragment::class)?.onBackPressed() == false) {
-          super.onBackPressed()
-        } else {
-          textSearchWord.visible()
-          textLabelName.gone()
-        }
+      if (supportFragmentManager.backStackEntryCount == 1) {
+        textSearchWord.visible()
+        textLabelName.gone()
       } else {
         findFragment(InfoFragment::class)?.onBackPressed()
-        super.onBackPressed()
       }
+      super.onBackPressed()
     }
   }
   

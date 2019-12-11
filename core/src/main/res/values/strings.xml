@@ -12,4 +12,6 @@
     No labels yet\nClick above to create one
   </string>
   <string name="text_no_words_found">No words found</string>
+  <string name="text_empty_labels">No words for this label</string>
+  <string name="text_no_words_yet">No words yet :(</string>
 </resources>
