@@ -25,7 +25,7 @@ class CheckboxLabelViewHolder(
       inBackground {
         val wordsLabelsJoin = WordsLabelsJoin(word.id!!, item.id!!)
         if (isChecked) {
-          CentralDatabase.instance.wordsAndLabelsDao().insert(wordsLabelsJoin)
+          CentralDatabase.instance.wordsAndLabelsDao().create(wordsLabelsJoin)
         } else {
           CentralDatabase.instance.wordsAndLabelsDao().delete(wordsLabelsJoin)
         }

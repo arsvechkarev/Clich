@@ -1,10 +1,10 @@
 ext {
   compileSdkVersion = 28
-  applicationId = 'com.arsvechkarev.clichdev'
+  applicationId = 'com.arsvechkarev.clich'
   minSdkVersion = 23
   targetSdkVersion = 28
   versionCode = 1
-  versionName = '100500'
+  versionName = '1.0'
   testInstrumentationRunner = 'androidx.test.runner.AndroidJUnitRunner'
   useSupportLibraryInVectorDrawables = true
 

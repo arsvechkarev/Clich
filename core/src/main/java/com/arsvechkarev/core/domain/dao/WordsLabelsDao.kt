@@ -14,7 +14,7 @@ import com.arsvechkarev.core.domain.model.WordsLabelsJoin
 interface WordsLabelsDao {
   
   @Insert(onConflict = REPLACE)
-  suspend fun insert(wordsLabelsJoin: WordsLabelsJoin)
+  suspend fun create(wordsLabelsJoin: WordsLabelsJoin)
   
   @Delete
   suspend fun delete(wordsLabelsJoin: WordsLabelsJoin)

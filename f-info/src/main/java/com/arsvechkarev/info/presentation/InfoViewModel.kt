@@ -31,9 +31,9 @@ class InfoViewModel @Inject constructor(
   
   fun saveWordWithLabels(word: Word, labels: MutableList<Label>) {
     launchGlobal {
-      val id = database.wordDao().insert(word)
+      val id = database.wordDao().create(word)
       labels.forEach {
-        database.wordsAndLabelsDao().insert(WordsLabelsJoin(id, it.id!!))
+        database.wordsAndLabelsDao().create(WordsLabelsJoin(id, it.id!!))
       }
     }
   }

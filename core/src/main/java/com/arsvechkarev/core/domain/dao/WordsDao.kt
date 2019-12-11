@@ -12,7 +12,7 @@ import com.arsvechkarev.core.domain.model.Word
 interface WordsDao {
   
   @Insert
-  suspend fun insert(word: Word): Long
+  suspend fun create(word: Word): Long
   
   @Update
   suspend fun update(word: Word)

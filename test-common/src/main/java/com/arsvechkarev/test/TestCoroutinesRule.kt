@@ -1,4 +1,4 @@
-package com.arsvechkarev.testunit
+package com.arsvechkarev.test
 
 import com.arsvechkarev.core.DispatcherProvider
 import kotlinx.coroutines.CoroutineDispatcher

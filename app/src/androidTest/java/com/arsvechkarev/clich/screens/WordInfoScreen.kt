@@ -22,8 +22,8 @@ class WordInfoScreen : Screen<WordInfoScreen>() {
   
   val buttonAddLabeds = KButton { withId(R.id.buttonAddLabels) }
   
-  val recyclerLabels = KRecyclerView(
-    builder = { withId(R.id.recyclerLabels) },
+  val recyclerWordsLabels = KRecyclerView(
+    builder = { withId(R.id.recyclerWordsLabels) },
     itemTypeBuilder = { itemType(::WordInfoScreenItem) }
   )
   

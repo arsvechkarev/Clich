@@ -12,7 +12,7 @@ import com.arsvechkarev.core.domain.model.Label
 interface LabelsDao {
   
   @Insert
-  suspend fun create(label: Label)
+  suspend fun create(label: Label): Long
   
   @Insert
   suspend fun create(label: List<Label>)
