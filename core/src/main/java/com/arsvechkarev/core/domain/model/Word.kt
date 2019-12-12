@@ -12,7 +12,8 @@ data class Word(
   @PrimaryKey(autoGenerate = true)
   override val id: Long? = null,
   var name: String,
-  var definition: String? = null
+  var definition: String,
+  var examples: String
 ) : Parcelable, DisplayableItem
 
 fun List<Word>.words(): String {

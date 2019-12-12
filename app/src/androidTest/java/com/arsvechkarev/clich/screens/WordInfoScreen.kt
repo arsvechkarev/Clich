@@ -19,6 +19,7 @@ class WordInfoScreen : Screen<WordInfoScreen>() {
   
   val editTextWord = KEditText { withId(R.id.editTextWord) }
   val editTextDefinition = KEditText { withId(R.id.editTextDefinition) }
+  val editTextExamples = KEditText { withId(R.id.editTextExamples) }
   
   val buttonAddLabeds = KButton { withId(R.id.buttonAddLabels) }
   

@@ -12,6 +12,7 @@ import com.arsvechkarev.core.extensions.gone
 import com.arsvechkarev.core.extensions.observe
 import com.arsvechkarev.core.extensions.popBackStack
 import com.arsvechkarev.core.extensions.showKeyboard
+import com.arsvechkarev.core.extensions.string
 import com.arsvechkarev.core.extensions.viewModelOf
 import com.arsvechkarev.core.extensions.visible
 import com.arsvechkarev.info.R
@@ -22,6 +23,7 @@ import com.arsvechkarev.labels.presentation.LabelsCheckboxFragment
 import com.google.android.flexbox.FlexboxLayoutManager
 import kotlinx.android.synthetic.main.fragment_info.buttonAddLabels
 import kotlinx.android.synthetic.main.fragment_info.editTextDefinition
+import kotlinx.android.synthetic.main.fragment_info.editTextExamples
 import kotlinx.android.synthetic.main.fragment_info.editTextWord
 import kotlinx.android.synthetic.main.fragment_info.imageBack
 import kotlinx.android.synthetic.main.fragment_info.imageMenu
@@ -129,7 +131,8 @@ class InfoFragment : BaseFragment() {
         labelsAdapter.submitList(labels)
       }
       editTextWord.setText(word.name)
-      editTextDefinition.setText(word.definition ?: "")
+      editTextDefinition.setText(word.definition)
+      editTextExamples.setText(word.examples)
     }
   }
   
@@ -137,18 +140,19 @@ class InfoFragment : BaseFragment() {
     debug { "saving?" }
     if (editTextWord.text.toString().isNotBlank()) {
       previousWord?.let {
-        // Word has been passed -> updating existing name
-        it.name = editTextWord.text.toString()
-        val definitionText = editTextDefinition.text.toString()
-        it.definition = if (definitionText.isNotBlank()) definitionText else null
-        debug { "update existing name = $it" }
+        // Word has been passed -> updating existing word
+        it.name = editTextWord.string().trim()
+        it.definition = editTextDefinition.string().trim()
+        it.examples = editTextExamples.string().trim()
+        debug { "update existing word = $it" }
         viewModel.updateWord(it)
       }
       if (previousWord == null) {
-        // Word hasn't been passed -> creating new name
+        // Word hasn't been passed -> creating a new one
         val newWord = Word(
-          name = editTextWord.text.toString(),
-          definition = editTextDefinition.text.toString()
+          name = editTextWord.string().trim(),
+          definition = editTextDefinition.string().trim(),
+          examples = editTextExamples.string().trim()
         )
         debug { "saving brand new name = $newWord" }
         viewModel.saveWordWithLabels(newWord, currentLabels)

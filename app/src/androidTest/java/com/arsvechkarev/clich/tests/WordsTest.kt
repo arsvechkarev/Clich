@@ -47,6 +47,7 @@ class WordsTest {
       
       editTextWord.typeText("cat")
       editTextDefinition.typeText("a small animal")
+      editTextExamples.typeText("cats are nice")
       
       imageBack.click()
     }
@@ -70,7 +71,8 @@ class WordsTest {
       
       editTextWord.hasText("cat")
       editTextDefinition.hasText("a small animal")
-      
+      editTextExamples.hasText("cats are nice")
+  
       pressBack()
     }
   }
@@ -79,7 +81,7 @@ class WordsTest {
   fun test2_Editing_a_word() {
     
     doAndWait(500) {
-      CentralDatabase.instance.wordDao().create("cat", "a small animal")
+      CentralDatabase.instance.wordDao().create("cat", "a small animal", "cats are nice")
     }
     
     onScreen<WordsListScreen> {
@@ -91,6 +93,7 @@ class WordsTest {
     onScreen<WordInfoScreen> {
       editTextWord clearAndTypeText "dog"
       editTextDefinition clearAndTypeText "just a dog"
+      editTextExamples clearAndTypeText "dog says \"bark!\""
       
       pressBack()
       pressBack()
@@ -112,6 +115,7 @@ class WordsTest {
         typeText("g")
       }
       editTextDefinition.hasText("just a dog")
+      editTextExamples.hasText("dog says \"bark!\"")
       
       pressBack()
       pressBack()
