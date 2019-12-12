@@ -14,7 +14,7 @@ import com.arsvechkarev.clich.screens.WordsListScreen.WordsListScreenItem
 import com.arsvechkarev.core.domain.dao.create
 import com.arsvechkarev.storage.database.CentralDatabase
 import com.arsvechkarev.testui.DatabaseRule
-import com.arsvechkarev.testui.background
+import com.arsvechkarev.testui.doAndWait
 import com.arsvechkarev.testui.screen
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.FixMethodOrder
@@ -23,7 +23,6 @@ import org.junit.Test
 import org.junit.rules.RuleChain
 import org.junit.runner.RunWith
 import org.junit.runners.MethodSorters
-import java.lang.Thread.sleep
 
 @ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4ClassRunner::class)
@@ -38,7 +37,7 @@ class LabelsFilteringTest {
   
   @Test
   fun text1_Filter_test() {
-    background {
+    doAndWait(1000) {
       val labelIronManId = database.labelsDao().create("Iron Man")
       val labelAnimalsId = database.labelsDao().create("Animals")
       
@@ -58,8 +57,6 @@ class LabelsFilteringTest {
       database.wordsAndLabelsDao().create(wordFoxId, labelAnimalsId)
       database.wordsAndLabelsDao().create(wordBirdId, labelAnimalsId)
     }
-    
-    sleep(1000)
     
     onScreen<WordsListScreen> {
       recyclerWords.hasSize(6)

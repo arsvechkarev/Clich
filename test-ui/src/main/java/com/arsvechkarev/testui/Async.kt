@@ -9,3 +9,10 @@ fun background(block: suspend () -> Unit) {
     block()
   }
 }
+
+fun doAndWait(delayMillis: Long, block: suspend () -> Unit) {
+  GlobalScope.launch(Dispatchers.IO) {
+    block()
+  }
+  Thread.sleep(delayMillis)
+}

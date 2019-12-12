@@ -10,15 +10,17 @@ import com.arsvechkarev.clich.screens.AllLabelsScreen.AllLabelsScreenItem
 import com.arsvechkarev.clich.screens.DrawerScreen
 import com.arsvechkarev.clich.screens.MainScreen
 import com.arsvechkarev.clich.screens.NewLabelDialogScreen
-import com.arsvechkarev.core.extensions.inBackground
+import com.arsvechkarev.core.domain.dao.create
 import com.arsvechkarev.storage.database.CentralDatabase
+import com.arsvechkarev.testui.DatabaseRule
 import com.arsvechkarev.testui.clearAndTypeText
+import com.arsvechkarev.testui.doAndWait
 import com.arsvechkarev.testui.isDisplayedAndHasText
 import com.arsvechkarev.testui.screen
-import org.junit.AfterClass
 import org.junit.FixMethodOrder
 import org.junit.Rule
 import org.junit.Test
+import org.junit.rules.RuleChain
 import org.junit.runner.RunWith
 import org.junit.runners.MethodSorters
 
@@ -27,24 +29,9 @@ import org.junit.runners.MethodSorters
 class LabelsTest {
   
   @get:Rule
-  val activityRule = ActivityTestRule(MainActivity::class.java)
+  val chain: RuleChain = RuleChain.outerRule(ActivityTestRule(MainActivity::class.java))
+    .around(DatabaseRule())
   
-  companion object {
-    @AfterClass
-    fun tearDown() {
-      inBackground {
-        CentralDatabase.instance.clearAllTables()
-      }
-    }
-  }
-  
-  /**
-   * 1. Open drawer
-   * 2. Click to all labels button
-   * 3. Create a new label
-   * 4. Make sure it is displayed in labels recycler
-   * 5. Make sure it is displayed in drawer recycler
-   */
   @Test
   fun test1_Creating_new_label_and_make_sure_that_it_is_displayed() {
     screen<MainScreen>().drawer.open()
@@ -84,6 +71,10 @@ class LabelsTest {
   fun text2_Edit_label_delete_it_and_make_sure_it_is_not_displayed() {
     screen<MainScreen>().drawer.open()
     screen<DrawerScreen>().layoutGoToLabels.click()
+    
+    doAndWait(500) {
+      CentralDatabase.instance.labelsDao().create("Animals")
+    }
     
     onScreen<AllLabelsScreen> {
       layoutLabelsStub.isNotDisplayed()

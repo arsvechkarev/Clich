@@ -14,13 +14,15 @@ import com.arsvechkarev.clich.R
 import com.arsvechkarev.clich.screens.WordInfoScreen
 import com.arsvechkarev.clich.screens.WordsListScreen
 import com.arsvechkarev.clich.screens.WordsListScreen.WordsListScreenItem
-import com.arsvechkarev.core.extensions.inBackground
+import com.arsvechkarev.core.domain.dao.create
 import com.arsvechkarev.storage.database.CentralDatabase
+import com.arsvechkarev.testui.DatabaseRule
 import com.arsvechkarev.testui.clearAndTypeText
-import org.junit.AfterClass
+import com.arsvechkarev.testui.doAndWait
 import org.junit.FixMethodOrder
 import org.junit.Rule
 import org.junit.Test
+import org.junit.rules.RuleChain
 import org.junit.runner.RunWith
 import org.junit.runners.MethodSorters
 
@@ -29,16 +31,8 @@ import org.junit.runners.MethodSorters
 class WordsTest {
   
   @get:Rule
-  val activityRule = ActivityTestRule(MainActivity::class.java)
-  
-  companion object {
-    @AfterClass
-    fun tearDown() {
-      inBackground {
-        CentralDatabase.instance.clearAllTables()
-      }
-    }
-  }
+  val chain: RuleChain = RuleChain.outerRule(ActivityTestRule(MainActivity::class.java))
+    .around(DatabaseRule())
   
   @Test
   fun test1_Creating_new_word_and_checking_that_it_is_displayed_after() {
@@ -83,9 +77,13 @@ class WordsTest {
   
   @Test
   fun test2_Editing_a_word() {
+  
+    doAndWait(500) {
+      CentralDatabase.instance.wordDao().create("cat", "a small animal")
+    }
+    
     onScreen<WordsListScreen> {
       recyclerWords.firstChild<WordsListScreenItem> {
-        textWord.hasText("cat")
         click()
       }
     }
