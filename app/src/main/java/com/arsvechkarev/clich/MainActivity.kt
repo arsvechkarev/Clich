@@ -102,7 +102,6 @@ class MainActivity : AppCompatActivity(), CoreActivity {
       if (supportFragmentManager.backStackEntryCount == 1) {
         textSearchWord.visible()
         textLabelName.gone()
-      } else {
         findFragment(InfoFragment::class)?.onBackPressed()
       }
       super.onBackPressed()

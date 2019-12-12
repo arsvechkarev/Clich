@@ -77,7 +77,7 @@ class WordsTest {
   
   @Test
   fun test2_Editing_a_word() {
-  
+    
     doAndWait(500) {
       CentralDatabase.instance.wordDao().create("cat", "a small animal")
     }
@@ -107,8 +107,23 @@ class WordsTest {
     }
     
     onScreen<WordInfoScreen> {
-      editTextWord.hasText("dog")
+      editTextWord {
+        hasText("dog")
+        typeText("g")
+      }
       editTextDefinition.hasText("just a dog")
+      
+      pressBack()
+      pressBack()
+    }
+    
+    onScreen<WordsListScreen> {
+      recyclerWords {
+        hasSize(1)
+        firstChild<WordsListScreenItem> {
+          textWord.hasText("dogg")
+        }
+      }
     }
   }
   
