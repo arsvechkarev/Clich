@@ -13,9 +13,12 @@ class DatabaseRule : TestRule {
   override fun apply(base: Statement, description: Description?): Statement {
     return object : Statement() {
       override fun evaluate() {
-        base.evaluate()
-        GlobalScope.launch(Dispatchers.IO) {
-          CentralDatabase.instance.clearAllTables()
+        try {
+          base.evaluate()
+        } finally {
+          GlobalScope.launch(Dispatchers.IO) {
+            CentralDatabase.instance.clearAllTables()
+          }
         }
       }
     }
