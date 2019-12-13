@@ -15,6 +15,7 @@ import com.arsvechkarev.core.domain.dao.create
 import com.arsvechkarev.storage.database.CentralDatabase
 import com.arsvechkarev.testui.DatabaseRule
 import com.arsvechkarev.testui.doAndWait
+import com.arsvechkarev.testui.isDisplayedAndHasText
 import com.arsvechkarev.testui.screen
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.FixMethodOrder
@@ -36,7 +37,7 @@ class LabelsFilteringTest {
     .around(DatabaseRule())
   
   @Test
-  fun text1_Filter_test() {
+  fun test1_Filtering() {
     doAndWait(1000) {
       val labelIronManId = database.labelsDao().create("Iron Man")
       val labelAnimalsId = database.labelsDao().create("Animals")
@@ -70,6 +71,11 @@ class LabelsFilteringTest {
         }
       }
       
+      onScreen<MainScreen> {
+        textLabelName isDisplayedAndHasText "Iron Man"
+        textSearchWord.isInvisible()
+      }
+      
       recyclerWords {
         hasSize(2)
         childWith<WordsListScreenItem> { withDescendant { withText("suit") } } perform {
@@ -81,6 +87,12 @@ class LabelsFilteringTest {
       }
       
       pressBack()
+  
+  
+      onScreen<MainScreen> {
+        textLabelName.isNotDisplayed()
+        textSearchWord.isVisible()
+      }
       
       recyclerWords {
         hasSize(6)

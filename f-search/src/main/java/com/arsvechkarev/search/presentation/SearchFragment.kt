@@ -23,7 +23,7 @@ import com.arsvechkarev.search.R
 import com.arsvechkarev.search.di.DaggerSearchComponent
 import com.arsvechkarev.search.labels.WordsListAdapter
 import kotlinx.android.synthetic.main.fragment_search.imageBack
-import kotlinx.android.synthetic.main.fragment_search.layoutStub
+import kotlinx.android.synthetic.main.fragment_search.layoutNoWordsFound
 import kotlinx.android.synthetic.main.fragment_search.recyclerFoundWords
 import kotlinx.android.synthetic.main.fragment_search.searchEditText
 import javax.inject.Inject
@@ -56,12 +56,12 @@ class SearchFragment : BaseFragment() {
       if (text.isNotBlank()) {
         viewModel.searchWords(text).observe(this@SearchFragment) { words ->
           if (words.isEmpty()) {
-            layoutStub.visible()
+            layoutNoWordsFound.visible()
             recyclerFoundWords.invisible()
           } else {
             currentList = words
             adapter.submitList(currentList, text)
-            layoutStub.invisible()
+            layoutNoWordsFound.invisible()
             recyclerFoundWords.visible()
           }
         }

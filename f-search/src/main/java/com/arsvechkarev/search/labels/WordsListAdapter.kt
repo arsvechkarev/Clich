@@ -35,6 +35,12 @@ class WordsListAdapter(
     notifyDataSetChanged()
   }
   
+  override fun submitList(list: List<Word>?) {
+    searchedText = ""
+    super.submitList(list)
+    notifyDataSetChanged()
+  }
+  
   inner class WordsListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     
     fun bind(item: Word, searchedText: String?) {
