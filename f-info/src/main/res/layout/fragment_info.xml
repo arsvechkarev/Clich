@@ -90,7 +90,7 @@
       android:layout_width="match_parent"
       android:layout_height="1dp"
       android:layout_marginStart="12dp"
-      android:layout_marginTop="24dp"
+      android:layout_marginTop="32dp"
       android:layout_marginEnd="12dp"
       android:background="?colorDivider"
       app:layout_constraintTop_toBottomOf="@id/editTextDefinition"/>
@@ -100,7 +100,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginStart="16dp"
-      android:layout_marginTop="24dp"
+      android:layout_marginTop="32dp"
       android:fontFamily="@font/metropolis_semi_bold"
       android:text="Examples"
       android:textColor="?colorTextPrimary"

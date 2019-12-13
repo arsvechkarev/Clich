@@ -7,8 +7,8 @@ import com.arsvechkarev.core.BaseFragment
 import com.arsvechkarev.core.coreActivity
 import com.arsvechkarev.core.di.viewmodel.ViewModelFactory
 import com.arsvechkarev.core.domain.model.Word
-import com.arsvechkarev.core.extensions.gone
 import com.arsvechkarev.core.extensions.hideKeyboard
+import com.arsvechkarev.core.extensions.invisible
 import com.arsvechkarev.core.extensions.observe
 import com.arsvechkarev.core.extensions.observeOnce
 import com.arsvechkarev.core.extensions.onTextChanged
@@ -57,11 +57,11 @@ class SearchFragment : BaseFragment() {
         viewModel.searchWords(text).observe(this@SearchFragment) { words ->
           if (words.isEmpty()) {
             layoutStub.visible()
-            recyclerFoundWords.gone()
+            recyclerFoundWords.invisible()
           } else {
             currentList = words
             adapter.submitList(currentList, text)
-            layoutStub.gone()
+            layoutStub.invisible()
             recyclerFoundWords.visible()
           }
         }
