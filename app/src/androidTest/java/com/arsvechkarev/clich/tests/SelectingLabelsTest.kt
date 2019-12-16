@@ -52,7 +52,6 @@ class SelectingLabelsTest : DatabaseHelp {
       buttonAddLabeds.click()
     }
     
-    
     onScreen<LabelsCheckBoxScreen> {
       recyclerLabels {
         hasSize(4)
@@ -73,6 +72,37 @@ class SelectingLabelsTest : DatabaseHelp {
         childWith<WordInfoScreenItem> { withDescendant { withText("Animals") } } perform { isVisible() }
         childWith<WordInfoScreenItem> { withDescendant { withText("Pets") } } perform { isVisible() }
       }
+  
+      buttonAddLabeds.click()
+    }
+  
+    onScreen<LabelsCheckBoxScreen> {
+      recyclerLabels {
+        childWith<LabelsCheckBoxScreenItem> { withDescendant { withText("Animals") } } perform {
+          checkbox {
+            isChecked()
+            click()
+          }
+        }
+        childWith<LabelsCheckBoxScreenItem> { withDescendant { withText("Pets") } } perform {
+          checkbox {
+            isChecked()
+            click()
+          }
+        }
+        childWith<LabelsCheckBoxScreenItem> { withDescendant { withText("House") } } perform {
+          checkbox.isNotChecked()
+        }
+        childWith<LabelsCheckBoxScreenItem> { withDescendant { withText("Other") } } perform {
+          checkbox.isNotChecked()
+        }
+      }
+    
+      pressBack()
+    }
+  
+    onScreen<WordInfoScreen> {
+      recyclerWordsLabels { hasSize(0) }
     }
   }
 }
