@@ -50,7 +50,4 @@ dependencies {
 
   implementation appDependencies.dagger
   kapt appDependencies.daggerCompiler
-
-  implementation appDependencies.retrofit
-  implementation appDependencies.okhttpLoggingInterceptor
 }
