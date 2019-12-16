@@ -2,16 +2,15 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   android:layout_width="match_parent"
-  android:layout_height="wrap_content"
-  android:orientation="vertical">
+  android:layout_height="wrap_content">
 
   <TextView
     android:id="@+id/headerNewLabel"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="16dp"
+    android:layout_margin="@dimen/header_new_label_m"
     android:fontFamily="@font/metropolis_semi_bold"
-    android:text="New label"
+    android:text="@string/header_new_label"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"/>
 
@@ -19,9 +18,9 @@
     android:id="@+id/editTextLabelName"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="16dp"
-    android:hint="Name"
-    android:importantForAutofill="no"
+    android:layout_margin="@dimen/edit_text_label_name_margin"
+    android:hint="@string/hint_label_name"
+    android:theme="@style/EditText"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@+id/headerNewLabel"/>
@@ -31,8 +30,8 @@
     android:id="@+id/buttonCreate"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="16dp"
-    android:text="Save"
+    android:layout_margin="@dimen/button_create_m"
+    android:text="@string/text_save_label"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintTop_toBottomOf="@id/editTextLabelName"/>

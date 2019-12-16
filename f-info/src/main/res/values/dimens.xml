@@ -6,8 +6,6 @@
   <dimen name="image_menu_size">24dp</dimen>
   <dimen name="image_menu_margin">16dp</dimen>
 
-  <dimen name="divider_height">1dp</dimen>
-  <dimen name="divider_margin">12dp</dimen>
   <dimen name="divider_margin_top">32dp</dimen>
 
   <dimen name="edit_text_side_margin">24dp</dimen>

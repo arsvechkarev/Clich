@@ -2,9 +2,16 @@
 <resources>
 
   <dimen name="item_label_image_size">24dp</dimen>
-  <dimen name="item_label_margin_top_bottom">8dp</dimen>
+  <dimen name="item_label_m_top_bottom">8dp</dimen>
   <dimen name="item_label_margin_text">24dp</dimen>
 
   <dimen name="item_label_margin_simple">10dp</dimen>
+  <dimen name="header_new_label_m">16dp</dimen>
+  <dimen name="edit_text_label_name_margin">16dp</dimen>
+  <dimen name="button_create_m">16dp</dimen>
+  <dimen name="fab_margin">16dp</dimen>
+  <dimen name="checkbox_size">24dp</dimen>
+  <dimen name="checkbox_m_top_bottom">8dp</dimen>
+  <dimen name="checkbox_m_end">16dp</dimen>
 
 </resources>
