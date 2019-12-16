@@ -6,7 +6,7 @@ import com.arsvechkarev.core.domain.model.Label
 import com.arsvechkarev.core.domain.model.Word
 import com.arsvechkarev.core.domain.model.WordsLabelsJoin
 import com.arsvechkarev.core.extensions.inBackground
-import com.arsvechkarev.storage.database.CentralDatabase
+import com.arsvechkarev.storage.CentralDatabase
 import kotlinx.android.synthetic.main.item_label_checkbox.view.checkbox
 import kotlinx.android.synthetic.main.item_label_checkbox.view.textLabel
 

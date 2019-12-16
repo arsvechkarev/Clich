@@ -1,6 +1,6 @@
 package com.arsvechkarev.testui
 
-import com.arsvechkarev.storage.database.CentralDatabase
+import com.arsvechkarev.storage.CentralDatabase
 
 /**
  * Helper fields to work with database

@@ -1,7 +1,7 @@
 package com.arsvechkarev.clich
 
 import android.app.Application
-import com.arsvechkarev.storage.database.CentralDatabase
+import com.arsvechkarev.storage.CentralDatabase
 import log.Logger
 
 class App : Application() {

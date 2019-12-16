@@ -23,7 +23,7 @@ import com.arsvechkarev.labels.list.LabelsAdapter
 import com.arsvechkarev.labels.list.Mode
 import com.arsvechkarev.labels.presentation.LabelsFragment
 import com.arsvechkarev.search.presentation.SearchFragment
-import com.arsvechkarev.storage.database.CentralDatabase
+import com.arsvechkarev.storage.CentralDatabase
 import com.arsvechkarev.words.presentation.WordsListFragment
 import kotlinx.android.synthetic.main.activity_main.baseContainer
 import kotlinx.android.synthetic.main.activity_main.layoutDrawer

@@ -1,4 +1,4 @@
-package com.arsvechkarev.storage.database
+package com.arsvechkarev.storage
 
 import android.content.Context
 import androidx.room.Database

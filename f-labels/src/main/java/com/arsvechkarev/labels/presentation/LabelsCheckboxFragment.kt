@@ -14,7 +14,7 @@ import com.arsvechkarev.labels.R
 import com.arsvechkarev.labels.list.LabelsAdapter
 import com.arsvechkarev.labels.list.Mode
 import com.arsvechkarev.labels.list.viewholders.CheckedChangedCallback
-import com.arsvechkarev.storage.database.CentralDatabase
+import com.arsvechkarev.storage.CentralDatabase
 import kotlinx.android.synthetic.main.fragment_labels.fabNewLabel
 import kotlinx.android.synthetic.main.fragment_labels.layoutLabelsStub
 import kotlinx.android.synthetic.main.fragment_labels.recyclerLabels

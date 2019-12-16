@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import com.arsvechkarev.core.BaseViewModel
 import com.arsvechkarev.core.domain.model.Label
 import com.arsvechkarev.core.domain.model.Word
-import com.arsvechkarev.storage.database.CentralDatabase
+import com.arsvechkarev.storage.CentralDatabase
 import javax.inject.Inject
 
 class WordsListViewModel @Inject constructor(
