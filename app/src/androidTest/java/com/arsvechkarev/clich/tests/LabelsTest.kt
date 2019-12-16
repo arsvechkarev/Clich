@@ -11,7 +11,7 @@ import com.arsvechkarev.clich.screens.DrawerScreen
 import com.arsvechkarev.clich.screens.MainScreen
 import com.arsvechkarev.clich.screens.NewLabelDialogScreen
 import com.arsvechkarev.core.domain.dao.create
-import com.arsvechkarev.storage.database.CentralDatabase
+import com.arsvechkarev.testui.DatabaseHelp
 import com.arsvechkarev.testui.DatabaseRule
 import com.arsvechkarev.testui.clearAndTypeText
 import com.arsvechkarev.testui.doAndWait
@@ -26,7 +26,7 @@ import org.junit.runners.MethodSorters
 
 @RunWith(AndroidJUnit4ClassRunner::class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-class LabelsTest {
+class LabelsTest : DatabaseHelp {
   
   @get:Rule
   val chain: RuleChain = RuleChain.outerRule(ActivityTestRule(MainActivity::class.java))
@@ -73,7 +73,7 @@ class LabelsTest {
     screen<DrawerScreen>().layoutGoToLabels.click()
     
     doAndWait(500) {
-      CentralDatabase.instance.labelsDao().create("Animals")
+      database.labelsDao().create("Animals")
     }
     
     onScreen<AllLabelsScreen> {

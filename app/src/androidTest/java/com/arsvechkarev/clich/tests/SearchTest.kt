@@ -7,7 +7,7 @@ import com.arsvechkarev.clich.MainActivity
 import com.arsvechkarev.clich.screens.MainScreen
 import com.arsvechkarev.clich.screens.SearchScreen
 import com.arsvechkarev.core.domain.dao.create
-import com.arsvechkarev.storage.database.CentralDatabase
+import com.arsvechkarev.testui.DatabaseHelp
 import com.arsvechkarev.testui.DatabaseRule
 import com.arsvechkarev.testui.doAndWait
 import com.arsvechkarev.testui.screen
@@ -20,9 +20,7 @@ import org.junit.runners.MethodSorters
 
 @RunWith(AndroidJUnit4ClassRunner::class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-class SearchTest {
-  
-  private val database = CentralDatabase.instance
+class SearchTest : DatabaseHelp {
   
   @get:Rule
   val chain: RuleChain = RuleChain.outerRule(ActivityTestRule(MainActivity::class.java))
