@@ -10,4 +10,10 @@
 - Coroutines
 - Kakao
 
+### Screenshots:
+------------
+
 ![Words List](screenshots/screenshot_words.png "A list of words")
+![Words List](screenshots/screenshot_word_info.png "Word info")
+![Words List](screenshots/screenshot_labels.png "Labels")
+![Words List](screenshots/screenshot_search.png "Search")
