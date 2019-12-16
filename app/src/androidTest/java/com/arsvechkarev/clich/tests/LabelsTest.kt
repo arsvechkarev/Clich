@@ -15,7 +15,7 @@ import com.arsvechkarev.storage.database.CentralDatabase
 import com.arsvechkarev.testui.DatabaseRule
 import com.arsvechkarev.testui.clearAndTypeText
 import com.arsvechkarev.testui.doAndWait
-import com.arsvechkarev.testui.isDisplayedAndHasText
+import com.arsvechkarev.testui.isVisibleAndHasText
 import com.arsvechkarev.testui.screen
 import org.junit.FixMethodOrder
 import org.junit.Rule
@@ -97,7 +97,7 @@ class LabelsTest {
         imageStart.hasDrawable(R.drawable.ic_label)
         imageEnd.hasDrawable(R.drawable.ic_edit)
         editTextLabel.isNotDisplayed()
-        textLabel isDisplayedAndHasText "Animals"
+        textLabel isVisibleAndHasText "Animals"
         
         imageEnd.click()
         
@@ -105,7 +105,7 @@ class LabelsTest {
         
         imageEnd.click()
         
-        textLabel isDisplayedAndHasText "Other stuff"
+        textLabel isVisibleAndHasText "Other stuff"
         
         imageEnd.click()
         
@@ -113,7 +113,7 @@ class LabelsTest {
       }
       
       recyclerLabels.isNotDisplayed()
-      layoutLabelsStub.isDisplayed()
+      layoutLabelsStub.isVisible()
     }
   }
 }

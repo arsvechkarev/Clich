@@ -10,5 +10,5 @@ class MainScreen : Screen<MainScreen>() {
   val drawer = KDrawerView { withId(R.id.layoutDrawer) }
   
   val textSearchWord = KTextView { withId(R.id.textSearchWord) }
-  val textLabelName = KTextView { withId(R.id.textSearchWord) }
+  val textLabelName = KTextView { withId(R.id.textLabelName) }
 }

@@ -13,23 +13,23 @@ fun <T> assertDisplayed(vararg views: KBaseView<T>) {
   views.forEach { it.isDisplayed() }
 }
 
-infix fun <T : KBaseView<T>> T.isDisplayedAnd(block: T.() -> Unit) {
+infix fun <T : KBaseView<T>> T.isVisibleAnd(block: T.() -> Unit) {
   apply {
-    isDisplayed()
+    isVisible()
     block()
   }
 }
 
-infix fun KTextView.isDisplayedAndHasText(text: String) {
+infix fun KTextView.isVisibleAndHasText(text: String) {
   apply {
-    isDisplayed()
+    isVisible()
     hasText(text)
   }
 }
 
-infix fun KTextView.isDisplayedAndHasText(@StringRes textResId: Int) {
+infix fun KTextView.isVisibleAndHasText(@StringRes textResId: Int) {
   apply {
-    isDisplayed()
+    isVisible()
     hasText(textResId)
   }
 }

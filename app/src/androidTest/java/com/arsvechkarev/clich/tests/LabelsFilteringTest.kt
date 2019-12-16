@@ -15,7 +15,7 @@ import com.arsvechkarev.core.domain.dao.create
 import com.arsvechkarev.storage.database.CentralDatabase
 import com.arsvechkarev.testui.DatabaseRule
 import com.arsvechkarev.testui.doAndWait
-import com.arsvechkarev.testui.isDisplayedAndHasText
+import com.arsvechkarev.testui.isVisibleAndHasText
 import com.arsvechkarev.testui.screen
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.FixMethodOrder
@@ -72,17 +72,17 @@ class LabelsFilteringTest {
       }
       
       onScreen<MainScreen> {
-        textLabelName isDisplayedAndHasText "Iron Man"
-        textSearchWord.isInvisible()
+        textLabelName isVisibleAndHasText "Iron Man"
+        textSearchWord.isNotDisplayed()
       }
       
       recyclerWords {
         hasSize(2)
         childWith<WordsListScreenItem> { withDescendant { withText("suit") } } perform {
-          isDisplayed()
+          isVisible()
         }
         childWith<WordsListScreenItem> { withDescendant { withText("iron") } } perform {
-          isDisplayed()
+          isVisible()
         }
       }
       
@@ -109,10 +109,10 @@ class LabelsFilteringTest {
       
       recyclerWords {
         hasSize(3)
-        childWith<WordsListScreenItem> { withDescendant { withText("fox") } } perform { isDisplayed() }
-        childWith<WordsListScreenItem> { withDescendant { withText("bird") } } perform { isDisplayed() }
+        childWith<WordsListScreenItem> { withDescendant { withText("fox") } } perform { isVisible() }
+        childWith<WordsListScreenItem> { withDescendant { withText("bird") } } perform { isVisible() }
         childWith<WordsListScreenItem> { withDescendant { withText("bear") } } perform {
-          isDisplayed()
+          isVisible()
           click()
         }
       }
@@ -130,9 +130,9 @@ class LabelsFilteringTest {
       
       recyclerWords {
         hasSize(3)
-        childWith<WordsListScreenItem> { withDescendant { withText("fox") } } perform { isDisplayed() }
-        childWith<WordsListScreenItem> { withDescendant { withText("bird") } } perform { isDisplayed() }
-        childWith<WordsListScreenItem> { withDescendant { withText("bear") } } perform { isDisplayed() }
+        childWith<WordsListScreenItem> { withDescendant { withText("fox") } } perform { isVisible() }
+        childWith<WordsListScreenItem> { withDescendant { withText("bird") } } perform { isVisible() }
+        childWith<WordsListScreenItem> { withDescendant { withText("bear") } } perform { isVisible() }
       }
       
       pressBack()

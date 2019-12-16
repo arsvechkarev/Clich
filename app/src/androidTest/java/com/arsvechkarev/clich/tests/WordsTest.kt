@@ -37,12 +37,12 @@ class WordsTest {
   @Test
   fun test1_Creating_new_word_and_checking_that_it_is_displayed_after() {
     onScreen<WordsListScreen> {
-      layoutStub.isDisplayed()
+      layoutStub.isVisible()
       fabNewWord.click()
     }
     
     onScreen<WordInfoScreen> {
-      textNewWord.isDisplayed()
+      textNewWord.isVisible()
       imageMenu.isNotDisplayed()
       
       editTextWord.typeText("cat")
@@ -66,7 +66,7 @@ class WordsTest {
     }
     
     onScreen<WordInfoScreen> {
-      imageMenu.isDisplayed()
+      imageMenu.isVisible()
       textNewWord.isNotDisplayed()
       
       editTextWord.hasText("cat")
@@ -149,7 +149,7 @@ class WordsTest {
     }
     
     onScreen<WordsListScreen> {
-      layoutStub.isDisplayed()
+      layoutStub.isVisible()
       recyclerWords.isNotDisplayed()
     }
   }

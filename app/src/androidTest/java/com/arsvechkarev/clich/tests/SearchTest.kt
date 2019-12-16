@@ -8,6 +8,7 @@ import com.arsvechkarev.clich.screens.MainScreen
 import com.arsvechkarev.clich.screens.SearchScreen
 import com.arsvechkarev.core.domain.dao.create
 import com.arsvechkarev.storage.database.CentralDatabase
+import com.arsvechkarev.testui.DatabaseRule
 import com.arsvechkarev.testui.doAndWait
 import com.arsvechkarev.testui.screen
 import org.junit.FixMethodOrder
@@ -25,7 +26,7 @@ class SearchTest {
   
   @get:Rule
   val chain: RuleChain = RuleChain.outerRule(ActivityTestRule(MainActivity::class.java))
-//    .around(DatabaseRule())
+    .around(DatabaseRule())
   
   @Test
   fun test1_Search() {
@@ -48,8 +49,8 @@ class SearchTest {
       layoutNoWordsFound.isNotDisplayed()
       recyclerFoundWords {
         hasSize(2)
-        childWith<SearchScreen.SearchScreenItem> { withDescendant { withText("apple") } } perform { isDisplayed() }
-        childWith<SearchScreen.SearchScreenItem> { withDescendant { withText("appreciate") } } perform { isDisplayed() }
+        childWith<SearchScreen.SearchScreenItem> { withDescendant { withText("apple") } } perform { isVisible() }
+        childWith<SearchScreen.SearchScreenItem> { withDescendant { withText("appreciate") } } perform { isVisible() }
       }
       
       searchEditText.clearText()
@@ -60,8 +61,8 @@ class SearchTest {
       
       recyclerFoundWords {
         hasSize(2)
-        childWith<SearchScreen.SearchScreenItem> { withDescendant { withText("suit") } } perform { isDisplayed() }
-        childWith<SearchScreen.SearchScreenItem> { withDescendant { withText("other stuff") } } perform { isDisplayed() }
+        childWith<SearchScreen.SearchScreenItem> { withDescendant { withText("suit") } } perform { isVisible() }
+        childWith<SearchScreen.SearchScreenItem> { withDescendant { withText("other stuff") } } perform { isVisible() }
       }
     }
     
