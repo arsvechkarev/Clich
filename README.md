@@ -13,7 +13,7 @@
 ### Screenshots:
 
 ![Words List](screenshots/screenshot_words.png "A list of words")
-![Words List](screenshots/screenshot_word_info.png "Word info")
+![Word Info](screenshots/screenshot_word_info.png "Info of a word")
 
-![Words List](screenshots/screenshot_labels.png "Labels")
-![Words List](screenshots/screenshot_search.png "Search")
+![Labels List](screenshots/screenshot_labels.png "A list of labels")
+![Search](screenshots/screenshot_search.png "Search through words")
