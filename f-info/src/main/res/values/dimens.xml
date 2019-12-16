@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <dimen name="image_back_margin">16dp</dimen>
+  <dimen name="image_back_size">24dp</dimen>
+
+  <dimen name="image_menu_size">24dp</dimen>
+  <dimen name="image_menu_margin">16dp</dimen>
+
+  <dimen name="divider_height">1dp</dimen>
+  <dimen name="divider_margin">12dp</dimen>
+  <dimen name="divider_margin_top">32dp</dimen>
+
+  <dimen name="edit_text_side_margin">24dp</dimen>
+  <dimen name="edit_text_word_m_top">40dp</dimen>
+  <dimen name="edit_text_def_m_top">24dp</dimen>
+  <dimen name="edit_text_examples_m_top">16dp</dimen>
+
+  <dimen name="header_start">16dp</dimen>
+  <dimen name="header_margin_top">32dp</dimen>
+
+  <dimen name="recycler_m_side">16dp</dimen>
+  <dimen name="recycler_m_top">32dp</dimen>
+
+  <dimen name="button_add_labels_m_bottom">24dp</dimen>
+  <dimen name="button_add_labels_m_top">8dp</dimen>
+  <dimen name="button_add_labels_m_start">16dp</dimen>
+</resources>

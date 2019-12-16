@@ -14,4 +14,8 @@
   <string name="text_no_words_found">No words found</string>
   <string name="text_empty_labels">No words for this label</string>
   <string name="text_no_words_yet">No words yet :(</string>
+  <string name="hint_definition">Definition</string>
+  <string name="text_new_word">New word</string>
+  <string name="header_examples">Examples</string>
+  <string name="text_add_labels">Add labels</string>
 </resources>

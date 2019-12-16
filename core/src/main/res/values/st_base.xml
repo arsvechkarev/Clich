@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <style name="Clickable">
+    <item name="android:clickable">true</item>
+    <item name="android:focusable">true</item>
+  </style>
+
+  <style name="Clickable.Borderless">
+    <item name="android:background">?selectableItemBackgroundBorderless</item>
+  </style>
+
+  <style name="Clickable.Border">
+    <item name="android:background">?selectableItemBackground</item>
+  </style>
+
+</resources>
