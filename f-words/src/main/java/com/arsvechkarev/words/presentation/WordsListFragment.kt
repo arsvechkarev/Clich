@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.annotation.StringRes
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.arsvechkarev.core.BaseFragment
 import com.arsvechkarev.core.coreActivity
 import com.arsvechkarev.core.di.viewmodel.ViewModelFactory
@@ -11,7 +12,6 @@ import com.arsvechkarev.core.domain.model.Label
 import com.arsvechkarev.core.domain.model.Word
 import com.arsvechkarev.core.domain.model.words
 import com.arsvechkarev.core.extensions.gone
-import com.arsvechkarev.core.extensions.setupWith
 import com.arsvechkarev.core.extensions.viewModelOf
 import com.arsvechkarev.core.extensions.visible
 import com.arsvechkarev.info.presentation.InfoFragment
@@ -38,7 +38,11 @@ class WordsListFragment : BaseFragment() {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     DaggerWordsListComponent.create().inject(this)
     viewModel = viewModelOf(viewModelFactory)
-    recyclerWords.setupWith(adapter)
+    recyclerWords.layoutManager = LinearLayoutManager(context).apply {
+      stackFromEnd = true
+      reverseLayout = true
+    }
+    recyclerWords.adapter = adapter
     val label = arguments?.getParcelable<Label>(LABEL)
     if (label != null) {
       viewModel.getWordsOf(label).observe(this, Observer {
