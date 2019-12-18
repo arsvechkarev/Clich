@@ -95,9 +95,9 @@
       android:layout_height="wrap_content"
       android:layout_marginStart="@dimen/header_start"
       android:layout_marginTop="@dimen/header_margin_top"
-      android:fontFamily="@font/metropolis_semi_bold"
+      android:fontFamily="@font/metropolis_semi_bold_italic"
       android:text="@string/header_examples"
-      android:textColor="?colorTextPrimary"
+      android:textColor="?colorTextSecondary"
       android:textSize="@dimen/text_h4"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/divider"/>

@@ -13,11 +13,8 @@
   <color name="light_colorDrawer">#FBFBFB</color>
   <color name="light_colorWindowBackground">#FBFBFB</color>
 
-  <color name="light_colorItemSelected"></color>
-  <color name="light_colorItemNotSelected"></color>
-
   <color name="light_colorTextPrimary">#000000</color>
-  <color name="light_colorTextSecondary">#505050</color>
+  <color name="light_colorTextSecondary">#747474</color>
   <color name="light_colorTextEditTextHint">#9E9E9E</color>
 
   <color name="light_colorDivider">#E2E2E2</color>
