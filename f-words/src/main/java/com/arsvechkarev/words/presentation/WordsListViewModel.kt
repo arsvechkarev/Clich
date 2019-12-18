@@ -14,10 +14,6 @@ class WordsListViewModel @Inject constructor(
   private val database: CentralDatabase
 ) : BaseViewModel() {
   
-  fun fetchWords(): LiveData<List<Word>> {
-    return database.wordDao().getAll()
-  }
-  
   fun fetchAll(): LiveData<List<DisplayableItem>> {
     return database.wordDao().getAll().addDates()
   }
