@@ -4,9 +4,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.arsvechkarev.core.DisplayableItem.DiffCallBack
 import com.arsvechkarev.core.domain.model.Label
 import com.arsvechkarev.core.extensions.inflate
+import com.arsvechkarev.core.recyler.DisplayableItem.DiffCallBack
 import com.arsvechkarev.info.R
 import com.arsvechkarev.info.list.CurrentLabelsAdapter.CurrentLabelsViewHolder
 import kotlinx.android.synthetic.main.item_current_label.view.textLabel

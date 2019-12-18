@@ -1,4 +1,4 @@
-package com.arsvechkarev.core
+package com.arsvechkarev.core.recyler
 
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -14,6 +14,12 @@ interface DisplayableItem {
    * Id to distinguish two different elements
    */
   val id: Long?
+  
+  /**
+   * Type to bind recycler adapter
+   */
+  val type: Int
+  
   
   /**
    * Every class inherits from [DisplayableItem] should override equals in order to compare elements

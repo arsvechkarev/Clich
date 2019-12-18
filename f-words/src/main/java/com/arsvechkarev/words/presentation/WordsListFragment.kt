@@ -9,11 +9,10 @@ import com.arsvechkarev.core.BaseFragment
 import com.arsvechkarev.core.coreActivity
 import com.arsvechkarev.core.di.viewmodel.ViewModelFactory
 import com.arsvechkarev.core.domain.model.Label
-import com.arsvechkarev.core.domain.model.Word
-import com.arsvechkarev.core.domain.model.words
 import com.arsvechkarev.core.extensions.gone
 import com.arsvechkarev.core.extensions.viewModelOf
 import com.arsvechkarev.core.extensions.visible
+import com.arsvechkarev.core.recyler.DisplayableItem
 import com.arsvechkarev.info.presentation.InfoFragment
 import com.arsvechkarev.words.R
 import com.arsvechkarev.words.di.DaggerWordsListComponent
@@ -22,7 +21,6 @@ import kotlinx.android.synthetic.main.fragment_words_list.fabNewWord
 import kotlinx.android.synthetic.main.fragment_words_list.layoutStub
 import kotlinx.android.synthetic.main.fragment_words_list.recyclerWords
 import kotlinx.android.synthetic.main.fragment_words_list.textStub
-import log.Logger.debug
 import javax.inject.Inject
 
 class WordsListFragment : BaseFragment() {
@@ -49,7 +47,7 @@ class WordsListFragment : BaseFragment() {
         handleList(it, R.string.text_empty_labels)
       })
     } else {
-      viewModel.fetchWords().observe(this, Observer {
+      viewModel.fetchAll().observe(this, Observer {
         handleList(it, R.string.text_no_words_yet)
       })
     }
@@ -58,13 +56,12 @@ class WordsListFragment : BaseFragment() {
     }
   }
   
-  private fun handleList(it: List<Word>, @StringRes emptyTextRes: Int) {
+  private fun handleList(it: List<DisplayableItem>, @StringRes emptyTextRes: Int) {
     if (it.isEmpty()) {
       textStub.setText(emptyTextRes)
       layoutStub.visible()
       recyclerWords.gone()
     } else {
-      debug { "list update: ${it.words()}" }
       adapter.submitList(it)
       layoutStub.gone()
       recyclerWords.visible()

@@ -3,9 +3,9 @@ package com.arsvechkarev.labels.list
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.arsvechkarev.core.DisplayableItem.DiffCallBack
 import com.arsvechkarev.core.domain.model.Label
 import com.arsvechkarev.core.extensions.inflate
+import com.arsvechkarev.core.recyler.DisplayableItem.DiffCallBack
 import com.arsvechkarev.labels.R
 import com.arsvechkarev.labels.list.Mode.Checkbox
 import com.arsvechkarev.labels.list.Mode.CheckboxNotCreatedWord

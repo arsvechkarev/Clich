@@ -15,7 +15,7 @@ object Logger {
     }
   }
   
-  fun error(lazyMessage: () -> String, throwable: Throwable) {
+  fun error(throwable: Throwable, lazyMessage: () -> String) {
     if (isActive) {
       MyTimber.d(throwable, lazyMessage.invoke())
     }

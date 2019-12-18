@@ -30,6 +30,7 @@ import kotlinx.android.synthetic.main.fragment_info.imageMenu
 import kotlinx.android.synthetic.main.fragment_info.recyclerWordsLabels
 import kotlinx.android.synthetic.main.fragment_info.textNewWord
 import log.Logger.debug
+import org.threeten.bp.LocalDate
 import javax.inject.Inject
 
 class InfoFragment : BaseFragment() {
@@ -152,7 +153,8 @@ class InfoFragment : BaseFragment() {
         val newWord = Word(
           name = editTextWord.string().trim(),
           definition = editTextDefinition.string().trim(),
-          examples = editTextExamples.string().trim()
+          examples = editTextExamples.string().trim(),
+          creationDate = LocalDate.now().toEpochDay()
         )
         debug { "saving brand new name = $newWord" }
         viewModel.saveWordWithLabels(newWord, currentLabels)

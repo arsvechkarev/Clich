@@ -28,11 +28,11 @@ interface WordsDao {
 }
 
 suspend fun WordsDao.create(name: String) =
-  create(Word(name = name, definition = "", examples = ""))
+  create(Word(name = name, definition = "", examples = "", creationDate = 1))
 
 suspend fun WordsDao.create(name: String, definition: String) =
-  create(Word(name = name, definition = definition, examples = ""))
+  create(Word(name = name, definition = definition, examples = "", creationDate = 1))
   
 suspend fun WordsDao.create(name: String, definition: String, examples: String) =
-  create(Word(name = name, definition = definition, examples = examples))
+  create(Word(name = name, definition = definition, examples = examples, creationDate = 1))
   

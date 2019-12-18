@@ -40,6 +40,7 @@ dependencies {
   implementation appDependencies.legacySupport
   implementation appDependencies.constraintLayout
   implementation appDependencies.flexboxLayout
+  implementation appDependencies.threeTenAbp
 
   implementation appDependencies.coroutinesCore
   implementation appDependencies.coroutinesAndroid

@@ -1,38 +1,16 @@
 package com.arsvechkarev.words.list
 
-import android.view.View
-import android.view.ViewGroup
-import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
-import com.arsvechkarev.core.DisplayableItem.DiffCallBack
+import com.arsvechkarev.core.domain.model.ItemTypeIds
 import com.arsvechkarev.core.domain.model.Word
-import com.arsvechkarev.core.extensions.inflate
-import com.arsvechkarev.words.R
-import com.arsvechkarev.words.list.WordsListAdapter.WordsListViewHolder
-import kotlinx.android.synthetic.main.item_word.view.textWord
+import com.arsvechkarev.core.recyler.BaseListAdapter
 
 class WordsListAdapter(
-  private val clickListener: (Word) -> Unit = {}
-) : ListAdapter<Word, WordsListViewHolder>(DiffCallBack()) {
+  clickListener: (Word) -> Unit = {}
+) : BaseListAdapter() {
   
-  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WordsListViewHolder {
-    return WordsListViewHolder(parent.inflate(R.layout.item_word))
+  init {
+    delegates.put(ItemTypeIds.WORD, WordAdapterDelegate(clickListener))
+    delegates.put(ItemTypeIds.TIME_DIVIDER, TimeDividerAdapterDelegate())
   }
   
-  override fun onBindViewHolder(holder: WordsListViewHolder, position: Int) {
-    holder.bind(getItem(position))
-  }
-  
-  override fun submitList(list: List<Word>?) {
-    super.submitList(list)
-    notifyDataSetChanged()
-  }
-  
-  inner class WordsListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    
-    fun bind(item: Word) {
-      itemView.setOnClickListener { clickListener(item) }
-      itemView.textWord.text = item.name
-    }
-  }
 }

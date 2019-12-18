@@ -8,9 +8,9 @@ import android.view.ViewGroup
 import android.widget.TextView.BufferType.SPANNABLE
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.arsvechkarev.core.DisplayableItem.DiffCallBack
 import com.arsvechkarev.core.domain.model.Word
 import com.arsvechkarev.core.extensions.inflate
+import com.arsvechkarev.core.recyler.DisplayableItem.DiffCallBack
 import com.arsvechkarev.search.R
 import com.arsvechkarev.search.labels.WordsListAdapter.WordsListViewHolder
 import kotlinx.android.synthetic.main.item_word.view.textWord

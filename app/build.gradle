@@ -40,6 +40,7 @@ dependencies {
   implementation appDependencies.appCompat
   implementation appDependencies.materialDesign
   implementation appDependencies.legacySupport
+  implementation appDependencies.threeTenAbp
 
   testImplementation project(':test-unit')
   androidTestImplementation project(':test-ui')

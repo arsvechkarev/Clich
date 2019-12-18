@@ -13,24 +13,24 @@ ext {
   room_version = "2.2.1"
 
   applicationDependencies = [
-      kotlin                  : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
-      appCompat               : "androidx.appcompat:appcompat:$appCompat_version",
-      ktx                     : "androidx.core:core-ktx:$appCompat_version",
-      materialDesign          : "com.google.android.material:material:1.1.0-beta01",
-      lifecycleExtensions     : "androidx.lifecycle:lifecycle-extensions:$lifecycle_version",
-      legacySupport           : "androidx.legacy:legacy-support-v4:$legacySupport_version",
-      constraintLayout        : "androidx.constraintlayout:constraintlayout:$constraintLayout_version",
-      vectorDrawable          : "androidx.vectordrawable:vectordrawable:$vectorDrawable_version",
-      coroutinesCore          : "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version",
-      coroutinesAndroid       : "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version",
-      dagger                  : "com.google.dagger:dagger:$dagger_version",
-      daggerCompiler          : "com.google.dagger:dagger-compiler:$dagger_version",
-      room                    : "androidx.room:room-runtime:$room_version",
-      roomCompiler            : "androidx.room:room-compiler:$room_version",
-      roomKtx                 : "androidx.room:room-ktx:$room_version",
-      flexboxLayout           : "com.google.android:flexbox:2.0.0"
+      kotlin             : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
+      appCompat          : "androidx.appcompat:appcompat:$appCompat_version",
+      ktx                : "androidx.core:core-ktx:$appCompat_version",
+      materialDesign     : "com.google.android.material:material:1.1.0-beta01",
+      lifecycleExtensions: "androidx.lifecycle:lifecycle-extensions:$lifecycle_version",
+      legacySupport      : "androidx.legacy:legacy-support-v4:$legacySupport_version",
+      constraintLayout   : "androidx.constraintlayout:constraintlayout:$constraintLayout_version",
+      vectorDrawable     : "androidx.vectordrawable:vectordrawable:$vectorDrawable_version",
+      coroutinesCore     : "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version",
+      coroutinesAndroid  : "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version",
+      dagger             : "com.google.dagger:dagger:$dagger_version",
+      daggerCompiler     : "com.google.dagger:dagger-compiler:$dagger_version",
+      room               : "androidx.room:room-runtime:$room_version",
+      roomCompiler       : "androidx.room:room-compiler:$room_version",
+      roomKtx            : "androidx.room:room-ktx:$room_version",
+      flexboxLayout      : "com.google.android:flexbox:2.0.0",
+      threeTenAbp        : "com.jakewharton.threetenabp:threetenabp:1.2.1"
   ]
-
   junit_version = '4.12'
   mockk_version = '1.9.3'
   kotlinTest_version = '3.3.2'
