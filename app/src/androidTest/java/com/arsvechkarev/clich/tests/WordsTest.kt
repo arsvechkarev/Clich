@@ -15,7 +15,7 @@ import com.arsvechkarev.clich.screens.WordInfoScreen
 import com.arsvechkarev.clich.screens.WordsListScreen
 import com.arsvechkarev.clich.screens.WordsListScreen.WordsListScreenItemWord
 import com.arsvechkarev.core.domain.dao.create
-import com.arsvechkarev.storage.CentralDatabase
+import com.arsvechkarev.testui.DatabaseHelp
 import com.arsvechkarev.testui.DatabaseRule
 import com.arsvechkarev.testui.clearAndTypeText
 import com.arsvechkarev.testui.doAndWait
@@ -28,7 +28,7 @@ import org.junit.runners.MethodSorters
 
 @RunWith(AndroidJUnit4ClassRunner::class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-class WordsTest {
+class WordsTest : DatabaseHelp {
   
   @get:Rule
   val chain: RuleChain = RuleChain.outerRule(ActivityTestRule(MainActivity::class.java))
@@ -57,10 +57,7 @@ class WordsTest {
       
       recyclerWords {
         hasSize(2)
-        firstChild<WordsListScreen.WordsListScreenItemTimeDivider> {
-          textDate.isDisplayed()
-        }
-        childAt<WordsListScreenItemWord>(1) {
+        childWith<WordsListScreenItemWord> { withDescendant { withText("cat") } } perform {
           textWord.hasText("cat")
           click()
         }
@@ -84,12 +81,12 @@ class WordsTest {
   fun test2_Editing_a_word() {
     
     doAndWait(500) {
-      CentralDatabase.instance.wordDao().create("cat", "a small animal", "cats are nice")
+      words.create("cat", "a small animal", "cats are nice")
     }
     
     onScreen<WordsListScreen> {
-      recyclerWords.childAt<WordsListScreenItemWord>(1) {
-        click()
+      recyclerWords {
+        childWith<WordsListScreenItemWord> { withDescendant { withText("cat") } } perform { click() }
       }
     }
     
@@ -104,11 +101,8 @@ class WordsTest {
     
     onScreen<WordsListScreen> {
       recyclerWords {
-        hasSize(1)
-        firstChild<WordsListScreenItemWord> {
-          textWord.hasText("dog")
-          click()
-        }
+        hasSize(2)
+        childWith<WordsListScreenItemWord> { withDescendant { withText("dog") } } perform { click() }
       }
     }
     
@@ -127,9 +121,7 @@ class WordsTest {
     onScreen<WordsListScreen> {
       recyclerWords {
         hasSize(2)
-        childAt<WordsListScreenItemWord>(1) {
-          textWord.hasText("dogg")
-        }
+        childWith<WordsListScreenItemWord> { withDescendant { withText("dogg") } } perform { isDisplayed() }
       }
     }
   }

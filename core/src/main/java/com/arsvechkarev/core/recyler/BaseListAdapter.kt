@@ -25,6 +25,7 @@ abstract class BaseListAdapter :
   
   override fun submitList(list: List<DisplayableItem>?) {
     data = list ?: ArrayList()
+    notifyDataSetChanged()
     super.submitList(list)
   }
 }
