@@ -3,7 +3,13 @@ package com.arsvechkarev.testui
 import androidx.annotation.StringRes
 import com.agoda.kakao.common.views.KBaseView
 import com.agoda.kakao.edit.KEditText
+import com.agoda.kakao.screen.Screen
 import com.agoda.kakao.text.KTextView
+
+inline fun <reified T : Screen<T>> screen(): T {
+  return T::class.java
+    .newInstance()
+}
 
 fun <T> assertNotDisplayed(vararg views: KBaseView<T>) {
   views.forEach { it.isNotDisplayed() }

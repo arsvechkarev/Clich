@@ -21,7 +21,7 @@ class WordInfoScreen : Screen<WordInfoScreen>() {
   val editTextDefinition = KEditText { withId(R.id.editTextDefinition) }
   val editTextExamples = KEditText { withId(R.id.editTextExamples) }
   
-  val buttonAddLabeds = KButton { withId(R.id.buttonAddLabels) }
+  val buttonAddLabels = KButton { withId(R.id.buttonAddLabels) }
   
   val recyclerWordsLabels = KRecyclerView(
     builder = { withId(R.id.recyclerWordsLabels) },

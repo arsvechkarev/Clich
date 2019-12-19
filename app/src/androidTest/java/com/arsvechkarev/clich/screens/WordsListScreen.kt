@@ -17,11 +17,20 @@ class WordsListScreen : Screen<WordsListScreen>() {
   
   val recyclerWords = KRecyclerView(
     builder = { withId(R.id.recyclerWords) },
-    itemTypeBuilder = { itemType(WordsListScreen::WordsListScreenItem) }
+    itemTypeBuilder = {
+      itemType(WordsListScreen::WordsListScreenItemWord)
+      itemType(WordsListScreen::WordsListScreenItemTimeDivider)
+    }
   )
   
-  class WordsListScreenItem(parent: Matcher<View>) : KRecyclerItem<WordsListScreenItem>(parent) {
+  class WordsListScreenItemWord(parent: Matcher<View>) :
+    KRecyclerItem<WordsListScreenItemWord>(parent) {
     val textWord = KTextView(parent) { withId(R.id.textWord) }
+  }
+  
+  class WordsListScreenItemTimeDivider(parent: Matcher<View>) :
+    KRecyclerItem<WordsListScreenItemTimeDivider>(parent) {
+    val textDate = KTextView(parent) { withId(R.id.textDate) }
   }
   
 }

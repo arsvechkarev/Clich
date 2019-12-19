@@ -9,7 +9,7 @@ import com.arsvechkarev.clich.screens.LabelsCheckBoxScreen.LabelsCheckBoxScreenI
 import com.arsvechkarev.clich.screens.WordInfoScreen
 import com.arsvechkarev.clich.screens.WordInfoScreen.WordInfoScreenItem
 import com.arsvechkarev.clich.screens.WordsListScreen
-import com.arsvechkarev.clich.screens.WordsListScreen.WordsListScreenItem
+import com.arsvechkarev.clich.screens.WordsListScreen.WordsListScreenItemWord
 import com.arsvechkarev.core.domain.dao.create
 import com.arsvechkarev.testui.DatabaseHelp
 import com.arsvechkarev.testui.DatabaseRule
@@ -42,14 +42,14 @@ class SelectingLabelsTest : DatabaseHelp {
     
     onScreen<WordsListScreen> {
       recyclerWords {
-        hasSize(1)
-        firstChild<WordsListScreenItem> { click() }
+        hasSize(2)
+        childWith<WordsListScreenItemWord> { withDescendant { withText("cat") } } perform { click() }
       }
     }
     
     onScreen<WordInfoScreen> {
       recyclerWordsLabels.hasSize(0)
-      buttonAddLabeds.click()
+      buttonAddLabels.click()
     }
     
     onScreen<LabelsCheckBoxScreen> {
@@ -73,7 +73,7 @@ class SelectingLabelsTest : DatabaseHelp {
         childWith<WordInfoScreenItem> { withDescendant { withText("Pets") } } perform { isVisible() }
       }
   
-      buttonAddLabeds.click()
+      buttonAddLabels.click()
     }
   
     onScreen<LabelsCheckBoxScreen> {

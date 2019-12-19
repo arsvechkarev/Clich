@@ -10,7 +10,7 @@ import com.arsvechkarev.clich.screens.MainScreen
 import com.arsvechkarev.clich.screens.WordInfoScreen
 import com.arsvechkarev.clich.screens.WordInfoScreen.WordInfoScreenItem
 import com.arsvechkarev.clich.screens.WordsListScreen
-import com.arsvechkarev.clich.screens.WordsListScreen.WordsListScreenItem
+import com.arsvechkarev.clich.screens.WordsListScreen.WordsListScreenItemWord
 import com.arsvechkarev.core.domain.dao.create
 import com.arsvechkarev.storage.CentralDatabase
 import com.arsvechkarev.testui.DatabaseRule
@@ -60,7 +60,7 @@ class LabelsFilteringTest {
     }
     
     onScreen<WordsListScreen> {
-      recyclerWords.hasSize(6)
+      recyclerWords.hasSize(6 + 1)
       screen<MainScreen>().drawer.open()
       
       // Clicking iron man label
@@ -78,10 +78,10 @@ class LabelsFilteringTest {
       
       recyclerWords {
         hasSize(2)
-        childWith<WordsListScreenItem> { withDescendant { withText("suit") } } perform {
+        childWith<WordsListScreenItemWord> { withDescendant { withText("suit") } } perform {
           isVisible()
         }
-        childWith<WordsListScreenItem> { withDescendant { withText("iron") } } perform {
+        childWith<WordsListScreenItemWord> { withDescendant { withText("iron") } } perform {
           isVisible()
         }
       }
@@ -95,7 +95,7 @@ class LabelsFilteringTest {
       }
       
       recyclerWords {
-        hasSize(6)
+        hasSize(6 + 1)
       }
       
       screen<MainScreen>().drawer.open()
@@ -109,9 +109,9 @@ class LabelsFilteringTest {
       
       recyclerWords {
         hasSize(3)
-        childWith<WordsListScreenItem> { withDescendant { withText("fox") } } perform { isVisible() }
-        childWith<WordsListScreenItem> { withDescendant { withText("bird") } } perform { isVisible() }
-        childWith<WordsListScreenItem> { withDescendant { withText("bear") } } perform {
+        childWith<WordsListScreenItemWord> { withDescendant { withText("fox") } } perform { isVisible() }
+        childWith<WordsListScreenItemWord> { withDescendant { withText("bird") } } perform { isVisible() }
+        childWith<WordsListScreenItemWord> { withDescendant { withText("bear") } } perform {
           isVisible()
           click()
         }
@@ -130,14 +130,14 @@ class LabelsFilteringTest {
       
       recyclerWords {
         hasSize(3)
-        childWith<WordsListScreenItem> { withDescendant { withText("fox") } } perform { isVisible() }
-        childWith<WordsListScreenItem> { withDescendant { withText("bird") } } perform { isVisible() }
-        childWith<WordsListScreenItem> { withDescendant { withText("bear") } } perform { isVisible() }
+        childWith<WordsListScreenItemWord> { withDescendant { withText("fox") } } perform { isVisible() }
+        childWith<WordsListScreenItemWord> { withDescendant { withText("bird") } } perform { isVisible() }
+        childWith<WordsListScreenItemWord> { withDescendant { withText("bear") } } perform { isVisible() }
       }
       
       pressBack()
-      
-      recyclerWords.hasSize(6)
+  
+      recyclerWords.hasSize(6 + 1)
     }
   }
 }

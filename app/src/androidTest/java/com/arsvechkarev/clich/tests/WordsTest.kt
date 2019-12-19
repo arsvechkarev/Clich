@@ -13,7 +13,7 @@ import com.arsvechkarev.clich.MainActivity
 import com.arsvechkarev.clich.R
 import com.arsvechkarev.clich.screens.WordInfoScreen
 import com.arsvechkarev.clich.screens.WordsListScreen
-import com.arsvechkarev.clich.screens.WordsListScreen.WordsListScreenItem
+import com.arsvechkarev.clich.screens.WordsListScreen.WordsListScreenItemWord
 import com.arsvechkarev.core.domain.dao.create
 import com.arsvechkarev.storage.CentralDatabase
 import com.arsvechkarev.testui.DatabaseRule
@@ -56,8 +56,11 @@ class WordsTest {
       layoutStub.isNotDisplayed()
       
       recyclerWords {
-        hasSize(1)
-        firstChild<WordsListScreenItem> {
+        hasSize(2)
+        firstChild<WordsListScreen.WordsListScreenItemTimeDivider> {
+          textDate.isDisplayed()
+        }
+        childAt<WordsListScreenItemWord>(1) {
           textWord.hasText("cat")
           click()
         }
@@ -85,7 +88,7 @@ class WordsTest {
     }
     
     onScreen<WordsListScreen> {
-      recyclerWords.firstChild<WordsListScreenItem> {
+      recyclerWords.childAt<WordsListScreenItemWord>(1) {
         click()
       }
     }
@@ -102,7 +105,7 @@ class WordsTest {
     onScreen<WordsListScreen> {
       recyclerWords {
         hasSize(1)
-        firstChild<WordsListScreenItem> {
+        firstChild<WordsListScreenItemWord> {
           textWord.hasText("dog")
           click()
         }
@@ -123,8 +126,8 @@ class WordsTest {
     
     onScreen<WordsListScreen> {
       recyclerWords {
-        hasSize(1)
-        firstChild<WordsListScreenItem> {
+        hasSize(2)
+        childAt<WordsListScreenItemWord>(1) {
           textWord.hasText("dogg")
         }
       }
@@ -134,7 +137,7 @@ class WordsTest {
   fun text3_Deleting_a_word() {
     onScreen<WordsListScreen> {
       recyclerWords {
-        firstChild<WordsListScreenItem> {
+        firstChild<WordsListScreenItemWord> {
           click()
         }
       }
