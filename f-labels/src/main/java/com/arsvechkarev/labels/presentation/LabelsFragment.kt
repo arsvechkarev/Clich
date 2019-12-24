@@ -28,7 +28,7 @@ class LabelsFragment : BaseFragment(), CreateLabelDialog.Callback {
   override val layoutId: Int = R.layout.fragment_labels
   private lateinit var layoutManager: LinearLayoutManager
   
-  fun hideK() {
+  fun hideKeyboard() {
     val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     imm.toggleSoftInput(0, InputMethodManager.HIDE_IMPLICIT_ONLY)
   }
@@ -39,12 +39,12 @@ class LabelsFragment : BaseFragment(), CreateLabelDialog.Callback {
         
         private fun endEditing() {
           fabNewLabel.visible()
-          hideK()
+          hideKeyboard()
         }
         
         override fun onStartEditing() {
           fabNewLabel.gone()
-          hideK()
+          hideKeyboard()
         }
         
         override fun onSaveLabel(label: Label, newName: String) {
@@ -72,7 +72,7 @@ class LabelsFragment : BaseFragment(), CreateLabelDialog.Callback {
     recyclerLabels.adapter = adapter
     toolbar.setNavigationOnClickListener {
       popBackStack()
-      hideK()
+      hideKeyboard()
     }
     CentralDatabase.instance.labelsDao().getAll().observe(this) {
       if (it.isEmpty()) {
