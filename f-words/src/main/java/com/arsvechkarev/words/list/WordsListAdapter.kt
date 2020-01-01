@@ -10,7 +10,6 @@ class WordsListAdapter(
   
   init {
     delegates.put(ItemTypeIds.WORD, WordAdapterDelegate(clickListener))
-    delegates.put(ItemTypeIds.TIME_DIVIDER, TimeDividerAdapterDelegate())
   }
   
 }
