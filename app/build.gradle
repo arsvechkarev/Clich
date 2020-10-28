@@ -41,6 +41,7 @@ dependencies {
   implementation appDependencies.materialDesign
   implementation appDependencies.legacySupport
   implementation appDependencies.threeTenAbp
+  implementation appDependencies.constraintLayout
 
   testImplementation project(':test-unit')
   androidTestImplementation project(':test-ui')

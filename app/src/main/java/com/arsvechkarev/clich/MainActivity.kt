@@ -107,5 +107,4 @@ class MainActivity : AppCompatActivity(), CoreActivity {
       super.onBackPressed()
     }
   }
-  
 }

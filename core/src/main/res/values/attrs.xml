@@ -10,7 +10,6 @@
   <attr name="theColorControlNormal" format="color"/>
 
   <attr name="colorToolbar" format="color"/>
-  <attr name="colorDrawer" format="color"/>
   <attr name="colorWindowBackground" format="color"/>
 
   <attr name="colorItemSelected" format="color"/>
