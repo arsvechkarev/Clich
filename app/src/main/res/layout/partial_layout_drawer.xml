@@ -70,13 +70,6 @@
 
         </LinearLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-          android:id="@+id/recyclerDrawerLabels"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:nestedScrollingEnabled="false"
-          android:visibility="gone"/>
-
         <LinearLayout
           android:id="@+id/layoutLabelsDrawerStub"
           android:layout_width="wrap_content"
@@ -114,6 +107,13 @@
         </LinearLayout>
 
       </FrameLayout>
+
+      <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerDrawerLabels"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:nestedScrollingEnabled="false"
+        android:visibility="gone"/>
 
     </LinearLayout>
 

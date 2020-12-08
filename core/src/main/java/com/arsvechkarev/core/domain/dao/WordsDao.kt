@@ -23,9 +23,6 @@ interface WordsDao {
   @Query("SELECT * FROM words")
   fun fetchAll(): LiveData<List<Word>>
   
-  @Query("SELECT * FROM words")
-  suspend fun getAll(): List<Word>
-  
   @Query("SELECT * FROM words WHERE words.name LIKE :input")
   fun search(input: String): LiveData<List<Word>>
 }

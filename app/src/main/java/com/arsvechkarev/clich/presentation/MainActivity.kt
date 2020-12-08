@@ -70,11 +70,13 @@ class MainActivity : AppCompatActivity(), CoreActivity {
       is LoadedLabels -> {
         layoutLabelsDrawerStub.gone()
         recyclerDrawerLabels.visible()
+        drawerButtonCreateLabel.visible()
         labelsAdapter.submitList(state.labels)
       }
       is NoLabels -> {
         layoutLabelsDrawerStub.visible()
         recyclerDrawerLabels.gone()
+        drawerButtonCreateLabel.gone()
       }
     }
   }
