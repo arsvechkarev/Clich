@@ -8,5 +8,4 @@
   </style>
 
   <style name="EditText" parent="BaseEditText"/>
-
 </resources>

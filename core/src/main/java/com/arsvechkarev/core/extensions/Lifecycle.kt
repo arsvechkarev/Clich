@@ -2,28 +2,15 @@ package com.arsvechkarev.core.extensions
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 
-fun <T> LiveData<T>.observe(activity: AppCompatActivity, block: (T) -> Unit) {
-  observe(activity, Observer { block(it) })
-}
-
-fun <T> LiveData<T>.observe(fragment: Fragment, block: (T) -> Unit) {
-  observe(fragment, Observer { block(it) })
-}
-
-fun <T> LiveData<T>.observeOnce(fragment: Fragment, observer: Observer<T>) {
-  observe(fragment, object : Observer<T> {
-    override fun onChanged(t: T) {
-      observer.onChanged(t)
-      removeObserver(this)
-    }
-  })
+fun <T, R> LiveData<T>.map(mapper: (T) -> R): LiveData<R> {
+  return Transformations.map(this, mapper)
 }
 
 fun <T> LiveData<T>.observeOnce(fragment: Fragment, block: (T) -> Unit) {
@@ -37,12 +24,10 @@ fun <T> LiveData<T>.observeOnce(fragment: Fragment, block: (T) -> Unit) {
 
 inline fun <reified T : ViewModel> Fragment.viewModelOf(
   factory: ViewModelProvider.Factory,
-  block: T.() -> Unit = {}
-): T {
-  val viewModel = ViewModelProviders.of(this, factory)[T::class.java]
-  viewModel.block()
-  return viewModel
-}
+  block: (T) -> Unit = {}
+) = ViewModelProviders.of(this, factory).get(T::class.java).apply(block)
 
-fun <T : Any, L : LiveData<T>> LifecycleOwner.observe(liveData: L, block: (T) -> Unit) =
-  liveData.observe(this, Observer(block))
+inline fun <reified T : ViewModel> AppCompatActivity.viewModelOf(
+  factory: ViewModelProvider.Factory,
+  block: (T) -> Unit = {}
+) = ViewModelProviders.of(this, factory).get(T::class.java).apply(block)

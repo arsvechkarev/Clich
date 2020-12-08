@@ -1,45 +1,27 @@
 package com.arsvechkarev.core
 
 import androidx.lifecycle.ViewModel
-import kotlinx.coroutines.CoroutineDispatcher
+import com.arsvechkarev.core.DispatcherProvider.DefaultImpl
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.cancelAndJoin
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
 /**
  * Base view model to facilitate work with coroutines
  */
-@Suppress("MemberVisibilityCanBePrivate")
 abstract class BaseViewModel(
-  dispatcherProvider: DispatcherProvider = DispatcherProvider.DefaultImpl
-) : ViewModel(), CoroutineScope {
+  dispatcherProvider: DispatcherProvider = DefaultImpl
+) : ViewModel() {
   
-  override val coroutineContext: CoroutineDispatcher = dispatcherProvider.Main
- 
-  val jobs: MutableList<Job> = ArrayList()
+  private val scope = CoroutineScope(SupervisorJob() + dispatcherProvider.Main)
   
-  fun launchCoroutine(block: suspend CoroutineScope.() -> Unit) {
-    jobs.add(launch(coroutineContext) { block() })
-  }
-  
-  fun launchGlobal(block: suspend CoroutineScope.() -> Unit) {
-    launch(coroutineContext) { block() }
-  }
-  
-  fun cancelAllCoroutines() {
-    for (job in jobs) {
-      job.cancel()
-    }
-  }
-  
-  suspend fun cancelAllAndJoin() {
-    for (job in jobs) {
-      job.cancelAndJoin()
-    }
+  protected fun coroutine(block: suspend () -> Unit) {
+    scope.launch { block() }
   }
   
   override fun onCleared() {
-    cancelAllCoroutines()
+    super.onCleared()
+    scope.cancel()
   }
 }

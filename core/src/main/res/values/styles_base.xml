@@ -13,5 +13,4 @@
   <style name="Clickable.Border">
     <item name="android:background">?selectableItemBackground</item>
   </style>
-
 </resources>

@@ -21,7 +21,10 @@ interface WordsDao {
   suspend fun delete(word: Word)
   
   @Query("SELECT * FROM words")
-  fun getAll(): LiveData<List<Word>>
+  fun fetchAll(): LiveData<List<Word>>
+  
+  @Query("SELECT * FROM words")
+  suspend fun getAll(): List<Word>
   
   @Query("SELECT * FROM words WHERE words.name LIKE :input")
   fun search(input: String): LiveData<List<Word>>
@@ -32,7 +35,7 @@ suspend fun WordsDao.create(name: String) =
 
 suspend fun WordsDao.create(name: String, definition: String) =
   create(Word(name = name, definition = definition, examples = "", creationDate = 1))
-  
+
 suspend fun WordsDao.create(name: String, definition: String, examples: String) =
   create(Word(name = name, definition = definition, examples = examples, creationDate = 1))
   

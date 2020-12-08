@@ -1,8 +1,9 @@
 package com.arsvechkarev.clich
 
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.arsvechkarev.core.extensions.switchFragment
+import com.arsvechkarev.core.extensions.switchToFragment
 
-fun MainActivity.transferToFragment(fragment: Fragment) {
-  switchFragment(R.id.layoutDrawer, fragment, true)
+fun AppCompatActivity.transferToFragment(fragment: Fragment) {
+  switchToFragment(R.id.layoutDrawer, fragment, true)
 }

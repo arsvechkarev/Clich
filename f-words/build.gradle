@@ -37,16 +37,12 @@ dependencies {
 
   implementation appDependencies.materialDesign
   implementation appDependencies.lifecycleExtensions
+  implementation appDependencies.viewModelScope
   implementation appDependencies.legacySupport
   implementation appDependencies.constraintLayout
   implementation appDependencies.threeTenAbp
-
   implementation appDependencies.coroutinesCore
   implementation appDependencies.coroutinesAndroid
-
   implementation appDependencies.dagger
   kapt appDependencies.daggerCompiler
-
-  testImplementation project(':test-unit')
-  androidTestImplementation project(':test-ui')
 }

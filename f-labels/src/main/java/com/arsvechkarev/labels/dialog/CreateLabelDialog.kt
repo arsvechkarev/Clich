@@ -45,7 +45,7 @@ class CreateLabelDialog : DialogFragment() {
       buttonCreate.isEnabled = !it.isBlank()
     }
     buttonCreate.setOnClickListener {
-      callback.onCreateClick(editTextLabelName.string())
+      callback.onLabelCreated(editTextLabelName.string())
       dismiss()
     }
     return AlertDialog.Builder(activity!!)
@@ -61,6 +61,6 @@ class CreateLabelDialog : DialogFragment() {
   
   interface Callback {
     
-    fun onCreateClick(labelName: String)
+    fun onLabelCreated(labelName: String)
   }
 }

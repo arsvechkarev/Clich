@@ -9,7 +9,6 @@ import com.arsvechkarev.core.BaseFragment
 import com.arsvechkarev.core.domain.model.Label
 import com.arsvechkarev.core.extensions.gone
 import com.arsvechkarev.core.extensions.inBackground
-import com.arsvechkarev.core.extensions.observe
 import com.arsvechkarev.core.extensions.popBackStack
 import com.arsvechkarev.core.extensions.visible
 import com.arsvechkarev.labels.R
@@ -34,8 +33,7 @@ class LabelsFragment : BaseFragment(), CreateLabelDialog.Callback {
   }
   
   private val adapter by lazy {
-    LabelsAdapter(
-      Default(object : DefaultLabelCallback {
+    LabelsAdapter(Default(object : DefaultLabelCallback {
         
         private fun endEditing() {
           fabNewLabel.visible()
@@ -89,10 +87,9 @@ class LabelsFragment : BaseFragment(), CreateLabelDialog.Callback {
     }
   }
   
-  override fun onCreateClick(labelName: String) {
+  override fun onLabelCreated(labelName: String) {
     inBackground {
       CentralDatabase.instance.labelsDao().create(Label(name = labelName))
     }
   }
-  
 }

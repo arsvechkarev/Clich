@@ -12,11 +12,11 @@ import org.hamcrest.Matcher
 
 class WordsListScreen : Screen<WordsListScreen>() {
   
-  val fabNewWord = KButton { withId(R.id.fabNewWord) }
-  val layoutStub = KView { withId(R.id.layoutStub) }
+  val fabNewWord = KButton { withId(R.id.wordsFabNewWord) }
+  val layoutStub = KView { withId(R.id.wordsLayoutLoading) }
   
   val recyclerWords = KRecyclerView(
-    builder = { withId(R.id.recyclerWords) },
+    builder = { withId(R.id.wordsRecycler) },
     itemTypeBuilder = {
       itemType(WordsListScreen::WordsListScreenItemWord)
       itemType(WordsListScreen::WordsListScreenItemTimeDivider)

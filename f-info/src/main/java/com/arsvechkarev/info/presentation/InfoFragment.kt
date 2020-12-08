@@ -9,7 +9,6 @@ import com.arsvechkarev.core.di.viewmodel.ViewModelFactory
 import com.arsvechkarev.core.domain.model.Label
 import com.arsvechkarev.core.domain.model.Word
 import com.arsvechkarev.core.extensions.gone
-import com.arsvechkarev.core.extensions.observe
 import com.arsvechkarev.core.extensions.popBackStack
 import com.arsvechkarev.core.extensions.showKeyboard
 import com.arsvechkarev.core.extensions.string
@@ -75,7 +74,7 @@ class InfoFragment : BaseFragment() {
         return false
       }
     }
-  
+    
     recyclerWordsLabels.layoutManager = flexboxLayoutManager
     recyclerWordsLabels.adapter = labelsAdapter
     buttonAddLabels.setOnClickListener {
@@ -138,7 +137,7 @@ class InfoFragment : BaseFragment() {
   }
   
   private fun saveWord() {
-    debug { "saving?" }
+    debug { "Saving?" }
     if (editTextWord.text.toString().isNotBlank()) {
       previousWord?.let {
         // Word has been passed -> updating existing word

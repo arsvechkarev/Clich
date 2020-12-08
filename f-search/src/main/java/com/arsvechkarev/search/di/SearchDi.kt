@@ -1,4 +1,5 @@
 package com.arsvechkarev.search.di
+
 import androidx.lifecycle.ViewModel
 import com.arsvechkarev.core.di.CoreModule
 import com.arsvechkarev.core.di.FeatureScope
@@ -25,5 +26,4 @@ abstract class SearchViewModelModule {
   @IntoMap
   @ViewModelKey(SearchViewModel::class)
   internal abstract fun postSearchViewModel(viewModel: SearchViewModel): ViewModel
-  
 }

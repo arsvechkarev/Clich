@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <style name="Button" parent="Widget.AppCompat.TextView">
+    <item name="android:background">@drawable/bg_button</item>
+    <item name="android:clickable">true</item>
+    <item name="android:focusable">true</item>
+    <item name="android:gravity">center</item>
+    <item name="android:drawableTint">?colorTextOnButton</item>
+    <item name="android:paddingStart">@dimen/button_p_horizontal</item>
+    <item name="android:paddingEnd">@dimen/button_p_horizontal</item>
+    <item name="android:paddingTop">@dimen/button_p_vertical</item>
+    <item name="android:paddingBottom">@dimen/button_p_vertical</item>
+    <item name="android:textColor">?colorTextOnButton</item>
+    <item name="android:textStyle">bold</item>
+  </style>
+</resources>

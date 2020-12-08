@@ -3,7 +3,7 @@ package com.arsvechkarev.clich.tests
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import androidx.test.rule.ActivityTestRule
 import com.agoda.kakao.screen.Screen.Companion.onScreen
-import com.arsvechkarev.clich.MainActivity
+import com.arsvechkarev.clich.presentation.MainActivity
 import com.arsvechkarev.clich.R
 import com.arsvechkarev.clich.screens.AllLabelsScreen
 import com.arsvechkarev.clich.screens.AllLabelsScreen.AllLabelsScreenItem
@@ -35,7 +35,7 @@ class LabelsTest : DatabaseHelp {
   @Test
   fun test1_Creating_new_label_and_make_sure_that_it_is_displayed() {
     screen<MainScreen>().drawer.open()
-    screen<DrawerScreen>().layoutGoToLabels.click()
+    screen<DrawerScreen>().buttonCreateLabel.click()
     
     onScreen<AllLabelsScreen> {
       fabNewLabel.click()
@@ -70,7 +70,7 @@ class LabelsTest : DatabaseHelp {
   @Test
   fun text2_Edit_label_delete_it_and_make_sure_it_is_not_displayed() {
     screen<MainScreen>().drawer.open()
-    screen<DrawerScreen>().layoutGoToLabels.click()
+    screen<DrawerScreen>().buttonCreateLabel.click()
     
     doAndWait(500) {
       database.labelsDao().create("Animals")

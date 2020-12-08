@@ -5,8 +5,6 @@ import androidx.recyclerview.widget.RecyclerView
 
 /**
  * Item for displaying in [RecyclerView]
- *
- * @author Arseniy Svechkarev
  */
 interface DisplayableItem {
   
@@ -20,7 +18,6 @@ interface DisplayableItem {
    */
   val type: Int
   
-  
   /**
    * Every class inherits from [DisplayableItem] should override equals in order to compare elements
    * properly
@@ -30,7 +27,7 @@ interface DisplayableItem {
   /**
    * Callback for updating items in recycler view
    */
-  class DiffCallBack <T : DisplayableItem> : DiffUtil.ItemCallback<T>() {
+  class DiffCallBack<T : DisplayableItem> : DiffUtil.ItemCallback<T>() {
     
     override fun areItemsTheSame(oldItem: T, newItem: T) =
       oldItem.id == newItem.id

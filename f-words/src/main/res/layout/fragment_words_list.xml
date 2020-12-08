@@ -8,7 +8,7 @@
   android:focusable="true">
 
   <androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/recyclerWords"
+    android:id="@+id/wordsRecycler"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipToPadding="false"
@@ -16,17 +16,24 @@
     android:paddingBottom="@dimen/recycler_padding"/>
 
   <LinearLayout
-    android:id="@+id/layoutStub"
+    android:id="@+id/wordsLayoutLoading"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:orientation="vertical"
     android:visibility="gone"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent">
 
+    <ImageView
+      android:layout_width="@dimen/loading_image_size"
+      android:layout_height="@dimen/loading_image_size"
+      android:layout_marginBottom="@dimen/loading_image_margin"
+      android:src="@drawable/ic_paper"/>
+
     <TextView
-      android:id="@+id/textStub"
+      android:id="@+id/wordsTextLoading"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:fontFamily="@font/metropolis_semi_bold"
@@ -37,7 +44,7 @@
   </LinearLayout>
 
   <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-    android:id="@+id/fabNewWord"
+    android:id="@+id/wordsFabNewWord"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="end|bottom"

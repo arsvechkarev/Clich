@@ -17,25 +17,22 @@ class InfoViewModel @Inject constructor(
   }
   
   fun updateWord(word: Word) {
-    launchGlobal {
-      database.wordDao().update(word)
-    }
+    coroutine { database.wordDao().update(word) }
   }
   
   fun deleteWord(word: Word) {
-    launchGlobal {
+    coroutine {
       database.wordsAndLabelsDao().deleteFromWord(word.id!!)
       database.wordDao().delete(word)
     }
   }
   
   fun saveWordWithLabels(word: Word, labels: MutableList<Label>) {
-    launchGlobal {
+    coroutine {
       val id = database.wordDao().create(word)
       labels.forEach {
         database.wordsAndLabelsDao().create(WordsLabelsJoin(id, it.id!!))
       }
     }
   }
-  
 }

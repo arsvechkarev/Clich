@@ -15,11 +15,11 @@ class WordsListViewModel @Inject constructor(
 ) : BaseViewModel() {
   
   fun fetchAll(): LiveData<List<Word>> {
-    return database.wordDao().getAll()
+    return database.wordDao().fetchAll()
   }
   
-  fun getWordsOf(label: Label): LiveData<List<Word>> {
-    return database.wordsAndLabelsDao().getWordsOfLabel(label.id!!)
+  fun getWordsFor(label: Label): LiveData<List<Word>> {
+    return database.wordsAndLabelsDao().getWordsForLabel(label.id!!)
   }
   
   private fun LiveData<List<Word>>.addDates(): LiveData<List<DisplayableItem>> {

@@ -4,5 +4,4 @@
   <style name="ImageView" parent="Clickable.Borderless">
     <item name="android:tint">?colorIcon</item>
   </style>
-
 </resources>

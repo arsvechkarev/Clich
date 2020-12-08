@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
   <attr name="theColorPrimary" format="color"/>
   <attr name="theColorAccent" format="color"/>
   <attr name="theColorPrimaryDark" format="color"/>
@@ -8,22 +7,19 @@
   <attr name="theColorOnSecondary" format="color"/>
   <attr name="theColorControlHighlight" format="color"/>
   <attr name="theColorControlNormal" format="color"/>
-
   <attr name="colorToolbar" format="color"/>
   <attr name="colorWindowBackground" format="color"/>
-
   <attr name="colorItemSelected" format="color"/>
   <attr name="colorItemNotSelected" format="color"/>
-
   <attr name="colorTextPrimary" format="color"/>
   <attr name="colorTextSecondary" format="color"/>
   <attr name="colorTextEditTextHint" format="color"/>
-
+  <attr name="colorTextOnButton" format="color"/>
+  <attr name="colorRippleDark" format="color"/>
+  <attr name="colorRippleLight" format="color"/>
   <attr name="colorDivider" format="color"/>
   <!-- Icons in action bars, buttons, etc. -->
   <attr name="colorIcon" format="color"/>
   <!-- Other items -->
   <attr name="colorItem" format="color"/>
-
-  <attr name="colorRipple" format="color"/>
 </resources>

@@ -6,7 +6,6 @@ import com.arsvechkarev.core.BaseFragment
 import com.arsvechkarev.core.domain.model.Label
 import com.arsvechkarev.core.domain.model.Word
 import com.arsvechkarev.core.extensions.gone
-import com.arsvechkarev.core.extensions.observe
 import com.arsvechkarev.core.extensions.popBackStack
 import com.arsvechkarev.core.extensions.setupWith
 import com.arsvechkarev.core.extensions.visible

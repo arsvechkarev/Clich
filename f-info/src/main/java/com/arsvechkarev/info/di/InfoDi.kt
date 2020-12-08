@@ -26,5 +26,4 @@ abstract class InfoViewModelModule {
   @IntoMap
   @ViewModelKey(InfoViewModel::class)
   internal abstract fun postInfoViewModel(viewModel: InfoViewModel): ViewModel
-  
 }

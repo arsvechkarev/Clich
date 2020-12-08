@@ -37,6 +37,7 @@ dependencies {
   implementation appDependencies.ktx
   implementation appDependencies.materialDesign
   implementation appDependencies.lifecycleExtensions
+  implementation appDependencies.viewModelScope
   implementation appDependencies.legacySupport
   implementation appDependencies.constraintLayout
   implementation appDependencies.threeTenAbp

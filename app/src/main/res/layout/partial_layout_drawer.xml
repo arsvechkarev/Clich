@@ -16,6 +16,8 @@
     <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:clickable="true"
+      android:focusable="true"
       android:orientation="vertical">
 
       <TextView
@@ -34,77 +36,84 @@
         android:layout_marginTop="16dp"
         android:background="?colorDivider"/>
 
-      <com.google.android.material.card.MaterialCardView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        app:cardBackgroundColor="?colorWindowBackground"
-        app:cardCornerRadius="6dp"
-        app:cardElevation="0dp"
-        app:rippleColor="?colorRipple">
+      <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-          android:id="@+id/layoutGoToLabels"
+        <LinearLayout
+          android:id="@+id/drawerButtonCreateLabel"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:background="?selectableItemBackgroundBorderless"
-          android:clickable="true"
-          android:focusable="true">
-
-          <TextView
-            android:id="@+id/textAllLabels"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:fontFamily="@font/metropolis_semi_bold"
-            android:text="@string/title_labels"
-            android:textColor="?colorTextSecondary"
-            android:textSize="@dimen/text_h4"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+          android:layout_margin="@dimen/fab_margin"
+          android:background="@drawable/bg_button"
+          android:gravity="center"
+          android:orientation="horizontal"
+          android:paddingVertical="@dimen/button_p_vertical"
+          android:visibility="gone">
 
           <ImageView
-            android:id="@+id/imageEdit"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_margin="8dp"
-            android:background="?selectableItemBackgroundBorderless"
-            android:clickable="true"
-            android:focusable="true"
-            android:src="@drawable/ic_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:src="@drawable/ic_add"
+            android:tint="?colorTextOnButton"/>
+
+          <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="@string/text_new_label"
+            android:textColor="?colorTextOnButton"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/textAllLabels"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent"/>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
 
-      </com.google.android.material.card.MaterialCardView>
+        <androidx.recyclerview.widget.RecyclerView
+          android:id="@+id/recyclerDrawerLabels"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:nestedScrollingEnabled="false"
+          android:visibility="gone"/>
 
-      <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerDrawerLabels"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:nestedScrollingEnabled="false"/>
-
-      <LinearLayout
-        android:id="@+id/layoutLabelsDrawerStub"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="8dp"
-        android:visibility="gone">
-
-        <TextView
+        <LinearLayout
+          android:id="@+id/layoutLabelsDrawerStub"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:fontFamily="@font/metropolis_semi_bold"
+          android:layout_gravity="center"
+          android:layout_margin="8dp"
           android:gravity="center"
-          android:text="@string/text_stub_no_labels_drawer"
-          android:textSize="@dimen/text_h4"/>
+          android:orientation="vertical">
 
-      </LinearLayout>
+          <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_margin="20dp"
+            android:src="@drawable/ic_no_labels"/>
+
+          <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/metropolis_semi_bold"
+            android:gravity="center"
+            android:text="@string/text_stub_no_labels_drawer"
+            android:textSize="@dimen/text_h4"/>
+
+          <TextView
+            android:id="@+id/drawerButtonAddLabels"
+            style="@style/Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_margin="@dimen/fab_margin"
+            android:text="@string/text_add_labels"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        </LinearLayout>
+
+      </FrameLayout>
 
     </LinearLayout>
 

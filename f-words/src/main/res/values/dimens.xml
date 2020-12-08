@@ -3,4 +3,6 @@
   <dimen name="fab_margin">16dp</dimen>
   <dimen name="text_word_padding">16dp</dimen>
   <dimen name="item_divider_padding">16dp</dimen>
+  <dimen name="loading_image_size">100dp</dimen>
+  <dimen name="loading_image_margin">20dp</dimen>
 </resources>

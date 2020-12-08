@@ -20,5 +20,4 @@ object Logger {
       MyTimber.d(throwable, lazyMessage.invoke())
     }
   }
-  
 }

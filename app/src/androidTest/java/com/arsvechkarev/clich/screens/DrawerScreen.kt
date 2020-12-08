@@ -11,7 +11,7 @@ import org.hamcrest.Matcher
 
 class DrawerScreen : Screen<DrawerScreen>() {
   
-  val layoutGoToLabels = KView { withId(R.id.layoutGoToLabels) }
+  val buttonCreateLabel = KView { withId(R.id.drawerButtonCreateLabel) }
   
   val recyclerDrawerLabels = KRecyclerView(
     builder = { withId(R.id.recyclerDrawerLabels) },

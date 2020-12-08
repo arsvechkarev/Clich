@@ -17,16 +17,18 @@ import com.arsvechkarev.info.presentation.InfoFragment
 import com.arsvechkarev.words.R
 import com.arsvechkarev.words.di.DaggerWordsListComponent
 import com.arsvechkarev.words.list.WordsListAdapter
-import kotlinx.android.synthetic.main.fragment_words_list.fabNewWord
-import kotlinx.android.synthetic.main.fragment_words_list.layoutStub
-import kotlinx.android.synthetic.main.fragment_words_list.recyclerWords
-import kotlinx.android.synthetic.main.fragment_words_list.textStub
+import kotlinx.android.synthetic.main.fragment_words_list.wordsFabNewWord
+import kotlinx.android.synthetic.main.fragment_words_list.wordsLayoutLoading
+import kotlinx.android.synthetic.main.fragment_words_list.wordsRecycler
+import kotlinx.android.synthetic.main.fragment_words_list.wordsTextLoading
 import javax.inject.Inject
 
 class WordsListFragment : BaseFragment() {
   
   override val layoutId: Int = R.layout.fragment_words_list
+  
   @Inject lateinit var viewModelFactory: ViewModelFactory
+  
   private lateinit var viewModel: WordsListViewModel
   
   private val adapter = WordsListAdapter {
@@ -36,35 +38,35 @@ class WordsListFragment : BaseFragment() {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     DaggerWordsListComponent.create().inject(this)
     viewModel = viewModelOf(viewModelFactory)
-    recyclerWords.layoutManager = LinearLayoutManager(context).apply {
+    wordsRecycler.layoutManager = LinearLayoutManager(context).apply {
       stackFromEnd = true
       reverseLayout = true
     }
-    recyclerWords.adapter = adapter
+    wordsRecycler.adapter = adapter
     val label = arguments?.getParcelable<Label>(LABEL)
     if (label != null) {
-      viewModel.getWordsOf(label).observe(this, Observer {
+      viewModel.getWordsFor(label).observe(this) {
         handleList(it, R.string.text_empty_labels)
-      })
+      }
     } else {
       viewModel.fetchAll().observe(this, Observer {
         handleList(it, R.string.text_no_words_yet)
       })
     }
-    fabNewWord.setOnClickListener {
+    wordsFabNewWord.setOnClickListener {
       coreActivity.goToFragmentFromRoot(InfoFragment(), InfoFragment::class, true)
     }
   }
   
   private fun handleList(it: List<DisplayableItem>, @StringRes emptyTextRes: Int) {
     if (it.isEmpty()) {
-      textStub.setText(emptyTextRes)
-      layoutStub.visible()
-      recyclerWords.gone()
+      wordsTextLoading.setText(emptyTextRes)
+      wordsLayoutLoading.visible()
+      wordsRecycler.gone()
     } else {
       adapter.submitList(it)
-      layoutStub.gone()
-      recyclerWords.visible()
+      wordsLayoutLoading.gone()
+      wordsRecycler.visible()
     }
   }
   
