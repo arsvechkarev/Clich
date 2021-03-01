@@ -8,6 +8,7 @@
   <color name="light_colorOnSecondary">#FFFFFF</color>
   <color name="light_colorHighlight">#FFBE00</color>
   <color name="light_colorWindowBackground">#FBFBFB</color>
+  <color name="light_colorShadow">#60000000</color>
   <color name="light_colorToolbar">@color/light_colorWindowBackground</color>
   <color name="light_colorTextPrimary">#000000</color>
   <color name="light_colorTextSecondary">#747474</color>

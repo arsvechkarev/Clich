@@ -21,10 +21,13 @@ interface WordsDao {
   suspend fun delete(word: Word)
   
   @Query("SELECT * FROM words")
-  fun fetchAll(): LiveData<List<Word>>
+  fun getWordsLiveData(): LiveData<List<Word>>
+  
+  @Query("SELECT * FROM words")
+  fun getAllWords(): List<Word>
   
   @Query("SELECT * FROM words WHERE words.name LIKE :input")
-  fun search(input: String): LiveData<List<Word>>
+  fun searchWords(input: String): List<Word>
 }
 
 suspend fun WordsDao.create(name: String) =

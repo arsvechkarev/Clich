@@ -8,7 +8,7 @@ import com.arsvechkarev.core.extensions.invisible
 import com.arsvechkarev.core.extensions.string
 import com.arsvechkarev.core.extensions.visible
 import com.arsvechkarev.labels.R
-import com.arsvechkarev.labels.list.DefaultLabelCallback
+import com.arsvechkarev.labels.list.Mode
 import kotlinx.android.synthetic.main.item_label_default.view.dividerBottom
 import kotlinx.android.synthetic.main.item_label_default.view.dividerTop
 import kotlinx.android.synthetic.main.item_label_default.view.editTextLabel
@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.item_label_default.view.textLabel
 
 class DefaultLabelViewHolder(
   itemView: View,
-  private val labelCallback: DefaultLabelCallback
+  private val mode: Mode.Default
 ) : RecyclerView.ViewHolder(itemView) {
   
   private var isEditingMode = false
@@ -33,16 +33,16 @@ class DefaultLabelViewHolder(
     itemView.imageStart.setOnClickListener {
       if (isEditingMode) {
         endEditingMode()
-        labelCallback.onDeletingLabel(item)
+        mode.labelEditingCallback.onDeletingLabel(item)
       }
     }
     itemView.imageEnd.setOnClickListener {
       isEditingMode = !isEditingMode
       if (isEditingMode) {
-        labelCallback.onStartEditing()
+        mode.labelEditingCallback.onStartEditing()
         startEditingMode()
       } else {
-        labelCallback.onSaveLabel(item, itemView.editTextLabel.string())
+        mode.labelEditingCallback.onSaveLabel(item, itemView.editTextLabel.string())
         endEditingMode()
       }
     }

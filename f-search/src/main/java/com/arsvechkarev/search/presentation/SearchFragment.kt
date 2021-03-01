@@ -8,16 +8,17 @@ import com.arsvechkarev.core.coreActivity
 import com.arsvechkarev.core.domain.model.Word
 import com.arsvechkarev.core.extensions.hideKeyboard
 import com.arsvechkarev.core.extensions.invisible
-import com.arsvechkarev.core.extensions.observeOnce
 import com.arsvechkarev.core.extensions.onTextChanged
 import com.arsvechkarev.core.extensions.popBackStack
 import com.arsvechkarev.core.extensions.setupWith
-import com.arsvechkarev.core.extensions.string
 import com.arsvechkarev.core.extensions.visible
 import com.arsvechkarev.info.di.DaggerSearchComponent
 import com.arsvechkarev.info.presentation.InfoFragment
 import com.arsvechkarev.search.R
 import com.arsvechkarev.search.labels.WordsListAdapter
+import com.arsvechkarev.search.presentation.SearchState.DisplayingAllWords
+import com.arsvechkarev.search.presentation.SearchState.FoundWords
+import com.arsvechkarev.search.presentation.SearchState.NoWordsFound
 import kotlinx.android.synthetic.main.fragment_search.imageBack
 import kotlinx.android.synthetic.main.fragment_search.layoutNoWordsFound
 import kotlinx.android.synthetic.main.fragment_search.recyclerFoundWords
@@ -27,9 +28,6 @@ import javax.inject.Inject
 class SearchFragment : BaseFragment() {
   
   override val layoutId: Int = R.layout.fragment_search
-  
-  private var currentList: List<Word>? = null
-  private var allList: List<Word>? = null
   
   @Inject lateinit var viewModel: SearchViewModel
   @Inject lateinit var adapter: WordsListAdapter
@@ -42,29 +40,9 @@ class SearchFragment : BaseFragment() {
       .build()
       .inject(this)
     recyclerFoundWords.setupWith(adapter)
-    viewModel.getAllWords().observeOnce(this) {
-      if (allList != it) {
-        allList = it
-        adapter.submitList(allList)
-      }
-    }
-    searchEditText.onTextChanged { text ->
-      if (text.isNotBlank()) {
-        viewModel.searchWords(text).observe(this@SearchFragment) { words ->
-          if (words.isEmpty()) {
-            layoutNoWordsFound.visible()
-            recyclerFoundWords.invisible()
-          } else {
-            currentList = words
-            adapter.submitList(currentList, text)
-            layoutNoWordsFound.invisible()
-            recyclerFoundWords.visible()
-          }
-        }
-      } else {
-        adapter.submitList(allList)
-      }
-    }
+    viewModel.searchState.observe(this) { searchState -> handleState(searchState) }
+    viewModel.fetchAllWords()
+    searchEditText.onTextChanged { text -> viewModel.onSearchTextEntered(text) }
     imageBack.setOnClickListener {
       hideKeyboard(searchEditText)
       popBackStack()
@@ -72,9 +50,20 @@ class SearchFragment : BaseFragment() {
     coreActivity.subscribeOnBackStackChanges(this)
   }
   
-  override fun onBackStackUpdate() {
-    if (searchEditText != null) {
-      adapter.submitList(currentList, searchEditText.string())
+  private fun handleState(searchState: SearchState) {
+    when (searchState) {
+      is DisplayingAllWords -> {
+        adapter.submitList(searchState.words)
+      }
+      is NoWordsFound -> {
+        layoutNoWordsFound.visible()
+        recyclerFoundWords.invisible()
+      }
+      is FoundWords -> {
+        layoutNoWordsFound.invisible()
+        recyclerFoundWords.visible()
+        adapter.submitList(searchState.words, searchState.searchedText)
+      }
     }
   }
   

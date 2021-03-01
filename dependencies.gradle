@@ -30,7 +30,8 @@ ext {
       roomKtx            : "androidx.room:room-ktx:$room_version",
       flexboxLayout      : "com.google.android:flexbox:2.0.0",
       threeTenAbp        : "com.jakewharton.threetenabp:threetenabp:1.2.1",
-      viewModelScope     : "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
+      viewModelScope     : "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0",
+      timber             : "com.jakewharton.timber:timber:4.7.1"
   ]
 
 

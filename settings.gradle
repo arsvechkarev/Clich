@@ -1,1 +1,2 @@
-include ':app', ':f-words', ':f-info', ':core', ':test-common', ':f-labels', ':test-ui', ':test-unit', ':log', ':f-search'
+include ':app', ':f-words', ':f-info', ':core', ':test-common', ':f-labels', ':test-ui', ':test-unit', ':f-search'
+include ':views'

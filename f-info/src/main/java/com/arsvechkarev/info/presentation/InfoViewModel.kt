@@ -30,8 +30,8 @@ class InfoViewModel @Inject constructor(
   fun saveWordWithLabels(word: Word, labels: MutableList<Label>) {
     coroutine {
       val id = database.wordDao().create(word)
-      labels.forEach {
-        database.wordsAndLabelsDao().create(WordsLabelsJoin(id, it.id!!))
+      labels.forEach { label ->
+        database.wordsAndLabelsDao().create(WordsLabelsJoin(id, label.id!!))
       }
     }
   }

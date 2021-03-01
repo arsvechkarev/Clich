@@ -16,10 +16,10 @@
             <option value="$PROJECT_DIR$/f-labels" />
             <option value="$PROJECT_DIR$/f-search" />
             <option value="$PROJECT_DIR$/f-words" />
-            <option value="$PROJECT_DIR$/log" />
             <option value="$PROJECT_DIR$/test-common" />
             <option value="$PROJECT_DIR$/test-ui" />
             <option value="$PROJECT_DIR$/test-unit" />
+            <option value="$PROJECT_DIR$/views" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

@@ -14,7 +14,7 @@ import com.arsvechkarev.core.extensions.popBackStack
 import com.arsvechkarev.core.extensions.visible
 import com.arsvechkarev.labels.R
 import com.arsvechkarev.labels.dialog.CreateLabelDialog
-import com.arsvechkarev.labels.list.DefaultLabelCallback
+import com.arsvechkarev.labels.list.LabelEditingCallback
 import com.arsvechkarev.labels.list.LabelsAdapter
 import com.arsvechkarev.labels.list.Mode.Default
 import kotlinx.android.synthetic.main.fragment_labels.fabNewLabel
@@ -34,7 +34,7 @@ class LabelsFragment : BaseFragment(), CreateLabelDialog.Callback {
   
   private val adapter by lazy {
     LabelsAdapter(
-      Default(object : DefaultLabelCallback {
+      Default(object : LabelEditingCallback {
         
         private fun endEditing() {
           fabNewLabel.visible()

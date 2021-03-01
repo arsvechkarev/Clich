@@ -1,12 +1,13 @@
 package com.arsvechkarev.core
 
 import androidx.fragment.app.Fragment
+import com.arsvechkarev.core.domain.model.Label
+import com.arsvechkarev.core.domain.model.Word
 import kotlin.reflect.KClass
 
-/**
- * Bridge that fragment can access functionality of main activity with
- */
-interface CoreActivity {
+interface Navigator {
+  
+  fun goToLabelsCheckboxFragment(alreadySelectedLabels: ArrayList<Label>, word: Word?)
   
   /**
    * Goes to a [fragment] from root layout
@@ -24,4 +25,4 @@ interface CoreActivity {
 }
 
 val Fragment.coreActivity
-  get() = (activity as CoreActivity)
+  get() = (activity as Navigator)

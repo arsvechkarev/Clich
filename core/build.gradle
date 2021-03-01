@@ -30,7 +30,7 @@ androidExtensions {
 dependencies {
   def appDependencies = rootProject.ext.applicationDependencies
 
-  api project(':log')
+  api appDependencies.timber
 
   implementation appDependencies.kotlin
   implementation appDependencies.appCompat

@@ -1,160 +1,179 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   style="@style/Clickable"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:background="?colorWindowBackground">
 
-  <androidx.constraintlayout.widget.ConstraintLayout
+  <androidx.core.widget.NestedScrollView
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="?colorWindowBackground">
+    android:layout_height="match_parent">
 
-    <ImageView
-      android:id="@+id/imageBack"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="@dimen/image_back_margin"
-      android:layout_marginTop="@dimen/image_back_margin"
-      android:src="@drawable/ic_arrow_back"
-      android:theme="@style/ImageView"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
 
-    <TextView
-      android:id="@+id/textNewWord"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:fontFamily="@font/metropolis_semi_bold"
-      android:text="@string/text_new_word"
-      android:textColor="?colorTextSecondary"
-      android:textSize="@dimen/text_h3"
-      app:layout_constraintBottom_toBottomOf="@id/imageBack"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="@id/imageBack"/>
+      <ImageView
+        android:id="@+id/imageBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/image_back_margin"
+        android:layout_marginTop="@dimen/image_back_margin"
+        android:src="@drawable/ic_arrow_back"
+        android:theme="@style/ImageView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
-    <ImageView
-      android:id="@+id/imageMenu"
-      android:layout_width="@dimen/image_menu_size"
-      android:layout_height="@dimen/image_menu_size"
-      android:layout_margin="@dimen/image_menu_margin"
-      android:src="@drawable/ic_dot_menu"
-      android:theme="@style/ImageView"
-      android:visibility="gone"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintTop_toTopOf="parent"/>
+      <TextView
+        android:id="@+id/textNewWord"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/metropolis_semi_bold"
+        android:text="@string/text_new_word"
+        android:textColor="?colorTextSecondary"
+        android:textSize="@dimen/text_h3"
+        app:layout_constraintBottom_toBottomOf="@id/imageBack"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/imageBack"/>
 
-    <EditText
-      android:id="@+id/editTextWord"
+      <ImageView
+        android:id="@+id/imageMenu"
+        android:layout_width="@dimen/image_menu_size"
+        android:layout_height="@dimen/image_menu_size"
+        android:layout_margin="@dimen/image_menu_margin"
+        android:src="@drawable/ic_dot_menu"
+        android:theme="@style/ImageView"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+      <EditText
+        android:id="@+id/editTextWord"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/edit_text_side_margin"
+        android:layout_marginTop="@dimen/edit_text_word_m_top"
+        android:layout_marginEnd="@dimen/edit_text_side_margin"
+        android:background="@null"
+        android:fontFamily="@font/metropolis_semi_bold"
+        android:hint="@string/hint_word"
+        android:maxLength="40"
+        android:maxLines="1"
+        android:theme="@style/EditText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageBack"/>
+
+      <EditText
+        android:id="@+id/editTextDefinition"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/edit_text_side_margin"
+        android:layout_marginTop="@dimen/edit_text_def_m_top"
+        android:layout_marginEnd="@dimen/edit_text_side_margin"
+        android:background="@null"
+        android:fontFamily="@font/metropolis_regular"
+        android:hint="@string/hint_definition"
+        android:inputType="textCapSentences|textMultiLine"
+        android:theme="@style/EditText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editTextWord"/>
+
+      <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:layout_marginStart="@dimen/divider_margin"
+        android:layout_marginTop="@dimen/divider_margin_top"
+        android:layout_marginEnd="@dimen/divider_margin"
+        android:background="?colorDivider"
+        app:layout_constraintTop_toBottomOf="@id/editTextDefinition"/>
+
+      <TextView
+        android:id="@+id/headerExamples"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/header_start"
+        android:layout_marginTop="@dimen/header_margin_top"
+        android:fontFamily="@font/metropolis_semi_bold_italic"
+        android:text="@string/header_examples"
+        android:textColor="?colorTextSecondary"
+        android:textSize="@dimen/text_h4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/divider"/>
+
+      <EditText
+        android:id="@+id/editTextExamples"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/edit_text_side_margin"
+        android:layout_marginTop="@dimen/edit_text_examples_m_top"
+        android:layout_marginEnd="@dimen/edit_text_side_margin"
+        android:background="@null"
+        android:fontFamily="@font/metropolis_light"
+        android:hint="@string/hint_type_examples"
+        android:importantForAutofill="no"
+        android:inputType="textCapSentences|textMultiLine"
+        android:scrollHorizontally="false"
+        android:textSize="@dimen/text_h4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/headerExamples"/>
+
+      <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerWordsLabels"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/recycler_m_side"
+        android:layout_marginTop="@dimen/recycler_m_top"
+        android:layout_marginEnd="@dimen/recycler_m_side"
+        android:nestedScrollingEnabled="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editTextExamples"/>
+
+      <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonAddLabels"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/button_add_labels_m_start"
+        android:layout_marginTop="@dimen/button_add_labels_m_top"
+        android:layout_marginBottom="@dimen/button_add_labels_m_bottom"
+        android:clickable="true"
+        android:focusable="true"
+        android:fontFamily="@font/metropolis_semi_bold"
+        android:letterSpacing="0.04"
+        android:text="@string/text_add_labels"
+        android:textAllCaps="false"
+        android:textColor="?colorTextPrimary"
+        android:textSize="@dimen/text_h4"
+        app:icon="@drawable/ic_add"
+        app:iconTint="?colorTextPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/recyclerWordsLabels"
+        app:rippleColor="?attr/colorRippleDark"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+  </androidx.core.widget.NestedScrollView>
+
+  <com.arsvechkarev.views.SimpleDialog
+    android:id="@+id/infoScreenProgressDialog"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:shadowColor="?theColorShadow">
+
+    <com.arsvechkarev.views.MaterialProgressBar
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginStart="@dimen/edit_text_side_margin"
-      android:layout_marginTop="@dimen/edit_text_word_m_top"
-      android:layout_marginEnd="@dimen/edit_text_side_margin"
-      android:background="@null"
-      android:fontFamily="@font/metropolis_semi_bold"
-      android:hint="@string/hint_word"
-      android:maxLength="40"
-      android:maxLines="1"
-      android:theme="@style/EditText"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/imageBack"/>
+      android:layout_gravity="center"
+      app:color="?theColorAccent"/>
 
-    <EditText
-      android:id="@+id/editTextDefinition"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="@dimen/edit_text_side_margin"
-      android:layout_marginTop="@dimen/edit_text_def_m_top"
-      android:layout_marginEnd="@dimen/edit_text_side_margin"
-      android:background="@null"
-      android:fontFamily="@font/metropolis_regular"
-      android:hint="@string/hint_definition"
-      android:inputType="textCapSentences|textMultiLine"
-      android:theme="@style/EditText"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/editTextWord"/>
+  </com.arsvechkarev.views.SimpleDialog>
 
-    <View
-      android:id="@+id/divider"
-      android:layout_width="match_parent"
-      android:layout_height="@dimen/divider_height"
-      android:layout_marginStart="@dimen/divider_margin"
-      android:layout_marginTop="@dimen/divider_margin_top"
-      android:layout_marginEnd="@dimen/divider_margin"
-      android:background="?colorDivider"
-      app:layout_constraintTop_toBottomOf="@id/editTextDefinition"/>
-
-    <TextView
-      android:id="@+id/headerExamples"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="@dimen/header_start"
-      android:layout_marginTop="@dimen/header_margin_top"
-      android:fontFamily="@font/metropolis_semi_bold_italic"
-      android:text="@string/header_examples"
-      android:textColor="?colorTextSecondary"
-      android:textSize="@dimen/text_h4"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/divider"/>
-
-    <EditText
-      android:id="@+id/editTextExamples"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="@dimen/edit_text_side_margin"
-      android:layout_marginTop="@dimen/edit_text_examples_m_top"
-      android:layout_marginEnd="@dimen/edit_text_side_margin"
-      android:background="@null"
-      android:fontFamily="@font/metropolis_light"
-      android:hint="@string/hint_type_examples"
-      android:importantForAutofill="no"
-      android:inputType="textCapSentences|textMultiLine"
-      android:scrollHorizontally="false"
-      android:textSize="@dimen/text_h4"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/headerExamples"/>
-
-    <androidx.recyclerview.widget.RecyclerView
-      android:id="@+id/recyclerWordsLabels"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="@dimen/recycler_m_side"
-      android:layout_marginTop="@dimen/recycler_m_top"
-      android:layout_marginEnd="@dimen/recycler_m_side"
-      android:nestedScrollingEnabled="false"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/editTextExamples"/>
-
-    <com.google.android.material.button.MaterialButton
-      android:id="@+id/buttonAddLabels"
-      style="@style/Widget.MaterialComponents.Button.TextButton"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="@dimen/button_add_labels_m_start"
-      android:layout_marginTop="@dimen/button_add_labels_m_top"
-      android:layout_marginBottom="@dimen/button_add_labels_m_bottom"
-      android:clickable="true"
-      android:focusable="true"
-      android:fontFamily="@font/metropolis_semi_bold"
-      android:letterSpacing="0.04"
-      android:text="@string/text_add_labels"
-      android:textAllCaps="false"
-      android:textColor="?colorTextPrimary"
-      android:textSize="@dimen/text_h4"
-      app:icon="@drawable/ic_add"
-      app:iconTint="?colorTextPrimary"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/recyclerWordsLabels"
-      app:rippleColor="?attr/colorRippleDark"/>
-
-  </androidx.constraintlayout.widget.ConstraintLayout>
-
-</androidx.core.widget.NestedScrollView>
+</FrameLayout>

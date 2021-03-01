@@ -22,7 +22,7 @@ abstract class BaseFragment : Fragment() {
   }
   
   /**
-   * Invokes with every change in back stack. Do not forget to invoke [CoreActivity.subscribeOnBackStackChanges]
+   * Invokes with every change in back stack. Do not forget to invoke [Navigator.subscribeOnBackStackChanges]
    */
   open fun onBackStackUpdate() {}
   
@@ -32,5 +32,4 @@ abstract class BaseFragment : Fragment() {
   open fun onBackPressed(): Boolean {
     return false
   }
-  
 }

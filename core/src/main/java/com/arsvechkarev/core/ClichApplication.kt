@@ -5,16 +5,17 @@ import com.arsvechkarev.core.di.CoreComponent
 import com.arsvechkarev.core.di.CoreModule
 import com.arsvechkarev.core.di.DaggerCoreComponent
 import com.jakewharton.threetenabp.AndroidThreeTen
-import log.Logger
+import timber.log.Timber
 
 class ClichApplication : Application() {
   
   override fun onCreate() {
     super.onCreate()
-    Logger.activate()
+    Timber.plant(Timber.DebugTree())
     AndroidThreeTen.init(applicationContext)
     DatabaseHolder.instantiate(applicationContext)
     CentralDatabase.instantiate(applicationContext)
+    
     _coreComponent = DaggerCoreComponent.builder()
       .coreModule(CoreModule(applicationContext))
       .build()

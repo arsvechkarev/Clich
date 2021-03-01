@@ -11,7 +11,6 @@ import com.arsvechkarev.core.domain.model.Label
 import com.arsvechkarev.core.domain.model.Word
 import com.arsvechkarev.core.extensions.gone
 import com.arsvechkarev.core.extensions.visible
-import com.arsvechkarev.core.recyler.DisplayableItem
 import com.arsvechkarev.info.di.DaggerWordsListComponent
 import com.arsvechkarev.info.presentation.InfoFragment
 import com.arsvechkarev.words.R
@@ -36,33 +35,26 @@ class WordsListFragment : BaseFragment() {
       .onWordClick { word -> onWordClick(word) }
       .build()
       .inject(this)
-    wordsRecycler.layoutManager = LinearLayoutManager(context).apply {
-      stackFromEnd = true
-      reverseLayout = true
-    }
-    wordsRecycler.adapter = adapter
+    setupViews()
     val label = arguments?.getParcelable<Label>(LABEL)
     if (label != null) {
-      viewModel.getWordsFor(label).observe(this) {
-        handleList(it, R.string.text_empty_labels)
+      viewModel.getWordsFor(label).observe(this) { words ->
+        handleList(words, R.string.text_empty_labels)
       }
     } else {
-      viewModel.fetchAll().observe(this, {
-        handleList(it, R.string.text_no_words_yet)
+      viewModel.fetchAll().observe(this, { words ->
+        handleList(words, R.string.text_no_words_yet)
       })
-    }
-    wordsFabNewWord.setOnClickListener {
-      coreActivity.goToFragment(InfoFragment(), InfoFragment::class, true)
     }
   }
   
-  private fun handleList(it: List<DisplayableItem>, @StringRes emptyTextRes: Int) {
-    if (it.isEmpty()) {
+  private fun handleList(words: List<Word>, @StringRes emptyTextRes: Int) {
+    if (words.isEmpty()) {
       wordsTextLoading.setText(emptyTextRes)
       wordsLayoutLoading.visible()
       wordsRecycler.gone()
     } else {
-      adapter.submitList(it)
+      adapter.submitList(words)
       wordsLayoutLoading.gone()
       wordsRecycler.visible()
     }
@@ -72,16 +64,25 @@ class WordsListFragment : BaseFragment() {
     coreActivity.goToFragment(InfoFragment.of(word), InfoFragment::class, true)
   }
   
+  private fun setupViews() {
+    wordsRecycler.layoutManager = LinearLayoutManager(context).apply {
+      stackFromEnd = true
+      reverseLayout = true
+    }
+    wordsRecycler.adapter = adapter
+    wordsFabNewWord.setOnClickListener {
+      coreActivity.goToFragment(InfoFragment(), InfoFragment::class, true)
+    }
+  }
+  
   companion object {
     
     const val LABEL = "LABEL"
     
-    fun of(label: Label): WordsListFragment {
-      val bundle = Bundle()
-      bundle.putParcelable(LABEL, label)
-      val fragment = WordsListFragment()
-      fragment.arguments = bundle
-      return fragment
+    fun of(label: Label) = WordsListFragment().apply {
+      arguments = Bundle().apply {
+        putParcelable(LABEL, label)
+      }
     }
   }
 }

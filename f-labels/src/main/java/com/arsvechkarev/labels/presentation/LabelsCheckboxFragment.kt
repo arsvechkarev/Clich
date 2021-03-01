@@ -13,7 +13,7 @@ import com.arsvechkarev.core.extensions.visible
 import com.arsvechkarev.labels.R
 import com.arsvechkarev.labels.list.LabelsAdapter
 import com.arsvechkarev.labels.list.Mode
-import com.arsvechkarev.labels.list.viewholders.CheckedChangedCallback
+import com.arsvechkarev.core.CheckedChangedCallback
 import kotlinx.android.synthetic.main.fragment_labels.fabNewLabel
 import kotlinx.android.synthetic.main.fragment_labels.layoutLabelsStub
 import kotlinx.android.synthetic.main.fragment_labels.recyclerLabels
@@ -37,11 +37,7 @@ class LabelsCheckboxFragment : BaseFragment() {
     toolbar.setNavigationOnClickListener {
       popBackStack()
     }
-    labelsAdapter = if (word == null) {
-      LabelsAdapter(Mode.CheckboxNotCreatedWord(callback, alreadySelectedLabels))
-    } else {
-      LabelsAdapter(Mode.Checkbox(word!!, alreadySelectedLabels))
-    }
+    labelsAdapter = LabelsAdapter(Mode.Checkbox(alreadySelectedLabels, callback))
     recyclerLabels.setupWith(labelsAdapter)
     CentralDatabase.instance.labelsDao().getAll().observe(this) {
       if (it.isEmpty()) {
@@ -57,21 +53,13 @@ class LabelsCheckboxFragment : BaseFragment() {
   
   companion object {
     
-    const val WORD_KEY = "WORD_KEY"
     const val LABELS_KEY = "LABELS_KEY"
+    const val WORD_KEY = "WORD_KEY"
     
-    fun of(word: Word, labelsList: ArrayList<Label>): LabelsCheckboxFragment {
+    fun of(labelsList: ArrayList<Label>, word: Word?): LabelsCheckboxFragment {
       val bundle = Bundle()
+      bundle.putParcelableArrayList(LABELS_KEY, labelsList)
       bundle.putParcelable(WORD_KEY, word)
-      bundle.putParcelableArrayList(LABELS_KEY, labelsList)
-      val fragment = LabelsCheckboxFragment()
-      fragment.arguments = bundle
-      return fragment
-    }
-    
-    fun of(labelsList: ArrayList<Label>): LabelsCheckboxFragment {
-      val bundle = Bundle()
-      bundle.putParcelableArrayList(LABELS_KEY, labelsList)
       val fragment = LabelsCheckboxFragment()
       fragment.arguments = bundle
       return fragment

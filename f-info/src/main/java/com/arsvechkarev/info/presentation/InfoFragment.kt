@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.PopupMenu
 import com.arsvechkarev.core.BaseFragment
+import com.arsvechkarev.core.CheckedChangedCallback
 import com.arsvechkarev.core.ClichApplication
 import com.arsvechkarev.core.coreActivity
 import com.arsvechkarev.core.domain.model.Label
@@ -15,9 +16,7 @@ import com.arsvechkarev.core.extensions.string
 import com.arsvechkarev.core.extensions.visible
 import com.arsvechkarev.info.R
 import com.arsvechkarev.info.di.DaggerInfoComponent
-import com.arsvechkarev.info.list.CurrentLabelsAdapter
-import com.arsvechkarev.labels.list.viewholders.CheckedChangedCallback
-import com.arsvechkarev.labels.presentation.LabelsCheckboxFragment
+import com.arsvechkarev.info.list.LabelsForWordAdapter
 import com.google.android.flexbox.FlexboxLayoutManager
 import kotlinx.android.synthetic.main.fragment_info.buttonAddLabels
 import kotlinx.android.synthetic.main.fragment_info.editTextDefinition
@@ -27,8 +26,8 @@ import kotlinx.android.synthetic.main.fragment_info.imageBack
 import kotlinx.android.synthetic.main.fragment_info.imageMenu
 import kotlinx.android.synthetic.main.fragment_info.recyclerWordsLabels
 import kotlinx.android.synthetic.main.fragment_info.textNewWord
-import log.Logger.debug
 import org.threeten.bp.LocalDate
+import timber.log.Timber
 import javax.inject.Inject
 
 class InfoFragment : BaseFragment() {
@@ -36,20 +35,21 @@ class InfoFragment : BaseFragment() {
   override val layoutId: Int = R.layout.fragment_info
   
   @Inject lateinit var viewModel: InfoViewModel
-  @Inject lateinit var labelsAdapter: CurrentLabelsAdapter
+  @Inject lateinit var labelsForWordAdapter: LabelsForWordAdapter
   
   private var previousWord: Word? = null
-  private var currentLabels: MutableList<Label> = ArrayList()
+  private var currentLabels = ArrayList<Label>()
   
   private val callback = object : CheckedChangedCallback {
+    
     override fun onLabelSelected(label: Label) {
       currentLabels.add(label)
-      labelsAdapter.submitList(currentLabels)
+      labelsForWordAdapter.submitList(currentLabels)
     }
     
     override fun onLabelUnselected(label: Label) {
       currentLabels.remove(label)
-      labelsAdapter.submitList(currentLabels)
+      labelsForWordAdapter.submitList(currentLabels)
     }
   }
   
@@ -64,7 +64,6 @@ class InfoFragment : BaseFragment() {
       popBackStack()
     }
     previousWord = arguments?.get(WORD_KEY) as Word?
-    
     if (previousWord != null) {
       previousWord?.let { setWord() }
       handleLabels()
@@ -77,16 +76,9 @@ class InfoFragment : BaseFragment() {
     }
     
     recyclerWordsLabels.layoutManager = flexboxLayoutManager
-    recyclerWordsLabels.adapter = labelsAdapter
+    recyclerWordsLabels.adapter = labelsForWordAdapter
     buttonAddLabels.setOnClickListener {
-      val fragment = if (previousWord == null) {
-        LabelsCheckboxFragment.of(ArrayList(currentLabels)).also {
-          it.callback = callback
-        }
-      } else {
-        LabelsCheckboxFragment.of(previousWord!!, ArrayList(currentLabels))
-      }
-      coreActivity.goToFragment(fragment, LabelsCheckboxFragment::class, true)
+      coreActivity.goToLabelsCheckboxFragment(currentLabels, previousWord)
     }
     
     imageMenu.setOnClickListener {
@@ -119,8 +111,8 @@ class InfoFragment : BaseFragment() {
   
   private fun handleLabels() {
     viewModel.getLabelsForWord(previousWord!!).observe(this@InfoFragment) { labels ->
-      currentLabels = labels.toMutableList()
-      labelsAdapter.submitList(currentLabels)
+      currentLabels = ArrayList(labels)
+      labelsForWordAdapter.submitList(currentLabels)
     }
   }
   
@@ -129,7 +121,7 @@ class InfoFragment : BaseFragment() {
     imageMenu.visible()
     previousWord!!.let { word ->
       viewModel.getLabelsForWord(word).observe(this) { labels ->
-        labelsAdapter.submitList(labels)
+        labelsForWordAdapter.submitList(labels)
       }
       editTextWord.setText(word.name)
       editTextDefinition.setText(word.definition)
@@ -138,14 +130,14 @@ class InfoFragment : BaseFragment() {
   }
   
   private fun saveWord() {
-    debug { "Saving?" }
+    Timber.d("Saving?")
     if (editTextWord.text.toString().isNotBlank()) {
       previousWord?.let {
         // Word has been passed -> updating existing word
         it.name = editTextWord.string().trim()
         it.definition = editTextDefinition.string().trim()
         it.examples = editTextExamples.string().trim()
-        debug { "update existing word = $it" }
+        Timber.d("update existing word = $it")
         viewModel.updateWord(it)
       }
       if (previousWord == null) {
@@ -156,12 +148,11 @@ class InfoFragment : BaseFragment() {
           examples = editTextExamples.string().trim(),
           creationDate = LocalDate.now().toEpochDay()
         )
-        debug { "saving brand new name = $newWord" }
+        Timber.d("saving brand new name = $newWord")
         viewModel.saveWordWithLabels(newWord, currentLabels)
       }
     }
   }
-  
   
   companion object {
     

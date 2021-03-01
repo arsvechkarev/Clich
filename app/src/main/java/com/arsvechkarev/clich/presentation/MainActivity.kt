@@ -11,8 +11,9 @@ import com.arsvechkarev.clich.presentation.MainScreenState.LoadedLabels
 import com.arsvechkarev.clich.presentation.MainScreenState.NoLabels
 import com.arsvechkarev.core.BaseFragment
 import com.arsvechkarev.core.ClichApplication
-import com.arsvechkarev.core.CoreActivity
+import com.arsvechkarev.core.Navigator
 import com.arsvechkarev.core.domain.model.Label
+import com.arsvechkarev.core.domain.model.Word
 import com.arsvechkarev.core.extensions.close
 import com.arsvechkarev.core.extensions.findFragment
 import com.arsvechkarev.core.extensions.gone
@@ -23,6 +24,7 @@ import com.arsvechkarev.core.extensions.switchToFragment
 import com.arsvechkarev.core.extensions.visible
 import com.arsvechkarev.info.presentation.InfoFragment
 import com.arsvechkarev.labels.list.LabelsAdapter
+import com.arsvechkarev.labels.presentation.LabelsCheckboxFragment
 import com.arsvechkarev.labels.presentation.LabelsFragment
 import com.arsvechkarev.search.presentation.SearchFragment
 import com.arsvechkarev.words.presentation.WordsListFragment
@@ -37,7 +39,7 @@ import kotlinx.android.synthetic.main.partial_layout_drawer.recyclerDrawerLabels
 import javax.inject.Inject
 import kotlin.reflect.KClass
 
-class MainActivity : AppCompatActivity(), CoreActivity {
+class MainActivity : AppCompatActivity(), Navigator {
   
   @Inject lateinit var viewModel: MainViewModel
   @Inject lateinit var labelsAdapter: LabelsAdapter
@@ -55,20 +57,9 @@ class MainActivity : AppCompatActivity(), CoreActivity {
     switchToFragment(R.id.baseContainer, WordsListFragment())
   }
   
-  private fun handleState(state: MainScreenState) {
-    when (state) {
-      is LoadedLabels -> {
-        layoutLabelsDrawerStub.gone()
-        recyclerDrawerLabels.visible()
-        drawerButtonCreateLabel.visible()
-        labelsAdapter.submitList(state.labels)
-      }
-      is NoLabels -> {
-        layoutLabelsDrawerStub.visible()
-        recyclerDrawerLabels.gone()
-        drawerButtonCreateLabel.gone()
-      }
-    }
+  override fun goToLabelsCheckboxFragment(alreadySelectedLabels: ArrayList<Label>, word: Word?) {
+    val labelsCheckboxFragment = LabelsCheckboxFragment.of(alreadySelectedLabels, word)
+    switchToFragment(R.id.layoutDrawer, labelsCheckboxFragment, true)
   }
   
   override fun <T : Fragment> goToFragment(
@@ -95,6 +86,22 @@ class MainActivity : AppCompatActivity(), CoreActivity {
         findFragment(InfoFragment::class)?.onBackPressed()
       }
       super.onBackPressed()
+    }
+  }
+  
+  private fun handleState(state: MainScreenState) {
+    when (state) {
+      is LoadedLabels -> {
+        layoutLabelsDrawerStub.gone()
+        recyclerDrawerLabels.visible()
+        drawerButtonCreateLabel.visible()
+        labelsAdapter.submitList(state.labels)
+      }
+      is NoLabels -> {
+        layoutLabelsDrawerStub.visible()
+        recyclerDrawerLabels.gone()
+        drawerButtonCreateLabel.gone()
+      }
     }
   }
   
