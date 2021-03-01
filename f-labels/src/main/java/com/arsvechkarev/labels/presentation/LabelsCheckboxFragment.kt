@@ -3,6 +3,7 @@ package com.arsvechkarev.labels.presentation
 import android.os.Bundle
 import android.view.View
 import com.arsvechkarev.core.BaseFragment
+import com.arsvechkarev.core.CentralDatabase
 import com.arsvechkarev.core.domain.model.Label
 import com.arsvechkarev.core.domain.model.Word
 import com.arsvechkarev.core.extensions.gone
@@ -13,7 +14,6 @@ import com.arsvechkarev.labels.R
 import com.arsvechkarev.labels.list.LabelsAdapter
 import com.arsvechkarev.labels.list.Mode
 import com.arsvechkarev.labels.list.viewholders.CheckedChangedCallback
-import com.arsvechkarev.storage.CentralDatabase
 import kotlinx.android.synthetic.main.fragment_labels.fabNewLabel
 import kotlinx.android.synthetic.main.fragment_labels.layoutLabelsStub
 import kotlinx.android.synthetic.main.fragment_labels.recyclerLabels

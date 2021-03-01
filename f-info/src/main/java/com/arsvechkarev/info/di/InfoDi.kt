@@ -1,29 +1,54 @@
 package com.arsvechkarev.info.di
 
 import androidx.lifecycle.ViewModel
-import com.arsvechkarev.core.di.CoreModule
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
+import com.arsvechkarev.core.CentralDatabase
+import com.arsvechkarev.core.di.CoreComponent
 import com.arsvechkarev.core.di.FeatureScope
-import com.arsvechkarev.core.di.viewmodel.ViewModelKey
 import com.arsvechkarev.info.presentation.InfoFragment
 import com.arsvechkarev.info.presentation.InfoViewModel
-import com.arsvechkarev.storage.di.StorageModule
-import dagger.Binds
+import dagger.BindsInstance
 import dagger.Component
 import dagger.Module
-import dagger.multibindings.IntoMap
+import dagger.Provides
 
-@Component(modules = [CoreModule::class, StorageModule::class, InfoViewModelModule::class])
+@Component(
+  dependencies = [CoreComponent::class],
+  modules = [InfoViewModelModule::class]
+)
 @FeatureScope
 interface InfoComponent {
   
   fun inject(fragment: InfoFragment)
+  
+  @Component.Builder
+  interface Builder {
+    
+    fun coreComponent(coreComponent: CoreComponent): Builder
+    
+    @BindsInstance
+    fun infoFragment(infoFragment: InfoFragment): Builder
+    
+    fun build(): InfoComponent
+  }
 }
 
+@Suppress("UNCHECKED_CAST")
 @Module
-abstract class InfoViewModelModule {
+class InfoViewModelModule {
   
-  @Binds
-  @IntoMap
-  @ViewModelKey(InfoViewModel::class)
-  internal abstract fun postInfoViewModel(viewModel: InfoViewModel): ViewModel
+  @Provides
+  @FeatureScope
+  fun provideViewModel(
+    infoFragment: InfoFragment,
+    centralDatabase: CentralDatabase
+  ): InfoViewModel {
+    val factory = object : ViewModelProvider.Factory {
+      override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        return InfoViewModel(centralDatabase) as T
+      }
+    }
+    return ViewModelProviders.of(infoFragment, factory).get(InfoViewModel::class.java)
+  }
 }

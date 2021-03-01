@@ -3,11 +3,12 @@ package com.arsvechkarev.core.di
 import android.content.Context
 import dagger.Module
 import dagger.Provides
+import javax.inject.Singleton
 
 @Module
 class ContextModule(private val context: Context) {
   
   @Provides
-  @FeatureScope
+  @Singleton
   fun provideContext(): Context = context
 }

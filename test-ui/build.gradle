@@ -24,7 +24,6 @@ android {
 
 dependencies {
   implementation project(':core')
-  implementation project(':storage')
   api project(':test-common')
 
   def appDependencies = rootProject.ext.applicationDependencies

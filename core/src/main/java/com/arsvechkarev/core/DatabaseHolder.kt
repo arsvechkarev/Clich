@@ -1,4 +1,4 @@
-package com.arsvechkarev.storage
+package com.arsvechkarev.core
 
 import android.content.Context
 import androidx.room.Room

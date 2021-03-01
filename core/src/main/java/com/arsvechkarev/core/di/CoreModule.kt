@@ -1,23 +1,19 @@
 package com.arsvechkarev.core.di
 
-import androidx.lifecycle.ViewModelProvider
+import android.content.Context
 import com.arsvechkarev.core.DispatcherProvider
-import com.arsvechkarev.core.di.viewmodel.ViewModelFactory
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
+import javax.inject.Singleton
 
 @Module
-abstract class CoreModule {
+class CoreModule(private val context: Context) {
   
-  @Binds
-  abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
+  @Provides
+  @Singleton
+  fun provideContext(): Context = context
   
-  @Module
-  companion object {
-    
-    @JvmStatic
-    @Provides
-    fun provideDispatchersProvider(): DispatcherProvider = DispatcherProvider.DefaultImpl
-  }
+  @Provides
+  @Singleton
+  fun provideDispatchersProvider(): DispatcherProvider = DispatcherProvider.DefaultImpl
 }

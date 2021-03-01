@@ -11,7 +11,7 @@ interface CoreActivity {
   /**
    * Goes to a [fragment] from root layout
    */
-  fun <T : Fragment> goToFragmentFromRoot(
+  fun <T : Fragment> goToFragment(
     fragment: Fragment,
     fragmentClass: KClass<T>,
     addToBackStack: Boolean = false

@@ -1,10 +1,9 @@
 package com.arsvechkarev.search.presentation
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.arsvechkarev.core.BaseViewModel
+import com.arsvechkarev.core.CentralDatabase
 import com.arsvechkarev.core.domain.model.Word
-import com.arsvechkarev.storage.CentralDatabase
 import javax.inject.Inject
 
 class SearchViewModel @Inject constructor(

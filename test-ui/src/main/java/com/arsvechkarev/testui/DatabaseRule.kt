@@ -1,6 +1,6 @@
 package com.arsvechkarev.testui
 
-import com.arsvechkarev.storage.CentralDatabase
+import com.arsvechkarev.core.CentralDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -23,5 +23,4 @@ class DatabaseRule : TestRule {
       }
     }
   }
-  
 }

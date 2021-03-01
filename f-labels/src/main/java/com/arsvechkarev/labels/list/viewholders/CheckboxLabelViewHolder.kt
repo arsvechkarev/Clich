@@ -2,11 +2,11 @@ package com.arsvechkarev.labels.list.viewholders
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import com.arsvechkarev.core.DatabaseHolder
 import com.arsvechkarev.core.domain.model.Label
 import com.arsvechkarev.core.domain.model.Word
 import com.arsvechkarev.core.domain.model.WordsLabelsJoin
 import com.arsvechkarev.core.extensions.inBackground
-import com.arsvechkarev.storage.DatabaseHolder
 import kotlinx.android.synthetic.main.item_label_checkbox.view.checkbox
 import kotlinx.android.synthetic.main.item_label_checkbox.view.textLabel
 import kotlinx.coroutines.Dispatchers

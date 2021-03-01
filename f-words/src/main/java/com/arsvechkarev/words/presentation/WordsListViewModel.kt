@@ -3,16 +3,15 @@ package com.arsvechkarev.words.presentation
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.arsvechkarev.core.BaseViewModel
+import com.arsvechkarev.core.CentralDatabase
+import com.arsvechkarev.core.di.FeatureScope
 import com.arsvechkarev.core.domain.model.Label
 import com.arsvechkarev.core.domain.model.TimeDivider
 import com.arsvechkarev.core.domain.model.Word
 import com.arsvechkarev.core.recyler.DisplayableItem
-import com.arsvechkarev.storage.CentralDatabase
-import javax.inject.Inject
 
-class WordsListViewModel @Inject constructor(
-  private val database: CentralDatabase
-) : BaseViewModel() {
+@FeatureScope
+class WordsListViewModel(private val database: CentralDatabase) : BaseViewModel() {
   
   fun fetchAll(): LiveData<List<Word>> {
     return database.wordDao().fetchAll()
@@ -39,5 +38,4 @@ class WordsListViewModel @Inject constructor(
       return@map items
     }
   }
-  
 }

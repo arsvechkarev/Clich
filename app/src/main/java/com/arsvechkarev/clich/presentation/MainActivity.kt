@@ -9,10 +9,10 @@ import com.arsvechkarev.clich.R
 import com.arsvechkarev.clich.di.DaggerMainComponent
 import com.arsvechkarev.clich.presentation.MainScreenState.LoadedLabels
 import com.arsvechkarev.clich.presentation.MainScreenState.NoLabels
-import com.arsvechkarev.clich.transferToFragment
 import com.arsvechkarev.core.BaseFragment
+import com.arsvechkarev.core.ClichApplication
 import com.arsvechkarev.core.CoreActivity
-import com.arsvechkarev.core.di.viewmodel.ViewModelFactory
+import com.arsvechkarev.core.domain.model.Label
 import com.arsvechkarev.core.extensions.close
 import com.arsvechkarev.core.extensions.findFragment
 import com.arsvechkarev.core.extensions.gone
@@ -20,11 +20,9 @@ import com.arsvechkarev.core.extensions.isOpened
 import com.arsvechkarev.core.extensions.setupToggle
 import com.arsvechkarev.core.extensions.setupWith
 import com.arsvechkarev.core.extensions.switchToFragment
-import com.arsvechkarev.core.extensions.viewModelOf
 import com.arsvechkarev.core.extensions.visible
 import com.arsvechkarev.info.presentation.InfoFragment
 import com.arsvechkarev.labels.list.LabelsAdapter
-import com.arsvechkarev.labels.list.Mode
 import com.arsvechkarev.labels.presentation.LabelsFragment
 import com.arsvechkarev.search.presentation.SearchFragment
 import com.arsvechkarev.words.presentation.WordsListFragment
@@ -41,28 +39,20 @@ import kotlin.reflect.KClass
 
 class MainActivity : AppCompatActivity(), CoreActivity {
   
-  @Inject lateinit var viewModelFactory: ViewModelFactory
-  private lateinit var viewModel: MainViewModel
-  
-  private var wordsListFragment = WordsListFragment()
-  private val labelsAdapter = LabelsAdapter(Mode.Simple { label ->
-    textLabelName.text = label.name
-    textSearchWord.gone()
-    textLabelName.visible()
-    switchToFragment(R.id.baseContainer, WordsListFragment.of(label), true)
-    layoutDrawer.close()
-  })
+  @Inject lateinit var viewModel: MainViewModel
+  @Inject lateinit var labelsAdapter: LabelsAdapter
   
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    DaggerMainComponent.create().inject(this)
-    setContentView(R.layout.activity_main)
-    setSupportActionBar(toolbar)
-    viewModel = viewModelOf(viewModelFactory) { model ->
-      model.loadLabels().observe(this, ::handleState)
-    }
-    switchToFragment(R.id.baseContainer, wordsListFragment)
-    setupListeners()
+    DaggerMainComponent.builder()
+      .coreComponent(ClichApplication.coreComponent)
+      .mainActivity(this)
+      .onLabelClick { label -> onAdapterClick(label) }
+      .build()
+      .inject(this)
+    performSetup()
+    viewModel.loadLabels().observe(this, ::handleState)
+    switchToFragment(R.id.baseContainer, WordsListFragment())
   }
   
   private fun handleState(state: MainScreenState) {
@@ -81,7 +71,7 @@ class MainActivity : AppCompatActivity(), CoreActivity {
     }
   }
   
-  override fun <T : Fragment> goToFragmentFromRoot(
+  override fun <T : Fragment> goToFragment(
     fragment: Fragment,
     fragmentClass: KClass<T>,
     addToBackStack: Boolean
@@ -108,7 +98,17 @@ class MainActivity : AppCompatActivity(), CoreActivity {
     }
   }
   
-  private fun setupListeners() {
+  private fun onAdapterClick(label: Label) {
+    textLabelName.text = label.name
+    textSearchWord.gone()
+    textLabelName.visible()
+    switchToFragment(R.id.baseContainer, WordsListFragment.of(label), true)
+    layoutDrawer.close()
+  }
+  
+  private fun performSetup() {
+    setContentView(R.layout.activity_main)
+    setSupportActionBar(toolbar)
     recyclerDrawerLabels.setupWith(labelsAdapter)
     layoutDrawer.setupToggle(this, toolbar)
     supportFragmentManager.addOnBackStackChangedListener {
@@ -129,5 +129,9 @@ class MainActivity : AppCompatActivity(), CoreActivity {
     textSearchWord.setOnClickListener {
       transferToFragment(SearchFragment())
     }
+  }
+  
+  private fun AppCompatActivity.transferToFragment(fragment: Fragment) {
+    switchToFragment(R.id.layoutDrawer, fragment, true)
   }
 }

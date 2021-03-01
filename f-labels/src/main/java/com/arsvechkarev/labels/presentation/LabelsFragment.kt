@@ -6,6 +6,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.arsvechkarev.core.BaseFragment
+import com.arsvechkarev.core.CentralDatabase
 import com.arsvechkarev.core.domain.model.Label
 import com.arsvechkarev.core.extensions.gone
 import com.arsvechkarev.core.extensions.inBackground
@@ -16,7 +17,6 @@ import com.arsvechkarev.labels.dialog.CreateLabelDialog
 import com.arsvechkarev.labels.list.DefaultLabelCallback
 import com.arsvechkarev.labels.list.LabelsAdapter
 import com.arsvechkarev.labels.list.Mode.Default
-import com.arsvechkarev.storage.CentralDatabase
 import kotlinx.android.synthetic.main.fragment_labels.fabNewLabel
 import kotlinx.android.synthetic.main.fragment_labels.layoutLabelsStub
 import kotlinx.android.synthetic.main.fragment_labels.recyclerLabels
@@ -33,7 +33,8 @@ class LabelsFragment : BaseFragment(), CreateLabelDialog.Callback {
   }
   
   private val adapter by lazy {
-    LabelsAdapter(Default(object : DefaultLabelCallback {
+    LabelsAdapter(
+      Default(object : DefaultLabelCallback {
         
         private fun endEditing() {
           fabNewLabel.visible()

@@ -2,10 +2,10 @@ package com.arsvechkarev.info.presentation
 
 import androidx.lifecycle.LiveData
 import com.arsvechkarev.core.BaseViewModel
+import com.arsvechkarev.core.CentralDatabase
 import com.arsvechkarev.core.domain.model.Label
 import com.arsvechkarev.core.domain.model.Word
 import com.arsvechkarev.core.domain.model.WordsLabelsJoin
-import com.arsvechkarev.storage.CentralDatabase
 import javax.inject.Inject
 
 class InfoViewModel @Inject constructor(

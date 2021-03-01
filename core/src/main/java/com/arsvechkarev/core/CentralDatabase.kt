@@ -1,4 +1,4 @@
-package com.arsvechkarev.storage
+package com.arsvechkarev.core
 
 import android.content.Context
 import androidx.room.Database
@@ -11,11 +11,13 @@ import com.arsvechkarev.core.domain.model.Label
 import com.arsvechkarev.core.domain.model.Word
 import com.arsvechkarev.core.domain.model.WordsLabelsJoin
 
-@Database(entities = [
-  Word::class,
-  Label::class,
-  WordsLabelsJoin::class
-], version = 1)
+@Database(
+  entities = [
+    Word::class,
+    Label::class,
+    WordsLabelsJoin::class
+  ], version = 1
+)
 abstract class CentralDatabase : RoomDatabase() {
   
   abstract fun wordDao(): WordsDao

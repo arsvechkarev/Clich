@@ -10,10 +10,14 @@ import com.arsvechkarev.core.recyler.DisplayableItem.DiffCallBack
 import com.arsvechkarev.info.R
 import com.arsvechkarev.info.list.CurrentLabelsAdapter.CurrentLabelsViewHolder
 import kotlinx.android.synthetic.main.item_current_label.view.textLabel
+import javax.inject.Inject
 
 class CurrentLabelsAdapter(
   private val clickListener: (Label) -> Unit = {}
 ) : ListAdapter<Label, CurrentLabelsViewHolder>(DiffCallBack()) {
+  
+  @Inject
+  constructor() : this({})
   
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CurrentLabelsViewHolder {
     return CurrentLabelsViewHolder(parent.inflate(R.layout.item_current_label))

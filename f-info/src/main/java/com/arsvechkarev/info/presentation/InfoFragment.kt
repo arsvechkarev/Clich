@@ -4,15 +4,14 @@ import android.os.Bundle
 import android.view.View
 import android.widget.PopupMenu
 import com.arsvechkarev.core.BaseFragment
+import com.arsvechkarev.core.ClichApplication
 import com.arsvechkarev.core.coreActivity
-import com.arsvechkarev.core.di.viewmodel.ViewModelFactory
 import com.arsvechkarev.core.domain.model.Label
 import com.arsvechkarev.core.domain.model.Word
 import com.arsvechkarev.core.extensions.gone
 import com.arsvechkarev.core.extensions.popBackStack
 import com.arsvechkarev.core.extensions.showKeyboard
 import com.arsvechkarev.core.extensions.string
-import com.arsvechkarev.core.extensions.viewModelOf
 import com.arsvechkarev.core.extensions.visible
 import com.arsvechkarev.info.R
 import com.arsvechkarev.info.di.DaggerInfoComponent
@@ -36,9 +35,8 @@ class InfoFragment : BaseFragment() {
   
   override val layoutId: Int = R.layout.fragment_info
   
-  @Inject lateinit var viewModelFactory: ViewModelFactory
-  private lateinit var viewModel: InfoViewModel
-  private val labelsAdapter = CurrentLabelsAdapter()
+  @Inject lateinit var viewModel: InfoViewModel
+  @Inject lateinit var labelsAdapter: CurrentLabelsAdapter
   
   private var previousWord: Word? = null
   private var currentLabels: MutableList<Label> = ArrayList()
@@ -56,8 +54,11 @@ class InfoFragment : BaseFragment() {
   }
   
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    DaggerInfoComponent.create().inject(this)
-    viewModel = viewModelOf(viewModelFactory)
+    DaggerInfoComponent.builder()
+      .coreComponent(ClichApplication.coreComponent)
+      .infoFragment(this)
+      .build()
+      .inject(this)
     imageBack.setOnClickListener {
       saveWord()
       popBackStack()
@@ -85,7 +86,7 @@ class InfoFragment : BaseFragment() {
       } else {
         LabelsCheckboxFragment.of(previousWord!!, ArrayList(currentLabels))
       }
-      coreActivity.goToFragmentFromRoot(fragment, LabelsCheckboxFragment::class, true)
+      coreActivity.goToFragment(fragment, LabelsCheckboxFragment::class, true)
     }
     
     imageMenu.setOnClickListener {
