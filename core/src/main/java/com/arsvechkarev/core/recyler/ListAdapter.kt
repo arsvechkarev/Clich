@@ -1,5 +1,7 @@
 package com.arsvechkarev.core.recyler
 
+import android.os.Handler
+import android.os.Looper
 import android.view.ViewGroup
 import androidx.collection.SparseArrayCompat
 import androidx.recyclerview.widget.DiffUtil
@@ -9,19 +11,23 @@ import com.arsvechkarev.core.recyler.CallbackType.ALWAYS_FALSE
 import com.arsvechkarev.core.recyler.CallbackType.APPENDED_LIST
 import com.arsvechkarev.core.recyler.CallbackType.TWO_LISTS
 import com.arsvechkarev.vault.recycler.ListAdapterDelegate
+import java.util.concurrent.Executors
 import kotlin.reflect.KClass
 
 abstract class ListAdapter : RecyclerView.Adapter<ViewHolder>() {
   
-  protected var recyclerView: RecyclerView? = null
-    private set
-  
-  private var data: MutableList<DifferentiableItem> = ArrayList()
+  private val backgroundExecutor = Executors.newSingleThreadExecutor()
+  private val handler = Handler(Looper.getMainLooper())
   
   private val classesToViewTypes = HashMap<KClass<*>, Int>()
+  private val delegates = ArrayList<ListAdapterDelegate<out DifferentiableItem>>()
   private val delegatesSparseArray =
     SparseArrayCompat<ListAdapterDelegate<out DifferentiableItem>>()
-  private val delegates = ArrayList<ListAdapterDelegate<out DifferentiableItem>>()
+  
+  protected var data: List<DifferentiableItem> = ArrayList()
+  
+  protected var recyclerView: RecyclerView? = null
+    private set
   
   fun changeListWithoutAnimation(list: List<DifferentiableItem>) {
     data = ArrayList(list)
@@ -34,8 +40,13 @@ abstract class ListAdapter : RecyclerView.Adapter<ViewHolder>() {
       TWO_LISTS -> TwoListsDiffCallBack(data, list)
       ALWAYS_FALSE -> AlwaysFalseCallback(data, list)
     }
-    data = list as MutableList<DifferentiableItem>
-    applyChanges(callback)
+    backgroundExecutor.submit {
+      val diffResult = DiffUtil.calculateDiff(callback, false)
+      handler.post {
+        diffResult.dispatchUpdatesTo(this@ListAdapter)
+        data = list
+      }
+    }
   }
   
   protected fun addDelegates(vararg delegates: ListAdapterDelegate<out DifferentiableItem>) {
@@ -78,10 +89,5 @@ abstract class ListAdapter : RecyclerView.Adapter<ViewHolder>() {
   
   override fun onDetachedFromRecyclerView(recyclerView: RecyclerView) {
     delegates.forEach { it.onDetachedFromRecyclerView(recyclerView) }
-  }
-  
-  private fun applyChanges(callback: DiffUtil.Callback) {
-    val diffResult = DiffUtil.calculateDiff(callback, false)
-    diffResult.dispatchUpdatesTo(this@ListAdapter)
   }
 }

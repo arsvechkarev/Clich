@@ -43,7 +43,7 @@ interface WordsLabelsDao {
            WHERE words_labels_join.labelId=:labelId
            """
   )
-  fun getWordsForLabel(labelId: Long): LiveData<List<Word>>
+  fun getWordsForLabel(labelId: Long): List<Word>
 }
 
 suspend fun WordsLabelsDao.create(wordId: Long, labelId: Long) =

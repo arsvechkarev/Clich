@@ -1,4 +1,4 @@
-package com.arsvechkarev.search.labels
+package com.arsvechkarev.search.list
 
 import android.text.Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
 import android.text.SpannableString
@@ -10,7 +10,7 @@ import com.arsvechkarev.core.recyler.delegate
 import com.arsvechkarev.search.R
 import kotlinx.android.synthetic.main.item_word.view.textWord
 
-class WordsListAdapter(
+class SearchAdapter(
   private val clickListener: (Word) -> Unit = {}
 ) : ListAdapter() {
   
@@ -31,12 +31,11 @@ class WordsListAdapter(
         onBind {
           val searchedText = searchedText
           if (searchedText != null) {
-            val startIndex = item.name.indexOf(searchedText)
+            val startIndex = item.name.indexOf(searchedText, ignoreCase = true)
             if (startIndex == -1) {
               itemView.textWord.text = item.name
               return@onBind
             }
-            
             val endIndex = startIndex + searchedText.length
             val spannable = SpannableString(item.name)
             spannable.setSpan(

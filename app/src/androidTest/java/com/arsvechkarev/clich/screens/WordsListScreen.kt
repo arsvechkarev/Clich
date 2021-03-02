@@ -13,7 +13,7 @@ import org.hamcrest.Matcher
 class WordsListScreen : Screen<WordsListScreen>() {
   
   val fabNewWord = KButton { withId(R.id.wordsFabNewWord) }
-  val layoutStub = KView { withId(R.id.wordsLayoutLoading) }
+  val layoutStub = KView { withId(R.id.wordsLayoutNoWords) }
   
   val recyclerWords = KRecyclerView(
     builder = { withId(R.id.wordsRecycler) },

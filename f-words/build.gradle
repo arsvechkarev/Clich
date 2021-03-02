@@ -26,7 +26,7 @@ android {
 
 dependencies {
   implementation project(':core')
-  implementation project(':f-info')
+  implementation project(':f-common')
 
   def appDependencies = rootProject.ext.applicationDependencies
 

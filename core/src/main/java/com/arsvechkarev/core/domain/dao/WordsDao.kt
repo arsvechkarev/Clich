@@ -1,6 +1,5 @@
 package com.arsvechkarev.core.domain.dao
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -21,13 +20,13 @@ interface WordsDao {
   suspend fun delete(word: Word)
   
   @Query("SELECT * FROM words")
-  fun getWordsLiveData(): LiveData<List<Word>>
-  
-  @Query("SELECT * FROM words")
   fun getAllWords(): List<Word>
   
   @Query("SELECT * FROM words WHERE words.name LIKE :input")
   fun searchWords(input: String): List<Word>
+  
+  @Query("SELECT COUNT(id) FROM words")
+  fun getWordsCount(): Int
 }
 
 suspend fun WordsDao.create(name: String) =

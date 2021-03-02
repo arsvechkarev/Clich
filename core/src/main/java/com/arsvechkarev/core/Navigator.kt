@@ -7,7 +7,9 @@ import kotlin.reflect.KClass
 
 interface Navigator {
   
-  fun goToLabelsCheckboxFragment(alreadySelectedLabels: ArrayList<Label>, word: Word?)
+  fun goToLabelsCheckboxFragment(word: Word?)
+  
+  fun goToInfoFragment(word: Word?)
   
   /**
    * Goes to a [fragment] from root layout
@@ -24,5 +26,5 @@ interface Navigator {
   fun <T : BaseFragment> subscribeOnBackStackChanges(fragment: T)
 }
 
-val Fragment.coreActivity
+val Fragment.navigator
   get() = (activity as Navigator)

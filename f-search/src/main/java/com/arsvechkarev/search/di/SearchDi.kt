@@ -3,12 +3,13 @@ package com.arsvechkarev.info.di
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
-import com.arsvechkarev.core.CentralDatabase
 import com.arsvechkarev.core.Consumer
+import com.arsvechkarev.core.DispatcherProvider
+import com.arsvechkarev.core.ListenableWordsDataSource
 import com.arsvechkarev.core.di.CoreComponent
 import com.arsvechkarev.core.di.FeatureScope
 import com.arsvechkarev.core.domain.model.Word
-import com.arsvechkarev.search.labels.WordsListAdapter
+import com.arsvechkarev.search.list.SearchAdapter
 import com.arsvechkarev.search.presentation.SearchFragment
 import com.arsvechkarev.search.presentation.SearchViewModel
 import dagger.BindsInstance
@@ -46,19 +47,20 @@ class SearchViewModelModule {
   
   @Provides
   @FeatureScope
-  fun provideWordsListAdapter(onWordClick: Consumer<Word>): WordsListAdapter {
-    return WordsListAdapter(clickListener = { word -> onWordClick.accept(word) })
+  fun provideWordsListAdapter(onWordClick: Consumer<Word>): SearchAdapter {
+    return SearchAdapter(clickListener = { word -> onWordClick.accept(word) })
   }
   
   @Provides
   @FeatureScope
   fun provideViewModel(
     searchFragment: SearchFragment,
-    centralDatabase: CentralDatabase
+    listenableWordsDataSource: ListenableWordsDataSource,
+    dispatcherProvider: DispatcherProvider
   ): SearchViewModel {
     val factory = object : ViewModelProvider.Factory {
       override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return SearchViewModel(centralDatabase) as T
+        return SearchViewModel(listenableWordsDataSource, dispatcherProvider) as T
       }
     }
     return ViewModelProviders.of(searchFragment, factory).get(SearchViewModel::class.java)

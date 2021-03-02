@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import com.arsvechkarev.core.BaseFragment
 import com.arsvechkarev.core.ClichApplication
-import com.arsvechkarev.core.coreActivity
 import com.arsvechkarev.core.domain.model.Word
 import com.arsvechkarev.core.extensions.hideKeyboard
 import com.arsvechkarev.core.extensions.invisible
@@ -12,10 +11,11 @@ import com.arsvechkarev.core.extensions.onTextChanged
 import com.arsvechkarev.core.extensions.popBackStack
 import com.arsvechkarev.core.extensions.setupWith
 import com.arsvechkarev.core.extensions.visible
+import com.arsvechkarev.core.navigator
 import com.arsvechkarev.info.di.DaggerSearchComponent
 import com.arsvechkarev.info.presentation.InfoFragment
 import com.arsvechkarev.search.R
-import com.arsvechkarev.search.labels.WordsListAdapter
+import com.arsvechkarev.search.list.SearchAdapter
 import com.arsvechkarev.search.presentation.SearchState.DisplayingAllWords
 import com.arsvechkarev.search.presentation.SearchState.FoundWords
 import com.arsvechkarev.search.presentation.SearchState.NoWordsFound
@@ -30,7 +30,7 @@ class SearchFragment : BaseFragment() {
   override val layoutId: Int = R.layout.fragment_search
   
   @Inject lateinit var viewModel: SearchViewModel
-  @Inject lateinit var adapter: WordsListAdapter
+  @Inject lateinit var adapter: SearchAdapter
   
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     DaggerSearchComponent.builder()
@@ -39,15 +39,9 @@ class SearchFragment : BaseFragment() {
       .searchFragment(this)
       .build()
       .inject(this)
-    recyclerFoundWords.setupWith(adapter)
-    viewModel.searchState.observe(this) { searchState -> handleState(searchState) }
+    viewModel.state.observe(this) { searchState -> handleState(searchState) }
     viewModel.fetchAllWords()
-    searchEditText.onTextChanged { text -> viewModel.onSearchTextEntered(text) }
-    imageBack.setOnClickListener {
-      hideKeyboard(searchEditText)
-      popBackStack()
-    }
-    coreActivity.subscribeOnBackStackChanges(this)
+    setup()
   }
   
   private fun handleState(searchState: SearchState) {
@@ -69,6 +63,16 @@ class SearchFragment : BaseFragment() {
   
   private fun onWordClicked(word: Word) {
     hideKeyboard(searchEditText)
-    coreActivity.goToFragment(InfoFragment.of(word), InfoFragment::class, true)
+    navigator.goToFragment(InfoFragment.of(word), InfoFragment::class, true)
+  }
+  
+  private fun setup() {
+    searchEditText.onTextChanged { text -> viewModel.onSearchTextEntered(text) }
+    recyclerFoundWords.setupWith(adapter)
+    imageBack.setOnClickListener {
+      hideKeyboard(searchEditText)
+      popBackStack()
+    }
+    navigator.subscribeOnBackStackChanges(this)
   }
 }

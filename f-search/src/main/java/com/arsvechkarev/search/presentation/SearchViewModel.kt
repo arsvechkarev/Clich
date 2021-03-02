@@ -3,37 +3,57 @@ package com.arsvechkarev.search.presentation
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.arsvechkarev.core.BaseViewModel
-import com.arsvechkarev.core.CentralDatabase
+import com.arsvechkarev.core.DispatcherProvider
+import com.arsvechkarev.core.ListenableWordsDataSource
 import com.arsvechkarev.core.domain.model.Word
 import com.arsvechkarev.search.presentation.SearchState.DisplayingAllWords
 import com.arsvechkarev.search.presentation.SearchState.FoundWords
 import com.arsvechkarev.search.presentation.SearchState.NoWordsFound
+import kotlinx.coroutines.withContext
+import java.util.Locale
 import javax.inject.Inject
 
 class SearchViewModel @Inject constructor(
-  private val database: CentralDatabase
-) : BaseViewModel() {
+  private val listenableWordsDataSource: ListenableWordsDataSource,
+  dispatcherProvider: DispatcherProvider
+) : BaseViewModel(dispatcherProvider) {
   
-  private var _searchState = MutableLiveData<SearchState>()
   private var allWordsList: List<Word> = ArrayList()
   
-  val searchState: LiveData<SearchState> get() = _searchState
+  private var _searchState = MutableLiveData<SearchState>()
+  val state: LiveData<SearchState> get() = _searchState
   
   fun fetchAllWords() {
-    allWordsList = database.wordDao().getAllWords()
-    _searchState.value = DisplayingAllWords(allWordsList)
+    coroutine {
+      allWordsList = listenableWordsDataSource.getAllWords()
+      _searchState.value = DisplayingAllWords(allWordsList)
+    }
   }
   
   fun onSearchTextEntered(text: String) {
     if (text.isBlank()) {
+      _searchState.value = DisplayingAllWords(allWordsList)
       return
     }
-    val formattedInput = "%$text%"
-    val searchWords = database.wordDao().searchWords(formattedInput)
-    if (searchWords.isEmpty()) {
-      _searchState.value = NoWordsFound
-    } else {
-      _searchState.value = FoundWords(searchWords, text)
+    val lowercaseText = text.toLowerCase(Locale.getDefault())
+    coroutine {
+      val formattedInput = "%$lowercaseText%"
+      val searchedWords = listenableWordsDataSource.searchWords(formattedInput)
+      if (searchedWords.isEmpty()) {
+        _searchState.value = NoWordsFound
+      } else {
+        sortResult(lowercaseText, searchedWords as MutableList<Word>)
+        _searchState.value = FoundWords(searchedWords, lowercaseText)
+      }
     }
   }
+  
+  private suspend fun sortResult(inputText: String, list: MutableList<Word>) =
+    withContext(dispatcherProvider.Default) {
+      list.sortWith(Comparator { o1, o2 ->
+        val occurrenceInFirstWord = o1.name.indexOf(inputText, ignoreCase = true)
+        val occurrenceInSecondWord = o2.name.indexOf(inputText, ignoreCase = true)
+        return@Comparator occurrenceInFirstWord - occurrenceInSecondWord
+      })
+    }
 }

@@ -10,6 +10,6 @@ interface DatabaseHelp {
   val database get() = CentralDatabase.instance
   
   val labels get() = database.labelsDao()
-  val words get() = database.wordDao()
-  val wordsAndLabels get() = database.wordsAndLabelsDao()
+  val words get() = database.wordsDao()
+  val wordsAndLabels get() = database.wordsLabelsDao()
 }

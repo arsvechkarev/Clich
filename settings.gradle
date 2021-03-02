@@ -1,2 +1,3 @@
 include ':app', ':f-words', ':f-info', ':core', ':test-common', ':f-labels', ':test-ui', ':test-unit', ':f-search'
 include ':views'
+include ':f-common'

@@ -57,7 +57,7 @@ class LabelsFragment : BaseFragment(), CreateLabelDialog.Callback {
         override fun onDeletingLabel(label: Label) {
           endEditing()
           inBackground {
-            CentralDatabase.instance.wordsAndLabelsDao().deleteFromLabel(label.id!!)
+            CentralDatabase.instance.wordsLabelsDao().deleteFromLabel(label.id!!)
             CentralDatabase.instance.labelsDao().delete(label)
           }
         }

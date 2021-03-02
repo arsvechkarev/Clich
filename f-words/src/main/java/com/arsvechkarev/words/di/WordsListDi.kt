@@ -3,10 +3,12 @@ package com.arsvechkarev.info.di
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
-import com.arsvechkarev.core.CentralDatabase
 import com.arsvechkarev.core.Consumer
+import com.arsvechkarev.core.DispatcherProvider
+import com.arsvechkarev.core.ListenableWordsDataSource
 import com.arsvechkarev.core.di.CoreComponent
 import com.arsvechkarev.core.di.FeatureScope
+import com.arsvechkarev.core.domain.dao.WordsLabelsDao
 import com.arsvechkarev.core.domain.model.Word
 import com.arsvechkarev.words.list.WordsListAdapter
 import com.arsvechkarev.words.presentation.WordsListFragment
@@ -54,12 +56,16 @@ class WordsListViewModelModule {
   @FeatureScope
   fun provideViewModel(
     wordsListFragment: WordsListFragment,
-    centralDatabase: CentralDatabase
+    listenableWordsDataSource: ListenableWordsDataSource,
+    wordsLabelsDao: WordsLabelsDao,
+    dispatcherProvider: DispatcherProvider
   ): WordsListViewModel {
     val factory = object : ViewModelProvider.Factory {
-      override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return WordsListViewModel(centralDatabase) as T
-      }
+      override fun <T : ViewModel?> create(modelClass: Class<T>) = WordsListViewModel(
+        listenableWordsDataSource,
+        wordsLabelsDao,
+        dispatcherProvider
+      ) as T
     }
     return ViewModelProviders.of(wordsListFragment, factory).get(WordsListViewModel::class.java)
   }

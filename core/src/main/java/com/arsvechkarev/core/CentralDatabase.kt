@@ -20,9 +20,9 @@ import com.arsvechkarev.core.domain.model.WordsLabelsJoin
 )
 abstract class CentralDatabase : RoomDatabase() {
   
-  abstract fun wordDao(): WordsDao
+  abstract fun wordsDao(): WordsDao
   abstract fun labelsDao(): LabelsDao
-  abstract fun wordsAndLabelsDao(): WordsLabelsDao
+  abstract fun wordsLabelsDao(): WordsLabelsDao
   
   companion object {
     

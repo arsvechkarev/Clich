@@ -1,7 +1,6 @@
 package com.arsvechkarev.core.recyler
 
 import androidx.recyclerview.widget.DiffUtil
-import com.arsvechkarev.core.recyler.DifferentiableItem
 
 /**
  * Callback type for diff util
@@ -45,11 +44,13 @@ class TwoListsDiffCallBack(
   override fun getNewListSize() = newList.size
   
   override fun areItemsTheSame(oldPosition: Int, newPosition: Int): Boolean {
-    return oldList[oldPosition].id == newList[newPosition].id
+    val b = oldList[oldPosition].id == newList[newPosition].id
+    return b
   }
   
   override fun areContentsTheSame(oldPosition: Int, newPosition: Int): Boolean {
-    return oldList[oldPosition] == newList[newPosition]
+    val b = oldList[oldPosition] == newList[newPosition]
+    return b
   }
 }
 

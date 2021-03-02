@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
  * Base view model to facilitate work with coroutines
  */
 abstract class BaseViewModel(
-  private val dispatcherProvider: DispatcherProvider = DefaultImpl
+  protected val dispatcherProvider: DispatcherProvider = DefaultImpl
 ) : ViewModel() {
   
   protected fun coroutine(block: suspend () -> Unit) {

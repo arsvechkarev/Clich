@@ -57,9 +57,14 @@ class MainActivity : AppCompatActivity(), Navigator {
     switchToFragment(R.id.baseContainer, WordsListFragment())
   }
   
-  override fun goToLabelsCheckboxFragment(alreadySelectedLabels: ArrayList<Label>, word: Word?) {
-    val labelsCheckboxFragment = LabelsCheckboxFragment.of(alreadySelectedLabels, word)
+  override fun goToLabelsCheckboxFragment(word: Word?) {
+    val labelsCheckboxFragment = LabelsCheckboxFragment.of(word)
     switchToFragment(R.id.layoutDrawer, labelsCheckboxFragment, true)
+  }
+  
+  override fun goToInfoFragment(word: Word?) {
+    val infoFragment = if (word != null) InfoFragment.of(word) else InfoFragment()
+    switchToFragment(R.id.layoutDrawer, infoFragment, true)
   }
   
   override fun <T : Fragment> goToFragment(

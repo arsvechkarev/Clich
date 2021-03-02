@@ -3,9 +3,10 @@ package com.arsvechkarev.info.di
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
-import com.arsvechkarev.core.CentralDatabase
+import com.arsvechkarev.core.ListenableWordsDataSource
 import com.arsvechkarev.core.di.CoreComponent
 import com.arsvechkarev.core.di.FeatureScope
+import com.arsvechkarev.core.domain.dao.WordsLabelsDao
 import com.arsvechkarev.info.presentation.InfoFragment
 import com.arsvechkarev.info.presentation.InfoViewModel
 import dagger.BindsInstance
@@ -42,11 +43,12 @@ class InfoViewModelModule {
   @FeatureScope
   fun provideViewModel(
     infoFragment: InfoFragment,
-    centralDatabase: CentralDatabase
+    wordsLabelsDao: WordsLabelsDao,
+    listenableWordsDataSource: ListenableWordsDataSource
   ): InfoViewModel {
     val factory = object : ViewModelProvider.Factory {
       override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return InfoViewModel(centralDatabase) as T
+        return InfoViewModel(listenableWordsDataSource, wordsLabelsDao) as T
       }
     }
     return ViewModelProviders.of(infoFragment, factory).get(InfoViewModel::class.java)

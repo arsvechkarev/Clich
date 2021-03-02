@@ -29,14 +29,14 @@ class SearchTest : DatabaseHelp {
   @Test
   fun test1_Search() {
     doAndWait(500) {
-      database.wordDao().create("apple")
-      database.wordDao().create("appreciate")
-      database.wordDao().create("africa")
-      database.wordDao().create("suit")
-      database.wordDao().create("bear")
-      database.wordDao().create("fox")
-      database.wordDao().create("bird")
-      database.wordDao().create("other stuff")
+      database.wordsDao().create("apple")
+      database.wordsDao().create("appreciate")
+      database.wordsDao().create("africa")
+      database.wordsDao().create("suit")
+      database.wordsDao().create("bear")
+      database.wordsDao().create("fox")
+      database.wordsDao().create("bird")
+      database.wordsDao().create("other stuff")
     }
     
     screen<MainScreen>().textSearchWord.click()
