@@ -33,7 +33,17 @@ interface WordsLabelsDao {
            WHERE words_labels_join.wordId=:wordId
            """
   )
-  fun getLabelsForWord(wordId: Long): LiveData<List<Label>>
+  suspend fun getLabelsForWord(wordId: Long): List<Label>
+  
+  @Query(
+    """
+           SELECT * FROM labels
+           INNER JOIN words_labels_join
+           ON labels.id=words_labels_join.labelId
+           WHERE words_labels_join.wordId=:wordId
+           """
+  )
+  fun getLabelsForWordLive(wordId: Long): LiveData<List<Label>>
   
   @Query(
     """

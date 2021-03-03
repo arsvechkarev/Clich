@@ -2,13 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  android:background="?colorWindowBackground"
-  android:clickable="true"
-  android:focusable="true">
+  android:layout_height="match_parent">
 
   <androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/wordsRecycler"
+    android:id="@+id/wordsListRecycler"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipToPadding="false"
@@ -16,9 +13,10 @@
     android:paddingBottom="@dimen/recycler_padding"/>
 
   <LinearLayout
-    android:id="@+id/wordsLayoutNoWords"
+    android:id="@+id/wordsListLayout"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:gravity="center"
     android:orientation="vertical"
     android:visibility="gone"
     app:layout_constraintBottom_toBottomOf="parent"
@@ -33,7 +31,7 @@
       android:src="@drawable/ic_paper"/>
 
     <TextView
-      android:id="@+id/wordsTextLoading"
+      android:id="@+id/wordsListTextNoWords"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:fontFamily="@font/metropolis_semi_bold"

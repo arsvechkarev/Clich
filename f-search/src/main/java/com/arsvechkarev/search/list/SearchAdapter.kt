@@ -5,14 +5,14 @@ import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.widget.TextView.BufferType.SPANNABLE
 import com.arsvechkarev.core.domain.model.Word
-import com.arsvechkarev.core.recyler.ListAdapter
+import com.arsvechkarev.core.recyler.BaseAdapter
 import com.arsvechkarev.core.recyler.delegate
 import com.arsvechkarev.search.R
 import kotlinx.android.synthetic.main.item_word.view.textWord
 
 class SearchAdapter(
   private val clickListener: (Word) -> Unit = {}
-) : ListAdapter() {
+) : BaseAdapter() {
   
   var searchedText: String? = null
   

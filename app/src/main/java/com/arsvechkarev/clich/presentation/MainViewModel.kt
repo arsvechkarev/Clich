@@ -10,7 +10,7 @@ import com.arsvechkarev.core.extensions.map
 class MainViewModel(private val database: CentralDatabase) : BaseViewModel() {
   
   fun loadLabels(): LiveData<MainScreenState> {
-    return database.labelsDao().getAll().map { labels ->
+    return database.labelsDao().getAllLive().map { labels ->
       if (labels.isEmpty()) {
         MainScreenState.NoLabels
       } else {

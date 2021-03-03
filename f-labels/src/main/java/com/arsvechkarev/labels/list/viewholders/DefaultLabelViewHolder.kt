@@ -12,51 +12,88 @@ import com.arsvechkarev.labels.list.Mode
 import kotlinx.android.synthetic.main.item_label_default.view.dividerBottom
 import kotlinx.android.synthetic.main.item_label_default.view.dividerTop
 import kotlinx.android.synthetic.main.item_label_default.view.editTextLabel
-import kotlinx.android.synthetic.main.item_label_default.view.imageEnd
-import kotlinx.android.synthetic.main.item_label_default.view.imageStart
+import kotlinx.android.synthetic.main.item_label_default.view.imageEdit
+import kotlinx.android.synthetic.main.item_label_default.view.imageSave
 import kotlinx.android.synthetic.main.item_label_default.view.textLabel
 
 class DefaultLabelViewHolder(
   itemView: View,
+  private val listGetter: () -> MutableList<Label>,
   private val mode: Mode.Default
 ) : RecyclerView.ViewHolder(itemView) {
   
-  private var isEditingMode = false
+  init {
+    setOnFocusChangedListener(itemView)
+    setOnEditClickListener(itemView)
+    setOnSaveClickListener(itemView)
+  }
   
-  fun bind(item: Label) {
+  fun bind(item: Label, position: Int) {
+    itemView.textLabel.text = item.name
+    if (mode.labelEditingCallback.getCurrentlyEditingLabelPosition() == position) {
+      startEditingMode(requestFocus = false)
+    } else {
+      endEditingMode()
+    }
+  }
+  
+  private fun setOnFocusChangedListener(itemView: View) {
     itemView.editTextLabel.setOnFocusChangeListener { _, hasFocus ->
       if (!hasFocus) {
         endEditingMode()
-      }
-    }
-    itemView.textLabel.text = item.name
-    itemView.imageStart.setOnClickListener {
-      if (isEditingMode) {
-        endEditingMode()
-        mode.labelEditingCallback.onDeletingLabel(item)
-      }
-    }
-    itemView.imageEnd.setOnClickListener {
-      isEditingMode = !isEditingMode
-      if (isEditingMode) {
-        mode.labelEditingCallback.onStartEditing()
-        startEditingMode()
-      } else {
-        mode.labelEditingCallback.onSaveLabel(item, itemView.editTextLabel.string())
-        endEditingMode()
+        mode.labelEditingCallback.onEndEditing(adapterPosition)
       }
     }
   }
   
-  private fun startEditingMode() {
+  private fun setOnEditClickListener(itemView: View) {
+    itemView.imageEdit.setOnClickListener {
+      val item = listGetter()[adapterPosition]
+      if (mode.labelEditingCallback.getCurrentlyEditingLabelPosition() != -1) {
+        endEditingMode()
+        mode.labelEditingCallback.onDeleteLabel(item)
+        mode.labelEditingCallback.onEndEditing(adapterPosition)
+      }
+    }
+  }
+  
+  private fun setOnSaveClickListener(itemView: View) {
+    itemView.imageSave.setOnClickListener {
+      val isEditingMode =
+        mode.labelEditingCallback.getCurrentlyEditingLabelPosition() == adapterPosition
+      val item = listGetter()[adapterPosition]
+      var labelName = itemView.editTextLabel.string()
+      if (isEditingMode) {
+        endEditingMode()
+        mode.labelEditingCallback.onEndEditing(adapterPosition)
+        if (labelName == item.name) {
+          return@setOnClickListener
+        }
+        if (labelName.isBlank()) {
+          labelName = item.name
+        }
+        mode.labelEditingCallback.onUpdateLabel(item, labelName)
+        itemView.textLabel.text = labelName
+      } else {
+        mode.labelEditingCallback.onStartEditing(adapterPosition)
+        startEditingMode(requestFocus = true)
+      }
+    }
+  }
+  
+  private fun startEditingMode(requestFocus: Boolean) {
     itemView.dividerTop.visible()
     itemView.dividerBottom.visible()
-    itemView.imageEnd.setImageResource(R.drawable.ic_checkmark)
-    itemView.imageStart.setImageResource(R.drawable.ic_delete)
+    itemView.imageSave.setImageResource(R.drawable.ic_checkmark)
+    itemView.imageEdit.setImageResource(R.drawable.ic_delete)
     itemView.editTextLabel.apply {
-      setText(itemView.textLabel.text.toString())
+      val text = itemView.textLabel.text.toString()
+      setText(text)
+      setSelection(text.length)
       visible()
-      requestFocus()
+      if (requestFocus) {
+        requestFocus()
+      }
     }
     itemView.textLabel.invisible()
   }
@@ -64,8 +101,8 @@ class DefaultLabelViewHolder(
   private fun endEditingMode() {
     itemView.dividerTop.gone()
     itemView.dividerBottom.gone()
-    itemView.imageStart.setImageResource(R.drawable.ic_label)
-    itemView.imageEnd.setImageResource(R.drawable.ic_edit)
+    itemView.imageEdit.setImageResource(R.drawable.ic_label)
+    itemView.imageSave.setImageResource(R.drawable.ic_edit)
     itemView.editTextLabel.apply {
       invisible()
       text.clear()

@@ -3,14 +3,14 @@ package com.arsvechkarev.words.list
 import com.arsvechkarev.core.domain.model.Word
 import com.arsvechkarev.core.extensions.assertThat
 import com.arsvechkarev.core.recyler.DifferentiableItem
-import com.arsvechkarev.core.recyler.ListAdapter
+import com.arsvechkarev.core.recyler.BaseAdapter
 import com.arsvechkarev.core.recyler.delegate
 import com.arsvechkarev.words.R
 import kotlinx.android.synthetic.main.item_word.view.textWord
 
 class WordsListAdapter(
   clickListener: (Word) -> Unit = {}
-) : ListAdapter() {
+) : BaseAdapter() {
   
   init {
     addDelegates(

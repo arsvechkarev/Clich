@@ -4,9 +4,16 @@ import com.arsvechkarev.core.domain.model.Label
 
 interface LabelEditingCallback {
   
-  fun onStartEditing() {}
+  /**
+   * Returns currently editing editing position, or -1 if no item is being edited
+   */
+  fun getCurrentlyEditingLabelPosition(): Int
   
-  fun onSaveLabel(label: Label, newName: String) {}
+  fun onStartEditing(position: Int) {}
   
-  fun onDeletingLabel(label: Label) {}
+  fun onEndEditing(position: Int) {}
+  
+  fun onUpdateLabel(label: Label, newName: String) {}
+  
+  fun onDeleteLabel(label: Label) {}
 }

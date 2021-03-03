@@ -3,7 +3,7 @@ package com.arsvechkarev.info.presentation
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.arsvechkarev.core.BaseViewModel
-import com.arsvechkarev.core.ListenableWordsDataSource
+import com.arsvechkarev.core.datasource.ListenableWordsDataSource
 import com.arsvechkarev.core.domain.dao.WordsLabelsDao
 import com.arsvechkarev.core.domain.model.Label
 import com.arsvechkarev.core.domain.model.Word
@@ -35,7 +35,7 @@ class InfoViewModel @Inject constructor(
   
   fun fetchLabelsForWord(): LiveData<List<Label>>? {
     previousWord ?: return null
-    return wordsLabelsDao.getLabelsForWord(previousWord!!.id!!)
+    return wordsLabelsDao.getLabelsForWordLive(previousWord!!.id!!)
   }
   
   fun addLabel(label: Label) {

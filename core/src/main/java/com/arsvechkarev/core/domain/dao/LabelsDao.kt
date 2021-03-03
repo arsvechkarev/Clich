@@ -21,10 +21,10 @@ interface LabelsDao {
   suspend fun update(label: Label)
   
   @Query("SELECT * FROM labels")
-  fun getAll(): LiveData<List<Label>>
+  fun getAllLive(): LiveData<List<Label>>
   
   @Query("SELECT * FROM labels")
-  suspend fun getAllSuspend(): List<Label>
+  suspend fun getAll(): List<Label>
   
   @Delete
   suspend fun delete(label: Label)

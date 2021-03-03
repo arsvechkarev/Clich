@@ -13,6 +13,10 @@ const val DURATION_LONG = 1000L
 val AccelerateDecelerateInterpolator = AccelerateDecelerateInterpolator()
 
 fun View.animateVisible(andThen: () -> Unit = {}, duration: Long = DURATION_DEFAULT) {
+  if (visibility == View.VISIBLE) {
+    andThen()
+    return
+  }
   alpha = 0f
   visible()
   animate().alpha(1f).setDuration(duration)
@@ -22,6 +26,10 @@ fun View.animateVisible(andThen: () -> Unit = {}, duration: Long = DURATION_DEFA
 }
 
 fun View.animateInvisible(andThen: () -> Unit = {}, duration: Long = DURATION_DEFAULT) {
+  if (visibility == View.INVISIBLE) {
+    andThen()
+    return
+  }
   animate().alpha(0f).setDuration(duration)
     .setInterpolator(AccelerateDecelerateInterpolator)
     .withEndAction {
@@ -32,6 +40,10 @@ fun View.animateInvisible(andThen: () -> Unit = {}, duration: Long = DURATION_DE
 }
 
 fun View.animateGone(andThen: () -> Unit = {}, duration: Long = DURATION_DEFAULT) {
+  if (visibility == View.GONE) {
+    andThen()
+    return
+  }
   animate().alpha(0f).setDuration(duration)
     .setInterpolator(AccelerateDecelerateInterpolator)
     .withEndAction {

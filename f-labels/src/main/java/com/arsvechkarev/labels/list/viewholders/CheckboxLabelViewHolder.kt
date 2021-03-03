@@ -13,15 +13,13 @@ class CheckboxLabelViewHolder(
 ) : RecyclerView.ViewHolder(itemView) {
   
   fun bind(item: Label) {
-    if (mode.alreadySelectedLabels.contains(item)) {
-      itemView.checkbox.isChecked = true
-    }
+    itemView.checkbox.isChecked = mode.callback.isLabelChecked(item)
     itemView.textLabel.text = item.name
     itemView.checkbox.setOnCheckedChangeListener { _, isChecked ->
       if (isChecked) {
-        mode.callback.onLabelSelected(item)
+        mode.callback.onLabelChecked(item)
       } else {
-        mode.callback.onLabelUnselected(item)
+        mode.callback.onLabelUnchecked(item)
       }
     }
   }

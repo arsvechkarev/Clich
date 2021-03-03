@@ -11,7 +11,7 @@ import kotlinx.android.parcel.Parcelize
 data class Label(
   @PrimaryKey(autoGenerate = true)
   override val id: Long? = null,
-  var name: String
+  val name: String
 ) : DifferentiableItem, Comparable<Label>, Parcelable {
   
   override fun compareTo(other: Label): Int {

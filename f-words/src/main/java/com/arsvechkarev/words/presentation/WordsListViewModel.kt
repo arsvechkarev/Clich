@@ -4,8 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.arsvechkarev.core.BaseViewModel
 import com.arsvechkarev.core.DispatcherProvider
-import com.arsvechkarev.core.ListenableWordsDataSource
-import com.arsvechkarev.core.WordsActionsListener
+import com.arsvechkarev.core.datasource.ListenableWordsDataSource
+import com.arsvechkarev.core.datasource.WordsActionsListener
 import com.arsvechkarev.core.di.FeatureScope
 import com.arsvechkarev.core.domain.dao.WordsLabelsDao
 import com.arsvechkarev.core.domain.model.Label
@@ -24,16 +24,16 @@ class WordsListViewModel(
   
   private val proxyListener = object : WordsActionsListener {
     
-    override fun onCreated(word: Word, createdFirstWord: Boolean) {
-      coroutine { actualListener?.onCreated(word, createdFirstWord) }
+    override fun onCreatedWord(word: Word, createdFirstWord: Boolean) {
+      coroutine { actualListener?.onCreatedWord(word, createdFirstWord) }
     }
     
-    override fun onUpdated(word: Word) {
-      coroutine { actualListener?.onUpdated(word) }
+    override fun onUpdatedWord(word: Word) {
+      coroutine { actualListener?.onUpdatedWord(word) }
     }
     
-    override fun onDeleted(word: Word, deletedLastWord: Boolean) {
-      coroutine { actualListener?.onDeleted(word, deletedLastWord) }
+    override fun onDeletedWord(word: Word, deletedLastWord: Boolean) {
+      coroutine { actualListener?.onDeletedWord(word, deletedLastWord) }
     }
   }
   
@@ -62,7 +62,7 @@ class WordsListViewModel(
   
   private fun fetchWordsFor(label: Label) {
     coroutine {
-      val words = wordsLabelsDao.getWordsForLabel(label.id!!)
+      val words = onIoThread { wordsLabelsDao.getWordsForLabel(label.id!!) }
       _state.value = ShowingWordsForLabel(label, words)
     }
   }

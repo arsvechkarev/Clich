@@ -2,9 +2,9 @@ package com.arsvechkarev.labels.list
 
 import com.arsvechkarev.core.domain.model.Label
 import com.arsvechkarev.labels.list.viewholders.CheckboxLabelViewHolder
-import com.arsvechkarev.core.CheckedChangedCallback
 import com.arsvechkarev.labels.list.viewholders.DefaultLabelViewHolder
 import com.arsvechkarev.labels.list.viewholders.SimpleLabelViewHolder
+import com.arsvechkarev.labels.presentation.LabelCheckedCallback
 
 /**
  * Represents mode in which [LabelsAdapter] can work
@@ -18,8 +18,5 @@ sealed class Mode {
   class Simple(val clickListener: (Label) -> Unit) : Mode()
   
   /** @see CheckboxLabelViewHolder */
-  class Checkbox(
-    val alreadySelectedLabels: List<Label>,
-    val callback: CheckedChangedCallback
-  ) : Mode()
+  class Checkbox(val callback: LabelCheckedCallback) : Mode()
 }

@@ -9,7 +9,7 @@ interface Navigator {
   
   fun goToLabelsCheckboxFragment(word: Word?)
   
-  fun goToInfoFragment(word: Word?)
+  fun goToInfoFragment(word: Word? = null)
   
   /**
    * Goes to a [fragment] from root layout

@@ -5,7 +5,7 @@
   android:layout_height="wrap_content">
 
   <ImageView
-    android:id="@+id/imageStart"
+    android:id="@+id/imageEdit"
     android:layout_width="@dimen/item_label_image_size"
     android:layout_height="@dimen/item_label_image_size"
     android:layout_margin="@dimen/item_label_m_top_bottom"
@@ -25,7 +25,7 @@
     android:textColor="?colorTextPrimary"
     android:textSize="@dimen/text_h4"
     app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintStart_toEndOf="@id/imageStart"
+    app:layout_constraintStart_toEndOf="@id/imageEdit"
     app:layout_constraintTop_toTopOf="parent"/>
 
   <com.google.android.material.checkbox.MaterialCheckBox

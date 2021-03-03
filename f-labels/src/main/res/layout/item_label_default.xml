@@ -13,7 +13,7 @@
     app:layout_constraintTop_toTopOf="parent"/>
 
   <ImageView
-    android:id="@+id/imageStart"
+    android:id="@+id/imageEdit"
     android:layout_width="@dimen/item_label_image_size"
     android:layout_height="@dimen/item_label_image_size"
     android:layout_margin="12dp"
@@ -37,8 +37,8 @@
     android:textSize="@dimen/text_h4"
     android:visibility="invisible"
     app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toStartOf="@id/imageEnd"
-    app:layout_constraintStart_toEndOf="@id/imageStart"
+    app:layout_constraintEnd_toStartOf="@id/imageSave"
+    app:layout_constraintStart_toEndOf="@id/imageEdit"
     app:layout_constraintTop_toTopOf="parent"/>
 
   <TextView
@@ -53,12 +53,12 @@
     android:textColor="?colorTextPrimary"
     android:textSize="@dimen/text_h4"
     app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toStartOf="@id/imageEnd"
-    app:layout_constraintStart_toEndOf="@id/imageStart"
+    app:layout_constraintEnd_toStartOf="@id/imageSave"
+    app:layout_constraintStart_toEndOf="@id/imageEdit"
     app:layout_constraintTop_toTopOf="parent"/>
 
   <ImageView
-    android:id="@+id/imageEnd"
+    android:id="@+id/imageSave"
     android:layout_width="@dimen/item_label_image_size"
     android:layout_height="@dimen/item_label_image_size"
     android:layout_margin="12dp"

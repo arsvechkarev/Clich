@@ -6,12 +6,13 @@ import androidx.annotation.StringRes
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.arsvechkarev.core.BaseFragment
 import com.arsvechkarev.core.ClichApplication
-import com.arsvechkarev.core.WordsActionsListener
+import com.arsvechkarev.core.datasource.WordsActionsListener
 import com.arsvechkarev.core.domain.model.Label
 import com.arsvechkarev.core.domain.model.Word
 import com.arsvechkarev.core.extensions.animateGone
 import com.arsvechkarev.core.extensions.animateVisible
 import com.arsvechkarev.core.extensions.gone
+import com.arsvechkarev.core.extensions.invisible
 import com.arsvechkarev.core.extensions.visible
 import com.arsvechkarev.core.navigator
 import com.arsvechkarev.info.di.DaggerWordsListComponent
@@ -20,9 +21,9 @@ import com.arsvechkarev.words.list.WordsListAdapter
 import com.arsvechkarev.words.presentation.WordsListState.ShowingWords
 import com.arsvechkarev.words.presentation.WordsListState.ShowingWordsForLabel
 import kotlinx.android.synthetic.main.fragment_words_list.wordsFabNewWord
-import kotlinx.android.synthetic.main.fragment_words_list.wordsLayoutNoWords
-import kotlinx.android.synthetic.main.fragment_words_list.wordsRecycler
-import kotlinx.android.synthetic.main.fragment_words_list.wordsTextLoading
+import kotlinx.android.synthetic.main.fragment_words_list.wordsListLayout
+import kotlinx.android.synthetic.main.fragment_words_list.wordsListRecycler
+import kotlinx.android.synthetic.main.fragment_words_list.wordsListTextNoWords
 import javax.inject.Inject
 
 class WordsListFragment : BaseFragment(), WordsActionsListener {
@@ -39,29 +40,29 @@ class WordsListFragment : BaseFragment(), WordsActionsListener {
       .onWordClick { word -> onWordClick(word) }
       .build()
       .inject(this)
-    setupViews()
     val label = arguments?.getParcelable<Label>(LABEL)
-    viewModel.state.observe(this) { handleState(it) }
+    setupViews(label == null)
+    viewModel.state.observe(this, this::handleState)
     viewModel.addWordsActionsListener(this)
     viewModel.initialize(label)
   }
   
-  override fun onCreated(word: Word, createdFirstWord: Boolean) {
+  override fun onCreatedWord(word: Word, createdFirstWord: Boolean) {
     if (createdFirstWord) {
-      wordsLayoutNoWords.animateGone()
-      wordsRecycler.animateVisible()
+      wordsListLayout.animateGone()
+      wordsListRecycler.animateVisible()
     }
     adapter.addWord(word)
   }
   
-  override fun onUpdated(word: Word) {
+  override fun onUpdatedWord(word: Word) {
     adapter.updateWord(word)
   }
   
-  override fun onDeleted(word: Word, deletedLastWord: Boolean) {
+  override fun onDeletedWord(word: Word, deletedLastWord: Boolean) {
     if (deletedLastWord) {
-      wordsLayoutNoWords.animateVisible()
-      wordsRecycler.animateGone()
+      wordsListLayout.animateVisible()
+      wordsListRecycler.animateGone()
     }
     adapter.deleteWord(word)
   }
@@ -75,13 +76,13 @@ class WordsListFragment : BaseFragment(), WordsActionsListener {
   
   private fun handleList(words: List<Word>, @StringRes emptyTextRes: Int) {
     if (words.isEmpty()) {
-      wordsTextLoading.setText(emptyTextRes)
-      wordsLayoutNoWords.visible()
-      wordsRecycler.gone()
+      wordsListTextNoWords.setText(emptyTextRes)
+      wordsListLayout.visible()
+      wordsListRecycler.gone()
     } else {
-      adapter.submitList(words)
-      wordsLayoutNoWords.gone()
-      wordsRecycler.visible()
+      adapter.changeListWithoutAnimation(words)
+      wordsListLayout.gone()
+      wordsListRecycler.visible()
     }
   }
   
@@ -89,15 +90,17 @@ class WordsListFragment : BaseFragment(), WordsActionsListener {
     navigator.goToInfoFragment(word)
   }
   
-  private fun setupViews() {
-    wordsRecycler.layoutManager = LinearLayoutManager(context).apply {
+  private fun setupViews(showNewWordButton: Boolean) {
+    if (showNewWordButton) {
+      wordsFabNewWord.setOnClickListener { navigator.goToInfoFragment() }
+    } else {
+      wordsFabNewWord.invisible()
+    }
+    wordsListRecycler.layoutManager = LinearLayoutManager(context).apply {
       stackFromEnd = true
       reverseLayout = true
     }
-    wordsRecycler.adapter = adapter
-    wordsFabNewWord.setOnClickListener {
-      navigator.goToInfoFragment(null)
-    }
+    wordsListRecycler.adapter = adapter
   }
   
   companion object {

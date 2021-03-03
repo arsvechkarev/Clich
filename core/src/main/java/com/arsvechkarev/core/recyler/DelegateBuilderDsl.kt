@@ -4,14 +4,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import com.arsvechkarev.core.extensions.inflate
-import com.arsvechkarev.vault.recycler.ListAdapterDelegate
 import kotlin.reflect.KClass
 
 inline fun <reified T : DifferentiableItem> delegate(
   block: DelegateBuilder<T>.() -> Unit
-): DslListAdapterDelegate<T> {
+): DslAdapterDelegate<T> {
   val builder = DelegateBuilder<T>().apply(block)
-  return DslListAdapterDelegate(T::class, builder)
+  return DslAdapterDelegate(T::class, builder)
 }
 
 open class DelegateBuilder<T> {
@@ -56,10 +55,10 @@ open class DelegateBuilder<T> {
   }
 }
 
-class DslListAdapterDelegate<T : DifferentiableItem>(
+class DslAdapterDelegate<T : DifferentiableItem>(
   klass: KClass<T>,
   private val delegateBuilder: DelegateBuilder<T>
-) : ListAdapterDelegate<T>(klass) {
+) : AdapterDelegate<T>(klass) {
   
   override fun onCreateViewHolder(parent: ViewGroup): DelegateViewHolder<T> {
     return delegateBuilder.createViewHolder(parent)

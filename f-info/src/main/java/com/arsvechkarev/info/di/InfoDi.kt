@@ -3,7 +3,7 @@ package com.arsvechkarev.info.di
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
-import com.arsvechkarev.core.ListenableWordsDataSource
+import com.arsvechkarev.core.datasource.ListenableWordsDataSource
 import com.arsvechkarev.core.di.CoreComponent
 import com.arsvechkarev.core.di.FeatureScope
 import com.arsvechkarev.core.domain.dao.WordsLabelsDao

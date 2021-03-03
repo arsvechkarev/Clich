@@ -62,7 +62,7 @@ class SearchFragment : BaseFragment() {
   }
   
   private fun onWordClicked(word: Word) {
-    hideKeyboard(searchEditText)
+    hideKeyboard()
     navigator.goToFragment(InfoFragment.of(word), InfoFragment::class, true)
   }
   
@@ -70,7 +70,7 @@ class SearchFragment : BaseFragment() {
     searchEditText.onTextChanged { text -> viewModel.onSearchTextEntered(text) }
     recyclerFoundWords.setupWith(adapter)
     imageBack.setOnClickListener {
-      hideKeyboard(searchEditText)
+      hideKeyboard()
       popBackStack()
     }
     navigator.subscribeOnBackStackChanges(this)

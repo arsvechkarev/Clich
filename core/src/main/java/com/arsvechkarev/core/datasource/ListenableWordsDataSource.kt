@@ -1,5 +1,6 @@
-package com.arsvechkarev.core
+package com.arsvechkarev.core.datasource
 
+import com.arsvechkarev.core.DispatcherProvider
 import com.arsvechkarev.core.domain.dao.WordsDao
 import com.arsvechkarev.core.domain.model.Word
 import kotlinx.coroutines.withContext
@@ -32,20 +33,20 @@ class ListenableWordsDataSource @Inject constructor(
     val id = wordsDao.create(word)
     val newWord = word.copy(id = id)
     listeners.forEach { listener ->
-      listener.onCreated(newWord, createdFirstWord = wordsDao.getWordsCount() == 1)
+      listener.onCreatedWord(newWord, createdFirstWord = wordsDao.getWordsCount() == 1)
     }
     return@withContext id
   }
   
   suspend fun updateWord(word: Word) = withContext(dispatcherProvider.IO) {
     wordsDao.update(word)
-    listeners.forEach { it.onUpdated(word) }
+    listeners.forEach { it.onUpdatedWord(word) }
   }
   
   suspend fun deleteWord(word: Word) = withContext(dispatcherProvider.IO) {
     wordsDao.delete(word)
     listeners.forEach { listener ->
-      listener.onDeleted(word, deletedLastWord = wordsDao.getWordsCount() == 0)
+      listener.onDeletedWord(word, deletedLastWord = wordsDao.getWordsCount() == 0)
     }
   }
 }

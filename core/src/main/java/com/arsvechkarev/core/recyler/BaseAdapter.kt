@@ -1,55 +1,29 @@
 package com.arsvechkarev.core.recyler
 
-import android.os.Handler
-import android.os.Looper
 import android.view.ViewGroup
 import androidx.collection.SparseArrayCompat
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.arsvechkarev.core.recyler.CallbackType.ALWAYS_FALSE
-import com.arsvechkarev.core.recyler.CallbackType.APPENDED_LIST
-import com.arsvechkarev.core.recyler.CallbackType.TWO_LISTS
-import com.arsvechkarev.vault.recycler.ListAdapterDelegate
-import java.util.concurrent.Executors
 import kotlin.reflect.KClass
 
-abstract class ListAdapter : RecyclerView.Adapter<ViewHolder>() {
-  
-  private val backgroundExecutor = Executors.newSingleThreadExecutor()
-  private val handler = Handler(Looper.getMainLooper())
+abstract class BaseAdapter : RecyclerView.Adapter<ViewHolder>() {
   
   private val classesToViewTypes = HashMap<KClass<*>, Int>()
-  private val delegates = ArrayList<ListAdapterDelegate<out DifferentiableItem>>()
+  private val delegates = ArrayList<AdapterDelegate<out DisplayableItem>>()
   private val delegatesSparseArray =
-    SparseArrayCompat<ListAdapterDelegate<out DifferentiableItem>>()
+    SparseArrayCompat<AdapterDelegate<out DisplayableItem>>()
   
-  protected var data: List<DifferentiableItem> = ArrayList()
+  protected var data: List<DisplayableItem> = ArrayList()
   
   protected var recyclerView: RecyclerView? = null
     private set
   
-  fun changeListWithoutAnimation(list: List<DifferentiableItem>) {
+  fun changeListWithoutAnimation(list: List<DisplayableItem>) {
     data = ArrayList(list)
     notifyDataSetChanged()
   }
   
-  fun submitList(list: List<DifferentiableItem>, callbackType: CallbackType = TWO_LISTS) {
-    val callback = when (callbackType) {
-      APPENDED_LIST -> AppendedListDiffCallbacks(list, data.size)
-      TWO_LISTS -> TwoListsDiffCallBack(data, list)
-      ALWAYS_FALSE -> AlwaysFalseCallback(data, list)
-    }
-    backgroundExecutor.submit {
-      val diffResult = DiffUtil.calculateDiff(callback, false)
-      handler.post {
-        diffResult.dispatchUpdatesTo(this@ListAdapter)
-        data = list
-      }
-    }
-  }
-  
-  protected fun addDelegates(vararg delegates: ListAdapterDelegate<out DifferentiableItem>) {
+  protected fun addDelegates(vararg delegates: AdapterDelegate<out DisplayableItem>) {
     this.delegates.addAll(delegates)
     delegates.forEachIndexed { i, delegate ->
       classesToViewTypes[delegate.modelClass] = i

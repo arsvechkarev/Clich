@@ -41,11 +41,9 @@ class CreateLabelDialog : DialogFragment() {
     val buttonCreate = view.findViewById<Button>(R.id.buttonCreate)
     buttonCreate.isEnabled = false
     editTextLabelName = view.findViewById(R.id.editTextLabelName)
-    editTextLabelName.onTextChanged {
-      buttonCreate.isEnabled = !it.isBlank()
-    }
+    editTextLabelName.onTextChanged { buttonCreate.isEnabled = it.isNotBlank() }
     buttonCreate.setOnClickListener {
-      callback.onLabelCreated(editTextLabelName.string())
+      callback.onLabelNameEntered(editTextLabelName.string())
       dismiss()
     }
     return AlertDialog.Builder(activity!!)
@@ -61,6 +59,6 @@ class CreateLabelDialog : DialogFragment() {
   
   interface Callback {
     
-    fun onLabelCreated(labelName: String)
+    fun onLabelNameEntered(labelName: String)
   }
 }

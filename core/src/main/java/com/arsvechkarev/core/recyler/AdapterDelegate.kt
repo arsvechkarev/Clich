@@ -1,14 +1,12 @@
-package com.arsvechkarev.vault.recycler
+package com.arsvechkarev.core.recyler
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.arsvechkarev.core.recyler.DelegateViewHolder
-import com.arsvechkarev.core.recyler.DifferentiableItem
 import kotlin.reflect.KClass
 
-abstract class ListAdapterDelegate<T : DifferentiableItem>(val modelClass: KClass<T>) {
+abstract class AdapterDelegate<T : DisplayableItem>(val modelClass: KClass<T>) {
   
-  internal fun onBindViewHolderRaw(holder: RecyclerView.ViewHolder, item: DifferentiableItem) {
+  internal fun onBindViewHolderRaw(holder: RecyclerView.ViewHolder, item: DisplayableItem) {
     onBindViewHolder(holder as DelegateViewHolder<T>, item as T)
   }
   

@@ -10,6 +10,7 @@ import com.arsvechkarev.core.domain.model.Label
 import com.arsvechkarev.core.domain.model.Word
 import com.arsvechkarev.core.extensions.gone
 import com.arsvechkarev.core.extensions.popBackStack
+import com.arsvechkarev.core.extensions.showKeyboard
 import com.arsvechkarev.core.extensions.string
 import com.arsvechkarev.core.extensions.visible
 import com.arsvechkarev.core.navigator
@@ -71,7 +72,8 @@ class InfoFragment : BaseFragment() {
         setExistingWord(state.word)
       }
       NewWordState -> {
-      
+        editTextWord.requestFocus()
+        showKeyboard()
       }
       is OnAddLabelsClicked -> {
         navigator.goToLabelsCheckboxFragment(state.word)
