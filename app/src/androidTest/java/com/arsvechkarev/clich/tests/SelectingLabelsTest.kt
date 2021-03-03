@@ -11,7 +11,7 @@ import com.arsvechkarev.clich.screens.WordInfoScreen.WordInfoScreenItem
 import com.arsvechkarev.clich.screens.WordsListScreen
 import com.arsvechkarev.clich.screens.WordsListScreen.WordsListScreenItemWord
 import com.arsvechkarev.core.domain.dao.create
-import com.arsvechkarev.testui.DatabaseHelp
+import com.arsvechkarev.testui.BaseTest
 import com.arsvechkarev.testui.DatabaseRule
 import com.arsvechkarev.testui.doAndWait
 import org.junit.FixMethodOrder
@@ -20,30 +20,37 @@ import org.junit.Test
 import org.junit.rules.RuleChain
 import org.junit.runner.RunWith
 import org.junit.runners.MethodSorters
+import java.lang.Thread.sleep
 
 @RunWith(AndroidJUnit4ClassRunner::class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-class SelectingLabelsTest : DatabaseHelp {
+class SelectingLabelsTest : BaseTest {
+  
+  private val rule = object : ActivityTestRule<MainActivity>(MainActivity::class.java) {
+    
+    override fun beforeActivityLaunched() {
+      doAndWait(1000) {
+        labelsDao.create("Animals")
+        labelsDao.create("Pets")
+        labelsDao.create("House")
+        labelsDao.create("Other")
+        wordsDao.create("cat", "an animal")
+      }
+    }
+  }
   
   @get:Rule
-  val chain: RuleChain = RuleChain.outerRule(ActivityTestRule(MainActivity::class.java))
-    .around(DatabaseRule())
+  val chain: RuleChain = RuleChain.outerRule(rule).around(DatabaseRule())
   
   @Test
   fun test1_Adding_labels_to_word() {
-    doAndWait(500) {
-      labels.create("Animals")
-      labels.create("Pets")
-      labels.create("House")
-      labels.create("Other")
-      
-      words.create("cat", "an animal")
-    }
-    
     onScreen<WordsListScreen> {
       recyclerWords {
-        hasSize(2)
-        childWith<WordsListScreenItemWord> { withDescendant { withText("cat") } } perform { click() }
+        hasSize(1)
+        firstChild<WordsListScreenItemWord> {
+          hasSibling { withText("cat") }
+          click()
+        }
       }
     }
     
@@ -55,6 +62,14 @@ class SelectingLabelsTest : DatabaseHelp {
     onScreen<LabelsCheckBoxScreen> {
       recyclerLabels {
         hasSize(4)
+        sleep(500)
+        // [Start Workaround]
+        // Clicking on label, because otherwise test doesn't work
+        // (Manual clicking works fine)
+        childWith<LabelsCheckBoxScreenItem> { withDescendant { withText("House") } } perform {
+          checkbox.click()
+        }
+        // [End Workaround]
         childWith<LabelsCheckBoxScreenItem> { withDescendant { withText("Animals") } } perform {
           checkbox.click()
         }
@@ -62,9 +77,10 @@ class SelectingLabelsTest : DatabaseHelp {
           checkbox.click()
         }
       }
-      
       pressBack()
     }
+    
+    sleep(1000)
     
     onScreen<WordInfoScreen> {
       recyclerWordsLabels {
@@ -72,10 +88,10 @@ class SelectingLabelsTest : DatabaseHelp {
         childWith<WordInfoScreenItem> { withDescendant { withText("Animals") } } perform { isVisible() }
         childWith<WordInfoScreenItem> { withDescendant { withText("Pets") } } perform { isVisible() }
       }
-  
+      
       buttonAddLabels.click()
     }
-  
+    
     onScreen<LabelsCheckBoxScreen> {
       recyclerLabels {
         childWith<LabelsCheckBoxScreenItem> { withDescendant { withText("Animals") } } perform {
@@ -97,10 +113,10 @@ class SelectingLabelsTest : DatabaseHelp {
           checkbox.isNotChecked()
         }
       }
-    
+      
       pressBack()
     }
-  
+    
     onScreen<WordInfoScreen> {
       recyclerWordsLabels { hasSize(0) }
     }

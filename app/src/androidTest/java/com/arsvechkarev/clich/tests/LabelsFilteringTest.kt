@@ -7,12 +7,13 @@ import com.arsvechkarev.clich.presentation.MainActivity
 import com.arsvechkarev.clich.screens.DrawerScreen
 import com.arsvechkarev.clich.screens.DrawerScreen.DrawerScreenItem
 import com.arsvechkarev.clich.screens.MainScreen
+import com.arsvechkarev.clich.screens.SearchScreen.SearchScreenItem
 import com.arsvechkarev.clich.screens.WordInfoScreen
 import com.arsvechkarev.clich.screens.WordInfoScreen.WordInfoScreenItem
 import com.arsvechkarev.clich.screens.WordsListScreen
 import com.arsvechkarev.clich.screens.WordsListScreen.WordsListScreenItemWord
-import com.arsvechkarev.core.CentralDatabase
 import com.arsvechkarev.core.domain.dao.create
+import com.arsvechkarev.testui.BaseTest
 import com.arsvechkarev.testui.DatabaseRule
 import com.arsvechkarev.testui.doAndWait
 import com.arsvechkarev.testui.isVisibleAndHasText
@@ -28,46 +29,53 @@ import org.junit.runners.MethodSorters
 @ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4ClassRunner::class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-class LabelsFilteringTest {
+class LabelsFilteringTest : BaseTest {
   
-  private val database = CentralDatabase.instance
+  private val rule = object : ActivityTestRule<MainActivity>(MainActivity::class.java) {
+    
+    override fun beforeActivityLaunched() {
+      
+      doAndWait(2000) {
+        val labelIronManId = labelsDao.create("Iron Man")
+        val labelAnimalsId = labelsDao.create("Animals")
+        
+        val wordIronId = wordsDao.create("iron")
+        val wordSuitId = wordsDao.create("suit")
+        
+        val wordBearId = wordsDao.create("bear")
+        val wordFoxId = wordsDao.create("fox")
+        val wordBirdId = wordsDao.create("bird")
+        
+        wordsDao.create("other stuff")
+        
+        wordsLabelsDao.create(wordIronId, labelIronManId)
+        wordsLabelsDao.create(wordSuitId, labelIronManId)
+        
+        wordsLabelsDao.create(wordBearId, labelAnimalsId)
+        wordsLabelsDao.create(wordFoxId, labelAnimalsId)
+        wordsLabelsDao.create(wordBirdId, labelAnimalsId)
+      }
+    }
+  }
   
   @get:Rule
-  val chain: RuleChain = RuleChain.outerRule(ActivityTestRule(MainActivity::class.java))
-    .around(DatabaseRule())
+  val chain: RuleChain = RuleChain.outerRule(rule).around(DatabaseRule())
   
   @Test
   fun test1_Filtering() {
-    doAndWait(1000) {
-      val labelIronManId = database.labelsDao().create("Iron Man")
-      val labelAnimalsId = database.labelsDao().create("Animals")
-      
-      val wordIronId = database.wordsDao().create("iron")
-      val wordSuitId = database.wordsDao().create("suit")
-      
-      val wordBearId = database.wordsDao().create("bear")
-      val wordFoxId = database.wordsDao().create("fox")
-      val wordBirdId = database.wordsDao().create("bird")
-      
-      database.wordsDao().create("other stuff")
-      
-      database.wordsLabelsDao().create(wordIronId, labelIronManId)
-      database.wordsLabelsDao().create(wordSuitId, labelIronManId)
-      
-      database.wordsLabelsDao().create(wordBearId, labelAnimalsId)
-      database.wordsLabelsDao().create(wordFoxId, labelAnimalsId)
-      database.wordsLabelsDao().create(wordBirdId, labelAnimalsId)
-    }
     
     onScreen<WordsListScreen> {
-      recyclerWords.hasSize(6 + 1)
+      recyclerWords.hasSize(6)
       screen<MainScreen>().drawer.open()
       
       // Clicking iron man label
       onScreen<DrawerScreen> {
         recyclerDrawerLabels {
           hasSize(2)
-          childWith<DrawerScreenItem> { withDescendant { withText("Iron Man") } } perform { click() }
+          childAt<DrawerScreenItem>(0) {
+            hasDescendant { withText("Iron Man") }
+            click()
+          }
         }
       }
       
@@ -78,16 +86,11 @@ class LabelsFilteringTest {
       
       recyclerWords {
         hasSize(2)
-        childWith<WordsListScreenItemWord> { withDescendant { withText("suit") } } perform {
-          isVisible()
-        }
-        childWith<WordsListScreenItemWord> { withDescendant { withText("iron") } } perform {
-          isVisible()
-        }
+        childAt<WordsListScreenItemWord>(0) { hasSibling { withText("iron") } }
+        childAt<WordsListScreenItemWord>(1) { hasSibling { withText("suit") } }
       }
       
       pressBack()
-      
       
       onScreen<MainScreen> {
         textLabelName.isNotDisplayed()
@@ -95,7 +98,7 @@ class LabelsFilteringTest {
       }
       
       recyclerWords {
-        hasSize(6 + 1)
+        hasSize(6)
       }
       
       screen<MainScreen>().drawer.open()
@@ -109,12 +112,19 @@ class LabelsFilteringTest {
       
       recyclerWords {
         hasSize(3)
-        childWith<WordsListScreenItemWord> { withDescendant { withText("fox") } } perform { isVisible() }
-        childWith<WordsListScreenItemWord> { withDescendant { withText("bird") } } perform { isVisible() }
-        childWith<WordsListScreenItemWord> { withDescendant { withText("bear") } } perform {
-          isVisible()
+        childWith<WordsListScreenItemWord> { containsText("bird") }
+        childWith<WordsListScreenItemWord> { containsText("fox") }
+        childWith<WordsListScreenItemWord> {
+          containsText("bear")
+        } perform {
           click()
         }
+//        childWith<WordsListScreenItemWord> { withSibling { withText("bird") } } perform { isVisible() }
+//        childWith<WordsListScreenItemWord> { withSibling { withText("fox") } } perform { isVisible() }
+//        childWith<WordsListScreenItemWord> { withSibling { withText("bear") } } perform {
+//          isVisible()
+//          click()
+//        }
       }
       
       onScreen<WordInfoScreen> {
@@ -130,14 +140,14 @@ class LabelsFilteringTest {
       
       recyclerWords {
         hasSize(3)
-        childWith<WordsListScreenItemWord> { withDescendant { withText("fox") } } perform { isVisible() }
-        childWith<WordsListScreenItemWord> { withDescendant { withText("bird") } } perform { isVisible() }
-        childWith<WordsListScreenItemWord> { withDescendant { withText("bear") } } perform { isVisible() }
+        childAt<WordsListScreenItemWord>(0) { hasSibling { withText("bird") } }
+        childAt<WordsListScreenItemWord>(1) { hasSibling { withText("fox") } }
+        childAt<WordsListScreenItemWord>(2) { hasSibling { withText("bear") } }
       }
       
       pressBack()
       
-      recyclerWords.hasSize(6 + 1)
+      recyclerWords.hasSize(6)
     }
   }
 }

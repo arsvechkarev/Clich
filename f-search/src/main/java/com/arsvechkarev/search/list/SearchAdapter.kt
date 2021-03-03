@@ -3,12 +3,12 @@ package com.arsvechkarev.search.list
 import android.text.Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
+import android.widget.TextView
 import android.widget.TextView.BufferType.SPANNABLE
 import com.arsvechkarev.core.domain.model.Word
 import com.arsvechkarev.core.recyler.BaseAdapter
 import com.arsvechkarev.core.recyler.delegate
 import com.arsvechkarev.search.R
-import kotlinx.android.synthetic.main.item_word.view.textWord
 
 class SearchAdapter(
   private val clickListener: (Word) -> Unit = {}
@@ -29,11 +29,12 @@ class SearchAdapter(
           itemView.setOnClickListener { clickListener(item) }
         }
         onBind {
+          val textWord = itemView as TextView
           val searchedText = searchedText
           if (searchedText != null) {
             val startIndex = item.name.indexOf(searchedText, ignoreCase = true)
             if (startIndex == -1) {
-              itemView.textWord.text = item.name
+              textWord.text = item.name
               return@onBind
             }
             val endIndex = startIndex + searchedText.length
@@ -44,9 +45,9 @@ class SearchAdapter(
               endIndex,
               SPAN_EXCLUSIVE_EXCLUSIVE
             )
-            itemView.textWord.setText(spannable, SPANNABLE)
+            textWord.setText(spannable, SPANNABLE)
           } else {
-            itemView.textWord.text = item.name
+            textWord.text = item.name
           }
         }
       }

@@ -6,7 +6,6 @@ import com.agoda.kakao.edit.KEditText
 import com.agoda.kakao.recycler.KRecyclerItem
 import com.agoda.kakao.recycler.KRecyclerView
 import com.agoda.kakao.screen.Screen
-import com.agoda.kakao.text.KTextView
 import com.arsvechkarev.clich.R
 import org.hamcrest.Matcher
 
@@ -20,8 +19,5 @@ class SearchScreen : Screen<SearchScreen>() {
     itemTypeBuilder = { itemType(SearchScreen::SearchScreenItem) }
   )
   
-  class SearchScreenItem(parent: Matcher<View>) : KRecyclerItem<SearchScreenItem>(parent) {
-    val textWord = KTextView(parent) { withId(R.id.textWord) }
-  }
-  
+  class SearchScreenItem(parent: Matcher<View>) : KRecyclerItem<SearchScreenItem>(parent)
 }

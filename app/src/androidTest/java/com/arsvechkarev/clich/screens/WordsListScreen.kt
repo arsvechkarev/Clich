@@ -6,31 +6,19 @@ import com.agoda.kakao.recycler.KRecyclerItem
 import com.agoda.kakao.recycler.KRecyclerView
 import com.agoda.kakao.screen.Screen
 import com.agoda.kakao.text.KButton
-import com.agoda.kakao.text.KTextView
 import com.arsvechkarev.clich.R
 import org.hamcrest.Matcher
 
 class WordsListScreen : Screen<WordsListScreen>() {
   
   val fabNewWord = KButton { withId(R.id.wordsFabNewWord) }
-  val layoutStub = KView { withId(R.id.wordsListLayout) }
+  val layoutNoWords = KView { withId(R.id.wordsListLayoutNoWords) }
   
   val recyclerWords = KRecyclerView(
     builder = { withId(R.id.wordsListRecycler) },
-    itemTypeBuilder = {
-      itemType(WordsListScreen::WordsListScreenItemWord)
-      itemType(WordsListScreen::WordsListScreenItemTimeDivider)
-    }
+    itemTypeBuilder = { itemType(WordsListScreen::WordsListScreenItemWord) }
   )
   
   class WordsListScreenItemWord(parent: Matcher<View>) :
-    KRecyclerItem<WordsListScreenItemWord>(parent) {
-    val textWord = KTextView(parent) { withId(R.id.textWord) }
-  }
-  
-  class WordsListScreenItemTimeDivider(parent: Matcher<View>) :
-    KRecyclerItem<WordsListScreenItemTimeDivider>(parent) {
-    val textDate = KTextView(parent) { withId(R.id.textDate) }
-  }
-  
+    KRecyclerItem<WordsListScreenItemWord>(parent)
 }

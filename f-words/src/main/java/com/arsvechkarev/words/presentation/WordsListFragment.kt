@@ -2,7 +2,6 @@ package com.arsvechkarev.words.presentation
 
 import android.os.Bundle
 import android.view.View
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.arsvechkarev.core.BaseFragment
 import com.arsvechkarev.core.ClichApplication
 import com.arsvechkarev.core.WordsActionsListener
@@ -17,7 +16,7 @@ import com.arsvechkarev.info.di.DaggerWordsComponent
 import com.arsvechkarev.words.R
 import com.arsvechkarev.words.list.WordsListAdapter
 import kotlinx.android.synthetic.main.fragment_words_list.wordsFabNewWord
-import kotlinx.android.synthetic.main.fragment_words_list.wordsListLayout
+import kotlinx.android.synthetic.main.fragment_words_list.wordsListLayoutNoWords
 import kotlinx.android.synthetic.main.fragment_words_list.wordsListRecycler
 import kotlinx.android.synthetic.main.fragment_words_list.wordsListTextNoWords
 import javax.inject.Inject
@@ -44,7 +43,7 @@ class WordsListFragment : BaseFragment(), WordsActionsListener {
   
   override fun onCreatedWord(word: Word, createdFirstWord: Boolean) {
     if (createdFirstWord) {
-      wordsListLayout.animateGone()
+      wordsListLayoutNoWords.animateGone()
       wordsListRecycler.animateVisible()
     }
     adapter.addWord(word)
@@ -56,7 +55,7 @@ class WordsListFragment : BaseFragment(), WordsActionsListener {
   
   override fun onDeletedWord(word: Word, deletedLastWord: Boolean) {
     if (deletedLastWord) {
-      wordsListLayout.animateVisible()
+      wordsListLayoutNoWords.animateVisible()
       wordsListRecycler.animateGone()
     }
     adapter.deleteWord(word)
@@ -65,11 +64,11 @@ class WordsListFragment : BaseFragment(), WordsActionsListener {
   private fun handleWords(words: List<Word>) {
     if (words.isNotEmpty()) {
       adapter.changeListWithoutAnimation(words)
-      wordsListLayout.gone()
+      wordsListLayoutNoWords.gone()
       wordsListRecycler.visible()
     } else {
       wordsListTextNoWords.setText(R.string.text_no_words_yet)
-      wordsListLayout.visible()
+      wordsListLayoutNoWords.visible()
       wordsListRecycler.gone()
     }
   }

@@ -15,7 +15,7 @@ import com.arsvechkarev.info.di.DaggerWordsComponent
 import com.arsvechkarev.words.R
 import com.arsvechkarev.words.list.WordsListAdapter
 import kotlinx.android.synthetic.main.fragment_words_list.wordsFabNewWord
-import kotlinx.android.synthetic.main.fragment_words_list.wordsListLayout
+import kotlinx.android.synthetic.main.fragment_words_list.wordsListLayoutNoWords
 import kotlinx.android.synthetic.main.fragment_words_list.wordsListRecycler
 import kotlinx.android.synthetic.main.fragment_words_list.wordsListTextNoWords
 import javax.inject.Inject
@@ -44,11 +44,11 @@ class WordsForLabelFragment : BaseFragment() {
   private fun handleWordsForLabel(words: List<Word>) {
     if (words.isEmpty()) {
       wordsListTextNoWords.setText(R.string.text_empty_labels)
-      wordsListLayout.animateVisible()
+      wordsListLayoutNoWords.animateVisible()
       wordsListRecycler.animateGone()
     } else {
       adapter.changeListWithoutAnimation(words)
-      wordsListLayout.animateGone()
+      wordsListLayoutNoWords.animateGone()
       wordsListRecycler.animateVisible()
     }
   }
