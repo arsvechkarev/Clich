@@ -1,6 +1,5 @@
-package com.arsvechkarev.core.datasource
+package com.arsvechkarev.core
 
-import com.arsvechkarev.core.DispatcherProvider
 import com.arsvechkarev.core.domain.dao.WordsDao
 import com.arsvechkarev.core.domain.model.Word
 import kotlinx.coroutines.withContext
@@ -22,7 +21,7 @@ class ListenableWordsDataSource @Inject constructor(
   }
   
   suspend fun getAllWords(): List<Word> = withContext(dispatcherProvider.IO) {
-    return@withContext wordsDao.getAllWords()
+    return@withContext wordsDao.getAllWords().applyAllWordsSorting()
   }
   
   suspend fun searchWords(input: String): List<Word> = withContext(dispatcherProvider.IO) {

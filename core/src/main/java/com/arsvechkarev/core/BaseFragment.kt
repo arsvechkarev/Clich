@@ -22,11 +22,6 @@ abstract class BaseFragment : Fragment() {
   }
   
   /**
-   * Invokes with every change in back stack. Do not forget to invoke [Navigator.subscribeOnBackStackChanges]
-   */
-  open fun onBackStackUpdate() {}
-  
-  /**
    * Invokes when user clicks back button. Returns true if was handled, false otherwise
    */
   open fun onBackPressed(): Boolean {

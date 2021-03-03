@@ -3,18 +3,19 @@ package com.arsvechkarev.labels.presentation
 import android.os.Bundle
 import android.view.View
 import com.arsvechkarev.core.BaseFragment
-import com.arsvechkarev.core.ClichApplication
 import com.arsvechkarev.core.domain.model.Label
-import com.arsvechkarev.core.domain.model.Word
 import com.arsvechkarev.core.extensions.gone
 import com.arsvechkarev.core.extensions.popBackStack
 import com.arsvechkarev.core.extensions.setupWith
 import com.arsvechkarev.core.extensions.visible
+import com.arsvechkarev.featurecommon.LabelsWithCheckboxState
+import com.arsvechkarev.featurecommon.LabelsWithCheckboxState.ShowingLabelsWithCheckbox
+import com.arsvechkarev.featurecommon.LabelsWithCheckboxState.ShowingNoLabelsWithCheckbox
+import com.arsvechkarev.featurecommon.WordInfoComponentHolder.wordInfoComponent
+import com.arsvechkarev.featurecommon.WordInfoViewModel
 import com.arsvechkarev.labels.R
 import com.arsvechkarev.labels.di.DaggerLabelsCheckboxComponent
 import com.arsvechkarev.labels.list.LabelsAdapter
-import com.arsvechkarev.labels.presentation.LabelsCheckboxState.ShowingLabels
-import com.arsvechkarev.labels.presentation.LabelsCheckboxState.ShowingNoLabels
 import kotlinx.android.synthetic.main.fragment_labels.fabNewLabel
 import kotlinx.android.synthetic.main.fragment_labels.layoutLabelsStub
 import kotlinx.android.synthetic.main.fragment_labels.recyclerLabels
@@ -26,30 +27,28 @@ class LabelsCheckboxFragment : BaseFragment(), LabelCheckedCallback {
   override val layoutId = R.layout.fragment_labels
   
   @Inject lateinit var labelsAdapter: LabelsAdapter
-  @Inject lateinit var viewModel: LabelsCheckboxViewModel
+  @Inject lateinit var viewModel: WordInfoViewModel
   
   @Suppress("UNCHECKED_CAST")
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    val word = arguments!!.get(WORD_KEY) as Word
     DaggerLabelsCheckboxComponent.builder()
-      .coreComponent(ClichApplication.coreComponent)
+      .wordInfoComponent(wordInfoComponent)
       .labelsCheckboxFragment(this)
-      .inputWord(word)
       .build()
       .inject(this)
     setupViews()
-    viewModel.state.observe(this, this::handleState)
-    viewModel.fetchLabelsForWord()
+    viewModel.labelsState.observe(this, this::handleState)
+    viewModel.fetchAllLabels()
   }
   
-  private fun handleState(state: LabelsCheckboxState) {
+  private fun handleState(state: LabelsWithCheckboxState) {
     when (state) {
-      is ShowingLabels -> {
+      is ShowingLabelsWithCheckbox -> {
         layoutLabelsStub.gone()
         recyclerLabels.visible()
         labelsAdapter.submitList(state.allLabels)
       }
-      ShowingNoLabels -> {
+      ShowingNoLabelsWithCheckbox -> {
         layoutLabelsStub.visible()
         recyclerLabels.gone()
       }
@@ -61,11 +60,11 @@ class LabelsCheckboxFragment : BaseFragment(), LabelCheckedCallback {
   }
   
   override fun onLabelChecked(label: Label) {
-    viewModel.onLabelChecked(label)
+    viewModel.addLabel(label)
   }
   
   override fun onLabelUnchecked(label: Label) {
-    viewModel.onLabelUnchecked(label)
+    viewModel.removeLabel(label)
   }
   
   private fun setupViews() {
@@ -74,16 +73,5 @@ class LabelsCheckboxFragment : BaseFragment(), LabelCheckedCallback {
       popBackStack()
     }
     recyclerLabels.setupWith(labelsAdapter)
-  }
-  
-  companion object {
-    
-    const val WORD_KEY = "WORD_KEY"
-    
-    fun of(word: Word?) = LabelsCheckboxFragment().apply {
-      arguments = Bundle().apply {
-        putParcelable(WORD_KEY, word)
-      }
-    }
   }
 }

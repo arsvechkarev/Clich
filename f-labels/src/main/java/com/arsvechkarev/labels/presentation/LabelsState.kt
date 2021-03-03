@@ -13,7 +13,5 @@ sealed class LabelsCheckboxState {
   
   object ShowingNoLabels : LabelsCheckboxState()
   
-  class ShowingLabels(
-    val allLabels: List<Label>
-  ) : LabelsCheckboxState()
+  class ShowingLabels(val allLabels: List<Label>) : LabelsCheckboxState()
 }

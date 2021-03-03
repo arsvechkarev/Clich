@@ -29,8 +29,8 @@ class AllLabelsScreen : Screen<AllLabelsScreen>() {
   
     val editTextLabel = KEditText(parent) { withId(R.id.editTextLabel) }
   
-    val imageStart = KImageView(parent) { withId(R.id.imageEdit) }
-    val imageEnd = KImageView(parent) { withId(R.id.imageSave) }
+    val imageStart = KImageView(parent) { withId(R.id.imageStart) }
+    val imageEnd = KImageView(parent) { withId(R.id.imageEnd) }
   
     val dividerTop = KEditText(parent) { withId(R.id.dividerTop) }
     val dividerBottom = KEditText(parent) { withId(R.id.dividerBottom) }

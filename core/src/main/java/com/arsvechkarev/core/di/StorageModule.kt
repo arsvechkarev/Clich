@@ -3,7 +3,7 @@ package com.arsvechkarev.core.di
 import com.arsvechkarev.core.CentralDatabase
 import com.arsvechkarev.core.DatabaseHolder
 import com.arsvechkarev.core.DispatcherProvider
-import com.arsvechkarev.core.datasource.ListenableWordsDataSource
+import com.arsvechkarev.core.ListenableWordsDataSource
 import com.arsvechkarev.core.domain.dao.WordsDao
 import dagger.Module
 import dagger.Provides

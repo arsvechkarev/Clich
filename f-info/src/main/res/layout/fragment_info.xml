@@ -163,18 +163,4 @@
 
   </androidx.core.widget.NestedScrollView>
 
-  <com.arsvechkarev.views.SimpleDialog
-    android:id="@+id/infoScreenProgressDialog"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:shadowColor="?theColorShadow">
-
-    <com.arsvechkarev.views.MaterialProgressBar
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_gravity="center"
-      app:color="?theColorAccent"/>
-
-  </com.arsvechkarev.views.SimpleDialog>
-
 </FrameLayout>

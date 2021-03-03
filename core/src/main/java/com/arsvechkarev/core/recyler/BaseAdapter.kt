@@ -18,7 +18,7 @@ abstract class BaseAdapter : RecyclerView.Adapter<ViewHolder>() {
   protected var recyclerView: RecyclerView? = null
     private set
   
-  fun changeListWithoutAnimation(list: List<DisplayableItem>) {
+  fun changeListWithoutAnimation(list: Collection<DisplayableItem>) {
     data = ArrayList(list)
     notifyDataSetChanged()
   }

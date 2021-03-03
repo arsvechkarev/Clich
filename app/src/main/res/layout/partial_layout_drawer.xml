@@ -23,8 +23,8 @@
       <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="@dimen/drawer_text_title_m_start"
+        android:layout_marginTop="@dimen/drawer_text_title_m_top"
         android:fontFamily="@font/metropolis_extra_bold"
         android:text="@string/app_name"
         android:textColor="?colorAccent"
@@ -32,8 +32,8 @@
 
       <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="16dp"
+        android:layout_height="@dimen/divider_height"
+        android:layout_marginTop="@dimen/drawer_divider_m_top"
         android:background="?colorDivider"/>
 
       <FrameLayout
@@ -41,7 +41,7 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
-          android:id="@+id/drawerButtonCreateLabel"
+          android:id="@+id/drawerButtonEditLabels"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_margin="@dimen/fab_margin"
@@ -54,15 +54,15 @@
           <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="8dp"
-            android:src="@drawable/ic_add"
+            android:layout_marginHorizontal="@dimen/drawer_edit_labels_image_margin"
+            android:src="@drawable/ic_edit"
             android:tint="?colorTextOnButton"/>
 
           <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:text="@string/text_new_label"
+            android:layout_marginEnd="@dimen/drawer_edit_labels_text_m_end"
+            android:text="@string/text_edit_labels"
             android:textColor="?colorTextOnButton"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -75,15 +75,15 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_gravity="center"
-          android:layout_margin="8dp"
+          android:layout_margin="@dimen/drawer_layout_stub_margin"
           android:gravity="center"
           android:orientation="vertical">
 
           <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_margin="20dp"
-            android:src="@drawable/ic_no_labels"/>
+            android:layout_width="@dimen/drawer_img_no_labels_size"
+            android:layout_height="@dimen/drawer_img_no_labels_size"
+            android:layout_margin="@dimen/drawer_img_no_labels_margin"
+            android:src="@drawable/img_no_labels"/>
 
           <TextView
             android:layout_width="wrap_content"

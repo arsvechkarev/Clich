@@ -2,6 +2,7 @@ package com.arsvechkarev.search.presentation
 
 import android.os.Bundle
 import android.view.View
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.arsvechkarev.core.BaseFragment
 import com.arsvechkarev.core.ClichApplication
 import com.arsvechkarev.core.domain.model.Word
@@ -9,11 +10,9 @@ import com.arsvechkarev.core.extensions.hideKeyboard
 import com.arsvechkarev.core.extensions.invisible
 import com.arsvechkarev.core.extensions.onTextChanged
 import com.arsvechkarev.core.extensions.popBackStack
-import com.arsvechkarev.core.extensions.setupWith
 import com.arsvechkarev.core.extensions.visible
 import com.arsvechkarev.core.navigator
 import com.arsvechkarev.info.di.DaggerSearchComponent
-import com.arsvechkarev.info.presentation.InfoFragment
 import com.arsvechkarev.search.R
 import com.arsvechkarev.search.list.SearchAdapter
 import com.arsvechkarev.search.presentation.SearchState.DisplayingAllWords
@@ -63,16 +62,20 @@ class SearchFragment : BaseFragment() {
   
   private fun onWordClicked(word: Word) {
     hideKeyboard()
-    navigator.goToFragment(InfoFragment.of(word), InfoFragment::class, true)
+    navigator.goToInfoFragment(word)
   }
   
   private fun setup() {
     searchEditText.onTextChanged { text -> viewModel.onSearchTextEntered(text) }
-    recyclerFoundWords.setupWith(adapter)
+    val linearLayoutManager = LinearLayoutManager(recyclerFoundWords.context).apply {
+      reverseLayout = true
+      stackFromEnd = true
+    }
+    recyclerFoundWords.layoutManager = linearLayoutManager
+    recyclerFoundWords.adapter = adapter
     imageBack.setOnClickListener {
       hideKeyboard()
       popBackStack()
     }
-    navigator.subscribeOnBackStackChanges(this)
   }
 }

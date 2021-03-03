@@ -40,7 +40,6 @@ dependencies {
   implementation appDependencies.viewModelScope
   implementation appDependencies.legacySupport
   implementation appDependencies.constraintLayout
-  implementation appDependencies.threeTenAbp
 
   implementation appDependencies.coroutinesCore
   implementation appDependencies.coroutinesAndroid

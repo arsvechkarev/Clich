@@ -1,4 +1,4 @@
-package com.arsvechkarev.core.datasource
+package com.arsvechkarev.core
 
 import com.arsvechkarev.core.domain.model.Word
 

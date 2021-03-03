@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 
 android {
   compileSdkVersion rootProject.ext.compileSdkVersion
@@ -14,5 +15,8 @@ dependencies {
   def appDependencies = rootProject.ext.applicationDependencies
   implementation appDependencies.kotlin
   implementation appDependencies.appCompat
+  implementation appDependencies.lifecycleExtensions
+  implementation appDependencies.legacySupport
   implementation appDependencies.dagger
+  kapt appDependencies.daggerCompiler
 }

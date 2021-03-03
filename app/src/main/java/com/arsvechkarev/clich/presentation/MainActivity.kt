@@ -9,11 +9,12 @@ import com.arsvechkarev.clich.R
 import com.arsvechkarev.clich.di.DaggerMainComponent
 import com.arsvechkarev.clich.presentation.MainScreenState.LoadedLabels
 import com.arsvechkarev.clich.presentation.MainScreenState.NoLabels
-import com.arsvechkarev.core.BaseFragment
 import com.arsvechkarev.core.ClichApplication
 import com.arsvechkarev.core.Navigator
 import com.arsvechkarev.core.domain.model.Label
 import com.arsvechkarev.core.domain.model.Word
+import com.arsvechkarev.core.extensions.Operation.ADD
+import com.arsvechkarev.core.extensions.Operation.REPLACE
 import com.arsvechkarev.core.extensions.close
 import com.arsvechkarev.core.extensions.findFragment
 import com.arsvechkarev.core.extensions.gone
@@ -27,17 +28,17 @@ import com.arsvechkarev.labels.list.LabelsAdapter
 import com.arsvechkarev.labels.presentation.LabelsCheckboxFragment
 import com.arsvechkarev.labels.presentation.LabelsFragment
 import com.arsvechkarev.search.presentation.SearchFragment
+import com.arsvechkarev.words.presentation.WordsForLabelFragment
 import com.arsvechkarev.words.presentation.WordsListFragment
 import kotlinx.android.synthetic.main.activity_main.layoutDrawer
 import kotlinx.android.synthetic.main.activity_main.textLabelName
 import kotlinx.android.synthetic.main.activity_main.textSearchWord
 import kotlinx.android.synthetic.main.activity_main.toolbar
 import kotlinx.android.synthetic.main.partial_layout_drawer.drawerButtonAddLabels
-import kotlinx.android.synthetic.main.partial_layout_drawer.drawerButtonCreateLabel
+import kotlinx.android.synthetic.main.partial_layout_drawer.drawerButtonEditLabels
 import kotlinx.android.synthetic.main.partial_layout_drawer.layoutLabelsDrawerStub
 import kotlinx.android.synthetic.main.partial_layout_drawer.recyclerDrawerLabels
 import javax.inject.Inject
-import kotlin.reflect.KClass
 
 class MainActivity : AppCompatActivity(), Navigator {
   
@@ -54,31 +55,16 @@ class MainActivity : AppCompatActivity(), Navigator {
       .inject(this)
     performSetup()
     viewModel.loadLabels().observe(this, ::handleState)
-    switchToFragment(R.id.baseContainer, WordsListFragment())
+    switchToFragment(R.id.baseContainer, WordsListFragment(), REPLACE)
   }
   
   override fun goToLabelsCheckboxFragment(word: Word?) {
-    val labelsCheckboxFragment = LabelsCheckboxFragment.of(word)
-    switchToFragment(R.id.layoutDrawer, labelsCheckboxFragment, true)
+    switchToFragment(R.id.layoutDrawer, LabelsCheckboxFragment(), ADD, true)
   }
   
   override fun goToInfoFragment(word: Word?) {
     val infoFragment = if (word != null) InfoFragment.of(word) else InfoFragment()
-    switchToFragment(R.id.layoutDrawer, infoFragment, true)
-  }
-  
-  override fun <T : Fragment> goToFragment(
-    fragment: Fragment,
-    fragmentClass: KClass<T>,
-    addToBackStack: Boolean
-  ) {
-    switchToFragment(R.id.layoutDrawer, fragment, addToBackStack)
-  }
-  
-  override fun <T : BaseFragment> subscribeOnBackStackChanges(fragment: T) {
-    supportFragmentManager.addOnBackStackChangedListener {
-      fragment.onBackStackUpdate()
-    }
+    switchToFragment(R.id.layoutDrawer, infoFragment, REPLACE, true)
   }
   
   override fun onBackPressed() {
@@ -99,13 +85,13 @@ class MainActivity : AppCompatActivity(), Navigator {
       is LoadedLabels -> {
         layoutLabelsDrawerStub.gone()
         recyclerDrawerLabels.visible()
-        drawerButtonCreateLabel.visible()
+        drawerButtonEditLabels.visible()
         labelsAdapter.submitList(state.labels)
       }
       is NoLabels -> {
         layoutLabelsDrawerStub.visible()
         recyclerDrawerLabels.gone()
-        drawerButtonCreateLabel.gone()
+        drawerButtonEditLabels.gone()
       }
     }
   }
@@ -114,7 +100,7 @@ class MainActivity : AppCompatActivity(), Navigator {
     textLabelName.text = label.name
     textSearchWord.gone()
     textLabelName.visible()
-    switchToFragment(R.id.baseContainer, WordsListFragment.of(label), true)
+    switchToFragment(R.id.baseContainer, WordsForLabelFragment.of(label), REPLACE, true)
     layoutDrawer.close()
   }
   
@@ -131,19 +117,19 @@ class MainActivity : AppCompatActivity(), Navigator {
       }
     }
     drawerButtonAddLabels.setOnClickListener {
-      transferToFragment(LabelsFragment())
+      transferToFragmentFomDrawer(LabelsFragment())
       layoutDrawer.close()
     }
-    drawerButtonCreateLabel.setOnClickListener {
-      transferToFragment(LabelsFragment())
+    drawerButtonEditLabels.setOnClickListener {
+      transferToFragmentFomDrawer(LabelsFragment())
       layoutDrawer.close()
     }
     textSearchWord.setOnClickListener {
-      transferToFragment(SearchFragment())
+      transferToFragmentFomDrawer(SearchFragment())
     }
   }
   
-  private fun AppCompatActivity.transferToFragment(fragment: Fragment) {
-    switchToFragment(R.id.layoutDrawer, fragment, true)
+  private fun AppCompatActivity.transferToFragmentFomDrawer(fragment: Fragment) {
+    switchToFragment(R.id.layoutDrawer, fragment, REPLACE, true)
   }
 }

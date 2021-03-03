@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.arsvechkarev.core.Consumer
 import com.arsvechkarev.core.DispatcherProvider
-import com.arsvechkarev.core.datasource.ListenableWordsDataSource
+import com.arsvechkarev.core.ListenableWordsDataSource
 import com.arsvechkarev.core.di.CoreComponent
 import com.arsvechkarev.core.di.FeatureScope
 import com.arsvechkarev.core.domain.model.Word

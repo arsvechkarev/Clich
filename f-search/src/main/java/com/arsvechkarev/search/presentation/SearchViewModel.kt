@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.arsvechkarev.core.BaseViewModel
 import com.arsvechkarev.core.DispatcherProvider
-import com.arsvechkarev.core.datasource.ListenableWordsDataSource
+import com.arsvechkarev.core.ListenableWordsDataSource
 import com.arsvechkarev.core.domain.model.Word
 import com.arsvechkarev.search.presentation.SearchState.DisplayingAllWords
 import com.arsvechkarev.search.presentation.SearchState.FoundWords
@@ -52,7 +52,7 @@ class SearchViewModel @Inject constructor(
       list.sortWith(Comparator { o1, o2 ->
         val occurrenceInFirstWord = o1.name.indexOf(inputText, ignoreCase = true)
         val occurrenceInSecondWord = o2.name.indexOf(inputText, ignoreCase = true)
-        return@Comparator occurrenceInFirstWord - occurrenceInSecondWord
+        return@Comparator occurrenceInSecondWord - occurrenceInFirstWord
       })
     }
 }

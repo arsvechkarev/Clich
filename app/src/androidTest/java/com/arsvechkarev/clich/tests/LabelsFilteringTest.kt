@@ -11,8 +11,8 @@ import com.arsvechkarev.clich.screens.WordInfoScreen
 import com.arsvechkarev.clich.screens.WordInfoScreen.WordInfoScreenItem
 import com.arsvechkarev.clich.screens.WordsListScreen
 import com.arsvechkarev.clich.screens.WordsListScreen.WordsListScreenItemWord
+import com.arsvechkarev.core.CentralDatabase
 import com.arsvechkarev.core.domain.dao.create
-import com.arsvechkarev.storage.CentralDatabase
 import com.arsvechkarev.testui.DatabaseRule
 import com.arsvechkarev.testui.doAndWait
 import com.arsvechkarev.testui.isVisibleAndHasText
@@ -42,21 +42,21 @@ class LabelsFilteringTest {
       val labelIronManId = database.labelsDao().create("Iron Man")
       val labelAnimalsId = database.labelsDao().create("Animals")
       
-      val wordIronId = database.wordDao().create("iron")
-      val wordSuitId = database.wordDao().create("suit")
+      val wordIronId = database.wordsDao().create("iron")
+      val wordSuitId = database.wordsDao().create("suit")
       
-      val wordBearId = database.wordDao().create("bear")
-      val wordFoxId = database.wordDao().create("fox")
-      val wordBirdId = database.wordDao().create("bird")
+      val wordBearId = database.wordsDao().create("bear")
+      val wordFoxId = database.wordsDao().create("fox")
+      val wordBirdId = database.wordsDao().create("bird")
       
-      database.wordDao().create("other stuff")
+      database.wordsDao().create("other stuff")
       
-      database.wordsAndLabelsDao().create(wordIronId, labelIronManId)
-      database.wordsAndLabelsDao().create(wordSuitId, labelIronManId)
+      database.wordsLabelsDao().create(wordIronId, labelIronManId)
+      database.wordsLabelsDao().create(wordSuitId, labelIronManId)
       
-      database.wordsAndLabelsDao().create(wordBearId, labelAnimalsId)
-      database.wordsAndLabelsDao().create(wordFoxId, labelAnimalsId)
-      database.wordsAndLabelsDao().create(wordBirdId, labelAnimalsId)
+      database.wordsLabelsDao().create(wordBearId, labelAnimalsId)
+      database.wordsLabelsDao().create(wordFoxId, labelAnimalsId)
+      database.wordsLabelsDao().create(wordBirdId, labelAnimalsId)
     }
     
     onScreen<WordsListScreen> {
@@ -87,8 +87,8 @@ class LabelsFilteringTest {
       }
       
       pressBack()
-  
-  
+      
+      
       onScreen<MainScreen> {
         textLabelName.isNotDisplayed()
         textSearchWord.isVisible()
@@ -136,7 +136,7 @@ class LabelsFilteringTest {
       }
       
       pressBack()
-  
+      
       recyclerWords.hasSize(6 + 1)
     }
   }

@@ -38,7 +38,6 @@ dependencies {
   implementation appDependencies.appCompat
   implementation appDependencies.materialDesign
   implementation appDependencies.legacySupport
-  implementation appDependencies.threeTenAbp
   implementation appDependencies.constraintLayout
   implementation appDependencies.lifecycleExtensions
   implementation appDependencies.dagger

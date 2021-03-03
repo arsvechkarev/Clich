@@ -3,14 +3,17 @@ package com.arsvechkarev.info.di
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import com.arsvechkarev.core.BaseFragment
 import com.arsvechkarev.core.Consumer
 import com.arsvechkarev.core.DispatcherProvider
-import com.arsvechkarev.core.datasource.ListenableWordsDataSource
+import com.arsvechkarev.core.ListenableWordsDataSource
 import com.arsvechkarev.core.di.CoreComponent
 import com.arsvechkarev.core.di.FeatureScope
 import com.arsvechkarev.core.domain.dao.WordsLabelsDao
 import com.arsvechkarev.core.domain.model.Word
 import com.arsvechkarev.words.list.WordsListAdapter
+import com.arsvechkarev.words.presentation.WordsForLabelFragment
+import com.arsvechkarev.words.presentation.WordsForLabelViewModel
 import com.arsvechkarev.words.presentation.WordsListFragment
 import com.arsvechkarev.words.presentation.WordsListViewModel
 import dagger.BindsInstance
@@ -23,9 +26,11 @@ import dagger.Provides
   modules = [WordsListViewModelModule::class]
 )
 @FeatureScope
-interface WordsListComponent {
+interface WordsComponent {
   
   fun inject(fragment: WordsListFragment)
+  
+  fun inject(fragment: WordsForLabelFragment)
   
   @Component.Builder
   interface Builder {
@@ -33,12 +38,12 @@ interface WordsListComponent {
     fun coreComponent(coreComponent: CoreComponent): Builder
     
     @BindsInstance
-    fun wordsListFragment(wordsListFragment: WordsListFragment): Builder
+    fun fragment(fragment: BaseFragment): Builder
     
     @BindsInstance
     fun onWordClick(onWordClick: Consumer<Word>): Builder
     
-    fun build(): WordsListComponent
+    fun build(): WordsComponent
   }
 }
 
@@ -54,19 +59,33 @@ class WordsListViewModelModule {
   
   @Provides
   @FeatureScope
-  fun provideViewModel(
-    wordsListFragment: WordsListFragment,
+  fun provideWordsListViewModel(
+    fragment: BaseFragment,
     listenableWordsDataSource: ListenableWordsDataSource,
-    wordsLabelsDao: WordsLabelsDao,
     dispatcherProvider: DispatcherProvider
   ): WordsListViewModel {
     val factory = object : ViewModelProvider.Factory {
       override fun <T : ViewModel?> create(modelClass: Class<T>) = WordsListViewModel(
         listenableWordsDataSource,
+        dispatcherProvider
+      ) as T
+    }
+    return ViewModelProviders.of(fragment, factory).get(WordsListViewModel::class.java)
+  }
+  
+  @Provides
+  @FeatureScope
+  fun provideWordsForLabelViewModel(
+    fragment: BaseFragment,
+    wordsLabelsDao: WordsLabelsDao,
+    dispatcherProvider: DispatcherProvider
+  ): WordsForLabelViewModel {
+    val factory = object : ViewModelProvider.Factory {
+      override fun <T : ViewModel?> create(modelClass: Class<T>) = WordsForLabelViewModel(
         wordsLabelsDao,
         dispatcherProvider
       ) as T
     }
-    return ViewModelProviders.of(wordsListFragment, factory).get(WordsListViewModel::class.java)
+    return ViewModelProviders.of(fragment, factory).get(WordsForLabelViewModel::class.java)
   }
 }

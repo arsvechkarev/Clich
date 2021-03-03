@@ -2,16 +2,14 @@ package com.arsvechkarev.words.presentation
 
 import android.os.Bundle
 import android.view.View
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.arsvechkarev.core.BaseFragment
 import com.arsvechkarev.core.ClichApplication
-import com.arsvechkarev.core.WordsActionsListener
 import com.arsvechkarev.core.applyAllWordsListStyle
+import com.arsvechkarev.core.domain.model.Label
 import com.arsvechkarev.core.domain.model.Word
 import com.arsvechkarev.core.extensions.animateGone
 import com.arsvechkarev.core.extensions.animateVisible
-import com.arsvechkarev.core.extensions.gone
-import com.arsvechkarev.core.extensions.visible
+import com.arsvechkarev.core.extensions.invisible
 import com.arsvechkarev.core.navigator
 import com.arsvechkarev.info.di.DaggerWordsComponent
 import com.arsvechkarev.words.R
@@ -22,11 +20,11 @@ import kotlinx.android.synthetic.main.fragment_words_list.wordsListRecycler
 import kotlinx.android.synthetic.main.fragment_words_list.wordsListTextNoWords
 import javax.inject.Inject
 
-class WordsListFragment : BaseFragment(), WordsActionsListener {
+class WordsForLabelFragment : BaseFragment() {
   
-  override val layoutId: Int = R.layout.fragment_words_list
+  override val layoutId = R.layout.fragment_words_list
   
-  @Inject lateinit var viewModel: WordsListViewModel
+  @Inject lateinit var viewModel: WordsForLabelViewModel
   @Inject lateinit var adapter: WordsListAdapter
   
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -36,46 +34,38 @@ class WordsListFragment : BaseFragment(), WordsActionsListener {
       .onWordClick(navigator::goToInfoFragment)
       .build()
       .inject(this)
+    val label = arguments!!.get(LABEL) as Label
     setupViews()
-    viewModel.state.observe(this, this::handleWords)
-    viewModel.addWordsActionsListener(this)
-    viewModel.fetchAll()
-  }
-  
-  override fun onCreatedWord(word: Word, createdFirstWord: Boolean) {
-    if (createdFirstWord) {
-      wordsListLayout.animateGone()
-      wordsListRecycler.animateVisible()
+    viewModel.fetchWordsForLabelLive(label).observe(this) { words ->
+      handleWordsForLabel(words)
     }
-    adapter.addWord(word)
   }
   
-  override fun onUpdatedWord(word: Word) {
-    adapter.updateWord(word)
-  }
-  
-  override fun onDeletedWord(word: Word, deletedLastWord: Boolean) {
-    if (deletedLastWord) {
+  private fun handleWordsForLabel(words: List<Word>) {
+    if (words.isEmpty()) {
+      wordsListTextNoWords.setText(R.string.text_empty_labels)
       wordsListLayout.animateVisible()
       wordsListRecycler.animateGone()
-    }
-    adapter.deleteWord(word)
-  }
-  
-  private fun handleWords(words: List<Word>) {
-    if (words.isNotEmpty()) {
-      adapter.changeListWithoutAnimation(words)
-      wordsListLayout.gone()
-      wordsListRecycler.visible()
     } else {
-      wordsListTextNoWords.setText(R.string.text_no_words_yet)
-      wordsListLayout.visible()
-      wordsListRecycler.gone()
+      adapter.changeListWithoutAnimation(words)
+      wordsListLayout.animateGone()
+      wordsListRecycler.animateVisible()
     }
   }
   
   private fun setupViews() {
-    wordsFabNewWord.setOnClickListener { navigator.goToInfoFragment() }
+    wordsFabNewWord.invisible()
     wordsListRecycler.applyAllWordsListStyle(adapter)
+  }
+  
+  companion object {
+    
+    private const val LABEL = "LABEL"
+    
+    fun of(label: Label) = WordsForLabelFragment().apply {
+      arguments = Bundle().apply {
+        putParcelable(LABEL, label)
+      }
+    }
   }
 }

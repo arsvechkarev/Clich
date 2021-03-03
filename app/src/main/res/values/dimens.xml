@@ -1,2 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <dimen name="activity_main_toolbar_margin">16dp</dimen>
+  <dimen name="activity_main_toolbar_corners">8dp</dimen>
+  <dimen name="activity_main_toolbar_elevation">4dp</dimen>
+  <dimen name="drawer_layout_stub_margin">8dp</dimen>
+  <dimen name="drawer_img_no_labels_size">80dp</dimen>
+  <dimen name="drawer_img_no_labels_margin">20dp</dimen>
+  <dimen name="drawer_divider_m_top">16dp</dimen>
+  <dimen name="drawer_text_title_m_start">24dp</dimen>
+  <dimen name="drawer_text_title_m_top">32dp</dimen>
+  <dimen name="drawer_edit_labels_image_margin">8dp</dimen>
+  <dimen name="drawer_edit_labels_text_m_end">16dp</dimen>
+</resources>

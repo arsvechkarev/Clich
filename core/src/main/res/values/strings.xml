@@ -22,4 +22,5 @@
   <string name="text_delete_word">Delete word</string>
   <string name="text_no_labels_yet">No labels yet</string>
   <string name="text_new_label">Create label</string>
+  <string name="text_edit_labels">Edit labels</string>
 </resources>

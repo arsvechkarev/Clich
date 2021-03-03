@@ -3,7 +3,7 @@ package com.arsvechkarev.core.di
 import android.content.Context
 import com.arsvechkarev.core.CentralDatabase
 import com.arsvechkarev.core.DispatcherProvider
-import com.arsvechkarev.core.datasource.ListenableWordsDataSource
+import com.arsvechkarev.core.ListenableWordsDataSource
 import com.arsvechkarev.core.domain.dao.LabelsDao
 import com.arsvechkarev.core.domain.dao.WordsDao
 import com.arsvechkarev.core.domain.dao.WordsLabelsDao

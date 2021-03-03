@@ -4,7 +4,6 @@ import android.app.Application
 import com.arsvechkarev.core.di.CoreComponent
 import com.arsvechkarev.core.di.CoreModule
 import com.arsvechkarev.core.di.DaggerCoreComponent
-import com.jakewharton.threetenabp.AndroidThreeTen
 import timber.log.Timber
 
 class ClichApplication : Application() {
@@ -12,7 +11,6 @@ class ClichApplication : Application() {
   override fun onCreate() {
     super.onCreate()
     Timber.plant(Timber.DebugTree())
-    AndroidThreeTen.init(applicationContext)
     DatabaseHolder.instantiate(applicationContext)
     CentralDatabase.instantiate(applicationContext)
     
