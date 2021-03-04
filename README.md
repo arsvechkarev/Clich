@@ -1,6 +1,6 @@
 # Clich
 ## Words saving app
-##### An app by which you can create words, add to them definitions, examples, and organize words in labels as well
+#### An app wehere you can create words, add definitions and examples to them, and also organize them in labels
 
 ### Technology stack:
 - Kotlin
